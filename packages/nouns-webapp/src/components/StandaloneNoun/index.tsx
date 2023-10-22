@@ -141,6 +141,8 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
 
   const { image, description, parts } = getNoun(nounId, seed, nounAuction);
 
+  console.log("NOUN SVG DATA: ", image, description, parts)
+
   const noun = <Noun imgPath={image} alt={description} parts={parts} />;
   const nounWithLink = (
     <Link

@@ -156,5 +156,5 @@ const config = {
   foodnounsApp: app.foodnouns[CHAIN_ID],
   addresses: getAddresses(),
 };
-
+console.log("config: ",config)
 export default config;

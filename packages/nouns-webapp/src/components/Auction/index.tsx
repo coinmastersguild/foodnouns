@@ -86,6 +86,7 @@ const Auction: React.FC<AuctionProps> = props => {
       nounId={currentAuction.nounId}
       isFirstAuction={currentAuction.nounId.eq(0)}
       isLastAuction={currentAuction.nounId.eq(lastNounId)}
+      nounAuction={currentAuction.nounAuction}
       onPrevAuctionClick={prevAuctionHandler}
       onNextAuctionClick={nextAuctionHandler}
     />

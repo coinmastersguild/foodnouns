@@ -21,6 +21,7 @@ const NounderNounContent: React.FC<{
   nounId: BigNumber;
   isFirstAuction: boolean;
   isLastAuction: boolean;
+  nounAuction: boolean;
   onPrevAuctionClick: () => void;
   onNextAuctionClick: () => void;
 }> = props => {
@@ -29,6 +30,7 @@ const NounderNounContent: React.FC<{
     nounId,
     isFirstAuction,
     isLastAuction,
+    nounAuction,
     onPrevAuctionClick,
     onNextAuctionClick,
   } = props;
@@ -49,7 +51,7 @@ const NounderNounContent: React.FC<{
             <AuctionActivityDateHeadline startTime={mintTimestamp} />
           </AuctionTitleAndNavWrapper>
           <Col lg={12}>
-            <AuctionActivityNounTitle nounId={nounId} />
+            <AuctionActivityNounTitle nounId={nounId} nounAuction={nounAuction} />
           </Col>
         </Row>
         <Row className={auctionActivityClasses.activityRow}>

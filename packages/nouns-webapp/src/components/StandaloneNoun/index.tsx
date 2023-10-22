@@ -1,6 +1,7 @@
 import { ImageData as foodNoundata, getNounData as getFoodNounData } from '@nouns/assets';
 import { ImageData as nounData, getNounData } from '@nouns/assets-latest';
-import { buildSVG } from '@nouns/sdk';
+import { buildSVG as buildFoodNounSVG } from '@nouns/sdk';
+import { buildSVG as buildNounSVG } from '@nouns/sdk-latest';
 import { BigNumber as EthersBN } from 'ethers';
 import { INounSeed, useNounSeed } from '../../wrappers/nounToken';
 import Noun from '../Noun';
@@ -32,8 +33,8 @@ export const getNoun = (nounId: string | EthersBN, seed: INounSeed, nounAuction:
   const name = (nounAuction ? 'Noun' : 'Foodnoun') + ` ${id}`;
   const description = `Foodnoun ${id} is a member of the Foodnouns DAO`;
   const { parts, background } = nounAuction ? getNounData(seed) : getFoodNounData(seed);
-  const image = `data:image/svg+xml;base64,${btoa(buildSVG(parts, nounAuction ?
-    nounData.palette : foodNoundata.palette, background))}`;
+  const image = `data:image/svg+xml;base64,${btoa(nounAuction ? buildNounSVG(parts,
+    nounData.palette, "d5d7e1") : buildFoodNounSVG(parts, foodNoundata.palette, "d5d7e1"))}`;
 
   return {
     name,
@@ -45,7 +46,7 @@ export const getNoun = (nounId: string | EthersBN, seed: INounSeed, nounAuction:
 
 const StandaloneNoun: React.FC<StandaloneNounProps> = (props: StandaloneNounProps) => {
   const { nounId, nounAuction } = props;
-  const seed = useNounSeed(nounId);
+  const seed = useNounSeed(nounId, nounAuction);
   const noun = seed && getNoun(nounId, seed, nounAuction);
 
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ export const StandaloneNounCircular: React.FC<StandaloneCircularNounProps> = (
   props: StandaloneCircularNounProps,
 ) => {
   const { nounId, border, nounAuction } = props;
-  const seed = useNounSeed(nounId);
+  const seed = useNounSeed(nounId, nounAuction);
   const noun = seed && getNoun(nounId, seed, nounAuction);
 
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ export const StandaloneNounRoundedCorners: React.FC<StandaloneNounProps> = (
   props: StandaloneNounProps,
 ) => {
   const { nounId, nounAuction } = props;
-  const seed = useNounSeed(nounId);
+  const seed = useNounSeed(nounId, nounAuction);
   const noun = seed && getNoun(nounId, seed, nounAuction);
 
   const dispatch = useDispatch();
@@ -128,7 +129,7 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
   const { nounId, onLoadSeed, shouldLinkToProfile, nounAuction } = props;
 
   const dispatch = useDispatch();
-  const seed = useNounSeed(nounId);
+  const seed = useNounSeed(nounId, nounAuction);
   const seedIsInvalid = Object.values(seed || {}).every(v => v === 0);
 
   if (!seed || seedIsInvalid || !nounId || !onLoadSeed) return <Noun imgPath="" alt="Noun" />;

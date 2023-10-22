@@ -33,7 +33,7 @@ const Auction: React.FC<AuctionProps> = props => {
   const lastNounId = useAppSelector(state => isCurrentAuctionNoun ? state.onDisplayNounAuction.lastAuctionNounId : state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
 
   const loadedNounHandler = (seed: INounSeed) => {
-    dispatch(setStateBackgroundColor(seed.background === 0 ? grey : beige));
+    // dispatch(setStateBackgroundColor(seed.background === 0 ? grey : beige));
   };
 
   const prevAuctionHandler = () => {

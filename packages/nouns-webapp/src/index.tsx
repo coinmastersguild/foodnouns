@@ -99,8 +99,8 @@ const useDappConfig = {
   },
 };
 
-const nounclient = clientFactory(config.nounsApp.subgraphApiUri);
-const client = clientFactory(config.foodnounsApp.subgraphApiUri);
+export const nounclient = clientFactory(config.nounsApp.subgraphApiUri);
+export const client = clientFactory(config.foodnounsApp.subgraphApiUri);
 
 const Updaters = () => {
   return (

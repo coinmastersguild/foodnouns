@@ -5,6 +5,7 @@ import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
 import { clientFactory, seedsQuery } from './subgraph';
 import { useEffect } from 'react';
+import { nounclient } from '..';
 
 interface NounToken {
   name: string;
@@ -26,6 +27,7 @@ export enum NounsTokenContractFunction {
 
 const abi = new utils.Interface(NounsTokenABI);
 const seedCacheKey = cacheKey(cache.seed, CHAIN_ID, config.addresses.nounsToken);
+const nounsSeedCacheKey = cacheKey(cache.nounseed, CHAIN_ID, config.addresses.nounsToken);
 
 const isSeedValid = (seed: Record<string, any> | undefined) => {
   const expectedKeys = ['background', 'body', 'accessory', 'head', 'glasses'];
@@ -66,35 +68,42 @@ const seedArrayToObject = (seeds: (INounSeed & { id: string })[]) => {
   }, {});
 };
 
-export const useNounSeeds = () => {
-  const cache = localStorage.getItem(seedCacheKey);
+
+export const useNounSeeds = (isNoun: boolean) => {
+  const cache = isNoun ? localStorage.getItem(nounsSeedCacheKey) : localStorage.getItem(seedCacheKey);
   const cachedSeeds = cache ? JSON.parse(cache) : undefined;
-  const nounclient = clientFactory(config.nounsApp.subgraphApiUri);
+
+  const { data: nounsData } = useQuery(seedsQuery(), { client: nounclient });
   const { data: foodNounsData } = useQuery(seedsQuery());
 
-  const { data: nounsData, } = useQuery(seedsQuery());
+  useEffect(() => {
+    if (!cachedSeeds && isNoun && nounsData?.seeds?.length) {
+      const seeds = [...nounsData.seeds];
+      localStorage.setItem(nounsSeedCacheKey, JSON.stringify(seedArrayToObject(seeds)));
+    }
+  }, [cachedSeeds, isNoun, nounsData]);
 
   useEffect(() => {
-    if (!cachedSeeds && foodNounsData?.seeds?.length && nounsData?.seeds?.length) {
-      const seeds = [...foodNounsData.seeds, ...nounsData.seeds];
+    if (!cachedSeeds && isNoun && foodNounsData?.seeds?.length) {
+      const seeds = [...foodNounsData.seeds];
       localStorage.setItem(seedCacheKey, JSON.stringify(seedArrayToObject(seeds)));
     }
-  }, [cachedSeeds, foodNounsData, nounsData]);
+  }, [cachedSeeds, foodNounsData, isNoun]);
 
   return cachedSeeds;
 };
 
-export const useNounSeed = (nounId: EthersBN) => {
-  const seeds = useNounSeeds();
+export const useNounSeed = (nounId: EthersBN, isNoun: boolean) => {
+  const seeds = useNounSeeds(isNoun);
   const seed = seeds?.[nounId.toString()];
-  // prettier-ignore
+
   const request = seed ? false : {
     abi,
     address: config.addresses.nounsToken,
     method: 'seeds',
     args: [nounId],
   };
-  const response = useContractCall<INounSeed>(request);
+  const response = useContractCall<INounSeed>(request) || seed;
   if (response) {
     const seedCache = localStorage.getItem(seedCacheKey);
     if (seedCache && isSeedValid(response)) {

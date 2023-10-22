@@ -11,7 +11,7 @@ const MAX_NOUNS_PER_STACK = 3;
 const TightStackedCircleNouns: React.FC<StackedCircleNounsProps> = props => {
   const { nounIds } = props;
 
-  const seeds = useNounSeeds();
+  const seeds = useNounSeeds(false);
 
   const svgs = seeds
     ? nounIds.slice(0, MAX_NOUNS_PER_STACK).map((nounId: number) => {

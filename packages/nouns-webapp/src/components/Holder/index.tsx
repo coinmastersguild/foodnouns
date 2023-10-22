@@ -29,7 +29,7 @@ const Holder: React.FC<HolderProps> = props => {
     );
   }
 
-  const holder = data && data.noun.owner.id;
+  const holder = data && data.noun && data.noun.owner.id;
 
   const nonNounderNounContent = <ShortAddress size={40} address={holder} avatar={true} />;
 

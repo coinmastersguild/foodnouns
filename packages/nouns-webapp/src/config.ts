@@ -36,6 +36,10 @@ export const cache: Record<string, CacheBucket> = {
     name: 'seed',
     version: 'v1',
   },
+  nounseed: {
+    name: 'noun-seed',
+    version: 'v1',
+  },
   ens: {
     name: 'ens',
     version: 'v1',

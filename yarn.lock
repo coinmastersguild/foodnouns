@@ -3963,7 +3963,7 @@
     "@nouns/contracts" "^0.3.0"
     ethers "^5.6.8"
 
-"@nouns/sdk@npm:@coinmasters/sdk@0.2.0":
+"@nouns/sdk@^0.2.0", "@nouns/sdk@npm:@coinmasters/sdk@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@coinmasters/sdk/-/sdk-0.2.0.tgz#bee7f0356c8e03db964aec9460696f7cbb701d11"
   integrity sha512-NAvPLPepXAa1dC7GmYILFA7L2ozcTMBJeYsKUJZg2m4+9zlMVLro6eMwO7pGBUYXSdSdjs+AYOKB1LtdM8d6WQ==

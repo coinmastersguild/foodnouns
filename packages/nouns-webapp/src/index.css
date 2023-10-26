@@ -14,6 +14,23 @@ code {
   opacity: 1 !important;
 }
 
+body.dark {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark a {
+  color: #bb86fc;
+}
+
+body.dark .navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
+body.dark .navbar-dark .navbar-nav .nav-link {
+  color: #ccc;
+}
+
 /* Load custom fonts */
 @font-face {
   font-family: 'Londrina Solid';

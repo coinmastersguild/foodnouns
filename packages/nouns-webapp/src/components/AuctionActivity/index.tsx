@@ -128,7 +128,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             </Col>
           </Row>
         </div>
-        {isLastAuction && (
+        {isLastAuction && !auction.nounAuction && (
           <>
             <Row className={classes.activityRow}>
               <Col lg={12}>
@@ -155,7 +155,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             )}
             {/* If no bids, show nothing. If bids avail:graph is stable? show bid history modal,
             else show etherscan contract link */}
-            {isLastAuction &&
+            {isLastAuction && !auction.nounAuction &&
               !auction.amount.eq(0) &&
               (displayGraphDepComps ? (
                 <BidHistoryBtn onClick={showBidModalHandler} />

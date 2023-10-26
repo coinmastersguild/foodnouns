@@ -58,6 +58,7 @@ const Bid: React.FC<{
     config.addresses.nounsAuctionHouseProxy,
   );
 
+  console.log("config.addresses.nounsAuctionHouseProxy", config.addresses.nounsAuctionHouseProxy)
   const account = useAppSelector(state => state.account.activeAccount);
 
   const bidInputRef = useRef<HTMLInputElement>(null);

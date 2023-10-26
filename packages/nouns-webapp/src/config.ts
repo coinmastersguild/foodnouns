@@ -152,7 +152,7 @@ const getAddresses = (): ContractAddresses => {
   try {
     nounsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
   } catch { }
-  return { ...nounsAddresses, ...externalAddresses[CHAIN_ID] };
+  return { ...nounsAddresses, nounsAuctionHouseProxy: "0xfAa4bbe589a39745833e2BecE8d401b6195A07b1", ...externalAddresses[CHAIN_ID] };
 };
 
 const config = {
@@ -160,5 +160,5 @@ const config = {
   foodnounsApp: app.foodnouns[CHAIN_ID],
   addresses: getAddresses(),
 };
-console.log("config: ",config)
+console.log("config: ", config)
 export default config;

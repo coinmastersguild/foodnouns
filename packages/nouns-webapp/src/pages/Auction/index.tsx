@@ -12,6 +12,7 @@ import useOnDisplayFoodNounAuction from '../../wrappers/onDisplayFoodNounAuction
 import { useEffect } from 'react';
 import ProfileActivityFeed from '../../components/ProfileActivityFeed';
 import { setOnDisplayAuctionFoodNounId } from '../../state/slices/onDisplayFoodNounAuction';
+import NounDivider from '../../components/NounDivider/NounDivider';
 
 
 interface AuctionPageProps {
@@ -56,6 +57,7 @@ const AuctionPage: React.FC<AuctionPageProps> = props => {
   return (
     <>
       <Auction auction={onDisplayFoodNounAuction} />
+      <NounDivider />
       <Auction auction={onDisplayNounAuction} />
       {onDisplayAuctionFoodNounId !== undefined && onDisplayAuctionFoodNounId !== lastAuctionFoodNounId ? (
         <>

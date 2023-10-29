@@ -126,7 +126,7 @@ const ChainSubscriber: React.FC = () => {
     );
 
     const foodnounsAuctionHouseContract = NounsAuctionHouseFactory.connect(
-      "0xfAa4bbe589a39745833e2BecE8d401b6195A07b1",
+      config.addresses.nounsAuctionHouseProxy,
       foodnounswsProvider,
     );
 

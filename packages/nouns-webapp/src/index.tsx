@@ -9,6 +9,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import account from './state/slices/account';
 import application from './state/slices/application';
 import logs from './state/slices/logs';
+import { DarkModeProvider } from './DarkModeContext';
 import auction, {
   reduxSafeAuction,
   reduxSafeNewAuction,
@@ -264,7 +265,9 @@ ReactDOM.render(
             <PastAuctions />
             <DAppProvider config={useDappConfig}>
               <LanguageProvider>
-                <App />
+                <DarkModeProvider>
+                  <App />
+                </DarkModeProvider>
               </LanguageProvider>
               <Updaters />
             </DAppProvider>

@@ -24,7 +24,6 @@ import Unminted from './pages/Unminted';
 import { CHAIN_ID } from './config';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { AvatarProvider } from '@davatar/react';
-import { DarkModeProvider } from './DarkModeContext';
 import dayjs from 'dayjs';
 
 function App() {
@@ -50,7 +49,6 @@ function App() {
         />
       )}
       <BrowserRouter>
-        <DarkModeProvider>
         <AvatarProvider
           provider={chainId === ChainId.Mainnet ? library as any : undefined}
           batchLookups={true}
@@ -76,7 +74,6 @@ function App() {
           </Switch>
           <Footer />
         </AvatarProvider>
-      </DarkModeProvider>
       </BrowserRouter>
     </div>
   );

@@ -23,12 +23,13 @@ body.dark a {
   color: #bb86fc;
 }
 
-body.dark .navbar-light .navbar-nav .nav-link {
-  color: #fff;
+body.dark .navbar {
+  background-color: #1e1e1e; /* Or any other color that suits your design */
 }
 
-body.dark .navbar-dark .navbar-nav .nav-link {
-  color: #ccc;
+body.dark .card {
+  background-color: #1e1e1e;
+  color: #fff;
 }
 
 /* Load custom fonts */

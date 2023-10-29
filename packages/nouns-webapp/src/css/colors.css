@@ -26,4 +26,21 @@
   --brand-color-red-translucent: rgba(214, 60, 94, 0.1);
   --brand-color-blue-translucent: rgba(73, 101, 240, 0.1);
   --brand-color-green-translucent: rgba(67, 179, 105, 0.1);
+  --dark-background: #121212;
+  --dark-text: #ffffff;
+  --dark-link: #bb86fc;
+}
+
+body.dark {
+  background-color: var(--dark-background);
+  color: var(--dark-text);
+}
+
+body.dark a {
+  color: var(--dark-link);
+}
+
+body.dark .navbar-light .navbar-nav .nav-link,
+body.dark .navbar-dark .navbar-nav .nav-link {
+  color: var(--dark-text) !important;
 }

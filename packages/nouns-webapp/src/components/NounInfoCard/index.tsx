@@ -28,7 +28,8 @@ const NounInfoCard: React.FC<NounInfoCardProps> = props => {
   const etherscanButtonClickHandler = () => window.open(`${etherscanBaseURL}/${nounId}`, '_blank');
 
   const lastAuctionNounId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
-
+  console.log("lastAuctionNounId: ", lastAuctionNounId)
+    console.log("nounId: ", nounId)
   return (
     <>
       <Col lg={12} className={classes.nounInfoRow}>

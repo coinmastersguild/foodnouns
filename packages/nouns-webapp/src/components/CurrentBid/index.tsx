@@ -21,7 +21,6 @@ const CurrentBid: React.FC<{ currentBid: BigNumber | BidNa; auctionEnded: boolea
   const { currentBid, auctionEnded } = props;
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const titleContent = auctionEnded ? <Trans>Winning bid</Trans> : <Trans>Current bid</Trans>;
-
   return (
     <Row className={clsx(classes.wrapper, classes.container, classes.section)}>
       <Col xs={5} lg={12} className={classes.leftCol}>

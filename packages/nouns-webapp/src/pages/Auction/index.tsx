@@ -25,7 +25,9 @@ const AuctionPage: React.FC<AuctionPageProps> = props => {
   const onDisplayFoodNounAuction = useOnDisplayFoodNounAuction();
   const lastAuctionFoodNounId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
 
-  console.log("on display acutions", onDisplayFoodNounAuction, onDisplayNounAuction)
+  console.log("on display onDisplayFoodNounAuction", onDisplayFoodNounAuction, onDisplayNounAuction)
+  console.log("on display onDisplayNounAuction", onDisplayNounAuction)
+  console.log("lastAuctionFoodNounId", lastAuctionFoodNounId)
 
   const onDisplayAuctionFoodNounId = onDisplayFoodNounAuction?.nounId.toNumber();
 

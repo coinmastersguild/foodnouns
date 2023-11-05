@@ -8,7 +8,7 @@ import { Trans } from '@lingui/macro';
 const NounDivider = () => {
     return (
         <div className={classes.wrapper}>
-            <p>Bid on the current NounsDAO auction below! Learn more at <a href="https://nouns.wtf/">nouns.wtf</a> ⌐◨-◨</p>
+            <p>FOODNOUNS is a tasty spork of Nouns. Bid on the current NounsDAO auction below! Learn more at <a href="https://nouns.wtf/">nouns.wtf</a> ⌐◨-◨</p>
         </div>
     );
 };

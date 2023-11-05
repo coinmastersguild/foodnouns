@@ -83,7 +83,7 @@ const NavBar = () => {
               )}
             </Nav.Item>
           </div>
-          <DarkModeToggle />
+          {/*<DarkModeToggle />*/}
           <Navbar.Toggle
             className={classes.navBarToggle}
             aria-controls="basic-navbar-nav"

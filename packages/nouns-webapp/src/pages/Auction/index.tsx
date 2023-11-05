@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import ProfileActivityFeed from '../../components/ProfileActivityFeed';
 import { setOnDisplayAuctionFoodNounId } from '../../state/slices/onDisplayFoodNounAuction';
 import NounDivider from '../../components/NounDivider/NounDivider';
+import classes from './NounDivider.module.css';
 
 
 interface AuctionPageProps {
@@ -61,6 +62,7 @@ const AuctionPage: React.FC<AuctionPageProps> = props => {
       <Auction auction={onDisplayFoodNounAuction} />
       <NounDivider />
       <Auction auction={onDisplayNounAuction} />
+      <div className={classes.wrapper}></div>
       {onDisplayAuctionFoodNounId !== undefined && onDisplayAuctionFoodNounId !== lastAuctionFoodNounId ? (
         <>
           <ProfileActivityFeed nounId={onDisplayAuctionFoodNounId} />

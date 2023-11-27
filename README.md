@@ -1,6 +1,6 @@
-# nouns-monorepo
+# FOODNOUNS Monorepo
 
-Nouns DAO is a generative avatar art collective run by a group of crypto misfits.
+FOODNOUNS DAO is a generative avatar art collective run by a group of crypto misfits.
 
 ## Contributing
 

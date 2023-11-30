@@ -1,7 +1,7 @@
 import classes from './Leaderboard.module.css';
 import Section from '../../layout/Section';
 import { useQuery } from '@apollo/client';
-import { leaderboard } from '../../wrappers/subgraph';
+import { leaderboard } from '../../wrappers/foodnoun-subgraph';
 import ShortAddress from '../ShortAddress';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import Link from '../Link';

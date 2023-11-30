@@ -1,3 +1,4 @@
+// this file is going away
 import { BigNumber } from '@ethersproject/bignumber';
 import { useAppSelector } from '../hooks';
 import { generateEmptyNounderAuction, isNounderNoun } from '../utils/nounderNoun';
@@ -74,21 +75,30 @@ const useOnDisplayFoodNounAuction = (): Auction | undefined => {
     return reduxSafeAuction ? deserializeAuction(reduxSafeAuction) : undefined;
 };
 
-
-export const useFoodNounAuctionBids = (auctionNounId: BigNumber): Bid[] | undefined => {
+// step 2
+export const useFoodNounAuctionBids = (auctionFoodNounId: BigNumber): Bid[] | undefined => {
+    console.log('millz!!! useFoodNounAuctionBids auctionFoodNounId', auctionFoodNounId.toNumber())
     const lastAuctionNounId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
     const lastAuctionBids = useAppSelector(state => state.auction.foodnounBids);
     const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);
 
     // auction requested is active auction
-    if (lastAuctionNounId === auctionNounId.toNumber()) {
+    if (lastAuctionNounId === auctionFoodNounId.toNumber()) {
+        console.log('millz lastAuctionBids', lastAuctionBids);
         return deserializeBids(lastAuctionBids);
     } else {
-        // find bids for past auction requested
+        // find bids for past auction
+        console.log('millz pastAuctions', pastAuctions);
         const bidEvents: BidEvent[] | undefined = pastAuctions.find(auction => {
             const nounId = auction.activeFoodNounAuction && BigNumber.from(auction.activeFoodNounAuction.nounId);
-            return nounId && nounId.eq(auctionNounId);
+            if (nounId && nounId.eq(auctionFoodNounId)) {
+                console.log('millz nounId', nounId?.toNumber())
+                console.log('millz auctionNounId', auctionFoodNounId?.toNumber())
+            }
+            return nounId && nounId.eq(auctionFoodNounId);
         })?.foodnounBids;
+
+        console.log('millz bidEvents', bidEvents)
 
         return bidEvents && deserializeBids(bidEvents);
     }

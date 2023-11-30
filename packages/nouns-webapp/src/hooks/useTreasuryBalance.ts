@@ -4,7 +4,7 @@ import { useCoingeckoPrice } from '@usedapp/coingecko';
 import config from '../config';
 import { ethers } from 'ethers';
 import { useQuery } from '@apollo/client';
-import { totalBid } from '../wrappers/subgraph';
+import { totalBid } from '../wrappers/foodnoun-subgraph';
 
 /**
  * Computes treasury balance (ETH + Lido)

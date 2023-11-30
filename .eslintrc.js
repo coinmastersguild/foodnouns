@@ -16,5 +16,5 @@ module.exports = {
   env: {
     node: true,
   },
-  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts'],
+  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts', 'node_modules'],
 };

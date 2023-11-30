@@ -5,7 +5,7 @@ import classes from './ProfileActivityFeed.module.css';
 
 import { useQuery } from '@apollo/client';
 import { Proposal, ProposalState, useAllProposals } from '../../wrappers/nounsDao';
-import { createTimestampAllProposals, nounVotingHistoryQuery } from '../../wrappers/subgraph';
+import { createTimestampAllProposals, nounVotingHistoryQuery } from '../../wrappers/foodnoun-subgraph';
 import NounProfileVoteRow from '../NounProfileVoteRow';
 import { LoadingNoun } from '../Noun';
 import { useNounCanVoteTimestamp } from '../../wrappers/nounsAuction';

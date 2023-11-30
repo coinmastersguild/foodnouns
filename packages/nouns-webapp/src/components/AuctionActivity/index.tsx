@@ -55,13 +55,13 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
   const showBidModalHandler = () => {
     setShowBidHistoryModal(true);
   };
-  const dismissBidModalHanlder = () => {
+  const dismissBidModalHandler = () => {
     setShowBidHistoryModal(false);
   };
 
   // timer logic - check auction status every 30 seconds, until five minutes remain, then check status every second
   useEffect(() => {
-    // if (!auction) return;
+    if (!auction) return;
 
     const timeLeft = Number(auction.endTime) - Math.floor(Date.now() / 1000);
 
@@ -73,7 +73,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
         () => {
           setAuctionTimer(!auctionTimer);
         },
-        timeLeft > 300 ? 30000 : 1000,
+        timeLeft > 300 ? 60000 : 2000,
       );
 
       return () => {
@@ -82,12 +82,12 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
     }
   }, [auctionTimer, auction]);
 
-  // if (!auction) return null;
+  if (!auction) return null;
 
   return (
     <>
       {showBidHistoryModal && (
-        <BidHistoryModal onDismiss={dismissBidModalHanlder} auction={auction} />
+        <BidHistoryModal onDismiss={dismissBidModalHandler} auction={auction} />
       )}
 
       <AuctionActivityWrapper>
@@ -148,6 +148,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
               displayGraphDepComps && (
                 <BidHistory
                   auctionId={auction.nounId.toString()}
+                  auctionType={auction.nounAuction}
                   max={3}
                   classes={bidHistoryClasses}
                 />

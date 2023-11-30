@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { currentlyDelegatedNouns } from '../../wrappers/subgraph';
+import { currentlyDelegatedNouns } from '../../wrappers/foodnoun-subgraph';
 import HorizontalStackedNouns from '../HorizontalStackedNouns';
 import ShortAddress from '../ShortAddress';
 import classes from './ByLineHoverCard.module.css';

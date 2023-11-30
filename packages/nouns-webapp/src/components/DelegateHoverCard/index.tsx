@@ -3,7 +3,7 @@ import { ScaleIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { delegateNounsAtBlockQuery } from '../../wrappers/subgraph';
+import { delegateNounsAtBlockQuery } from '../../wrappers/foodnoun-subgraph';
 import HorizontalStackedNouns from '../HorizontalStackedNouns';
 import ShortAddress from '../ShortAddress';
 import classes from './DelegateHoverCard.module.css';

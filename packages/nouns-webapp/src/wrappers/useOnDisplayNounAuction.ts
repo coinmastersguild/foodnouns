@@ -12,7 +12,7 @@ const deserializeAuction = (reduxSafeAuction: Auction): Auction => {
     endTime: BigNumber.from(reduxSafeAuction.endTime),
     nounId: BigNumber.from(reduxSafeAuction.nounId),
     settled: false,
-    nounAuction: true,
+    nounAuction: false,
   };
 };
 
@@ -74,7 +74,11 @@ const useOnDisplayNounAuction = (): Auction | undefined => {
   return reduxSafeAuction ? deserializeAuction(reduxSafeAuction) : undefined;
 };
 
-export const useNounAuctionBids = (auctionNounId: BigNumber): Bid[] | undefined => {
+export const useNounAuctionBids = (auction: Auction | undefined): Bid[] | undefined => {
+  if (!auction) {
+    return undefined;
+  }
+
   const lastAuctionNounId = useAppSelector(state => state.onDisplayNounAuction.lastAuctionNounId);
   const lastAuctionBids = useAppSelector(state => state.auction.nounBids);
   const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);

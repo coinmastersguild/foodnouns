@@ -3,7 +3,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { nounQuery } from '../../wrappers/subgraph';
+import { nounQuery } from '../../wrappers/foodnoun-subgraph';
 import ShortAddress from '../ShortAddress';
 import { StandaloneNounCircular } from '../StandaloneNoun';
 import classes from './NounHoverCard.module.css';

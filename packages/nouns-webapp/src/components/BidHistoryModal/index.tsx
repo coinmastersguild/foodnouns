@@ -5,9 +5,10 @@ import { XIcon } from '@heroicons/react/solid';
 import { Auction } from '../../wrappers/nounsAuction';
 import { StandaloneNounRoundedCorners } from '../StandaloneNoun';
 import { useFoodNounAuctionBids } from '../../wrappers/onDisplayFoodNounAuction';
-import { Bid } from '../../utils/types';
 import BidHistoryModalRow from '../BidHistoryModalRow';
 import { Trans } from '@lingui/macro';
+import { useNounAuctionBids } from "../../wrappers/useOnDisplayNounAuction";
+import Bid from "../Bid";
 
 export const Backdrop: React.FC<{ onDismiss: () => void }> = props => {
   return <div className={classes.backdrop} onClick={props.onDismiss} />;

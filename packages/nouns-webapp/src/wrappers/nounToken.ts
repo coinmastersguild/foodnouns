@@ -3,9 +3,10 @@ import { BigNumber as EthersBN, ethers, utils } from 'ethers';
 import { NounsTokenABI, NounsTokenFactory } from '@nouns/contracts';
 import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
-import { clientFactory, seedsQuery } from './subgraph';
+import { seedsQuery as foodNounSeedsQuery } from './foodnoun-subgraph';
+import { seedsQuery as nounSeedsQuery } from './noun-subgraph';
 import { useEffect } from 'react';
-import { nounclient } from '..';
+import { foodNounGraphClient, nounGraphClient } from '..';
 
 interface NounToken {
   name: string;
@@ -73,8 +74,8 @@ export const useNounSeeds = (isNoun: boolean) => {
   const cache = isNoun ? localStorage.getItem(nounsSeedCacheKey) : localStorage.getItem(seedCacheKey);
   const cachedSeeds = cache ? JSON.parse(cache) : undefined;
 
-  const { data: nounsData } = useQuery(seedsQuery(), { client: nounclient });
-  const { data: foodNounsData } = useQuery(seedsQuery());
+  const { data: foodNounsData } = useQuery(foodNounSeedsQuery(), { client: foodNounGraphClient });
+  const { data: nounsData } = useQuery(nounSeedsQuery(), { client: nounGraphClient });
 
   useEffect(() => {
     if (!cachedSeeds && isNoun && nounsData?.seeds?.length) {

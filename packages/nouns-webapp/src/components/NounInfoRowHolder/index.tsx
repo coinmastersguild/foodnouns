@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Image } from 'react-bootstrap';
 import _LinkIcon from '../../assets/icons/Link.svg';
-import { auctionQuery } from '../../wrappers/subgraph';
+import { auctionQuery } from '../../wrappers/foodnoun-subgraph';
 import _HeartIcon from '../../assets/icons/Heart.svg';
 import classes from './NounInfoRowHolder.module.css';
 

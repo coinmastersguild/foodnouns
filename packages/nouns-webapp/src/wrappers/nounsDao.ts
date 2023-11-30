@@ -15,7 +15,7 @@ import { useLogs } from '../hooks/useLogs';
 import * as R from 'ramda';
 import config, { CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
-import { proposalsQuery } from './subgraph';
+import { proposalsQuery } from './foodnoun-subgraph';
 import BigNumber from 'bignumber.js';
 
 export enum Vote {

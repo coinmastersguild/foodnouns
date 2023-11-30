@@ -47,7 +47,7 @@ const pastAuctionsSlice = createSlice({
       state.pastAuctions = state.pastAuctions.concat(reduxSafePastAuctions(action.payload, true))
     },
     addPastFoodNounAuctions: (state, action: PayloadAction<any>) => {
-      state.pastAuctions = state.pastAuctions.concat(reduxSafePastAuctions(action.payload))
+      state.pastAuctions = state.pastAuctions.concat(reduxSafePastAuctions(action.payload, false))
     },
   },
 });

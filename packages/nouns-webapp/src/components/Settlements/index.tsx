@@ -1,7 +1,7 @@
 import classes from './Settlements.module.css';
 import Section from '../../layout/Section';
 import { useQuery } from '@apollo/client';
-import { settlements } from '../../wrappers/subgraph';
+import { settlements } from '../../wrappers/foodnoun-subgraph';
 import { ethers } from 'ethers';
 import { useCoingeckoPrice } from '@usedapp/coingecko';
 import ShortAddress from '../ShortAddress';

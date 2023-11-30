@@ -28,7 +28,7 @@ import {
   delegateNounsAtBlockQuery,
   ProposalVotes,
   Delegates,
-} from '../../wrappers/subgraph';
+} from '../../wrappers/foodnoun-subgraph';
 import { getNounVotes } from '../../utils/getNounsVotes';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';

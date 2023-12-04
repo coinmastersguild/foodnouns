@@ -7,26 +7,27 @@ import _BirthdayIcon from '../../assets/icons/Birthday.svg';
 
 import { Image } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
-import { AuctionState } from '../../state/slices/auction';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
+import { NounAuctionState } from "../../state/slices/nounAuction";
 
 interface NounInfoRowBirthdayProps {
   nounId: number;
 }
 
-export const getNounBirthday = (nounId: number, pastAuctions: AuctionState[]) => {
-  let bday = pastAuctions.find((auction: AuctionState, i: number) => {
-    const maybeNounId = auction.activeFoodNounAuction?.nounId;
-    return maybeNounId ? BigNumber.from(maybeNounId).eq(BigNumber.from(nounId)) : false;
-  })?.activeFoodNounAuction?.startTime || 0;
-  if (bday === 0) {
-    bday = pastAuctions.find((auction: AuctionState, i: number) => {
-      const maybeNounId = auction.activeNounAuction?.nounId;
-      return maybeNounId ? BigNumber.from(maybeNounId).eq(BigNumber.from(nounId)) : false;
-    })?.activeNounAuction?.startTime || 0;
-  }
-  return BigNumber.from(bday);
+export const getNounBirthday = (nounId: number, pastAuctions: NounAuctionState[]) => {
+  // let bday = pastAuctions.find((auction: AuctionState, i: number) => {
+  //   const maybeNounId = auction.activeFoodNounAuction?.nounId;
+  //   return maybeNounId ? BigNumber.from(maybeNounId).eq(BigNumber.from(nounId)) : false;
+  // })?.activeFoodNounAuction?.startTime || 0;
+  // if (bday === 0) {
+  //   bday =
+  //     pastAuctions.find((auction: AuctionState, i: number) => {
+  //       const maybeNounId = auction.activeAuction?.nounId;
+  //       return maybeNounId ? BigNumber.from(maybeNounId).eq(BigNumber.from(nounId)) : false;
+  //     })?.activeAuction?.startTime || 0;
+  // }
+  return BigNumber.from(0);
 };
 
 const NounInfoRowBirthday: React.FC<NounInfoRowBirthdayProps> = props => {
@@ -37,12 +38,12 @@ const NounInfoRowBirthday: React.FC<NounInfoRowBirthdayProps> = props => {
   // nounder nouns do not have an auction start time.
   const nounIdForQuery = isNounderNoun(BigNumber.from(nounId)) ? nounId + 1 : nounId;
 
-  const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);
+  const pastAuctions = useAppSelector(state => state.pastAuctions.);
   if (!pastAuctions || !pastAuctions.length) {
     return <></>;
   }
 
-  const startTime = getNounBirthday(nounIdForQuery, pastAuctions);
+  const startTime = getNounBirthday(nounIdForQuery, pastAuctions, );
   if (!startTime) {
     return <Trans>Error fetching Noun birthday</Trans>;
   }

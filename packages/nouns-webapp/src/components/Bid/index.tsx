@@ -55,10 +55,10 @@ const Bid: React.FC<{
   let { auction, auctionEnded } = props;
   const activeLocale = useActiveLocale();
   const nounsAuctionHouseContract = new NounsAuctionHouseFactory().attach(
-    config.addresses.nounsAuctionHouseProxy,
+    config.foodNounAddresses.nounsAuctionHouseProxy,
   );
 
-  console.log("config.addresses.nounsAuctionHouseProxy", config.addresses.nounsAuctionHouseProxy)
+  console.log("config.addresses.nounsAuctionHouseProxy", config.foodNounAddresses.nounsAuctionHouseProxy)
   const account = useAppSelector(state => state.account.activeAccount);
 
   const bidInputRef = useRef<HTMLInputElement>(null);

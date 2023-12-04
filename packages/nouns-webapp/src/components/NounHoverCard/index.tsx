@@ -25,7 +25,7 @@ const NounHoverCard: React.FC<NounHoverCardProps> = props => {
     skip: nounId === null,
   });
 
-  const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);
+  const pastAuctions = useAppSelector(state => state.pa.pastNounAuctions);
   if (!pastAuctions || !pastAuctions.length) {
     return <></>;
   }
@@ -53,10 +53,10 @@ const NounHoverCard: React.FC<NounHoverCardProps> = props => {
       {/* First Row */}
       <div className={classes.titleWrapper}>
         <div className={classes.nounWrapper}>
-          <StandaloneNounCircular nounId={BigNumber.from(nounId)} nounAuction={false} />
+          <StandaloneNounCircular nounId={BigNumber.from(nounId)} foodAuction={true} />
         </div>
         <div>
-          <h1>Noun {nounId}</h1>
+          <h1>FoodNoun {nounId}</h1>
         </div>
       </div>
 

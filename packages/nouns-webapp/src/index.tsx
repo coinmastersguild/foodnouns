@@ -9,15 +9,27 @@ import account from './state/slices/account';
 import application from './state/slices/application';
 import logs from './state/slices/logs';
 import { DarkModeProvider } from './DarkModeContext';
+
+import nounAuction, {
+  reduxSafeNounAuction,
+  reduxSafeNewNounAuction,
+  reduxNounSafeBid,
+  setActiveNounAuction,
+  setNounAuctionExtended,
+  setNounAuctionSettled,
+  setFullNounAuction,
+} from './state/slices/nounAuction';
+
 import auction, {
-  reduxSafeAuction,
-  reduxSafeNewAuction,
-  reduxSafeBid,
-  setActiveAuction,
-  setAuctionExtended,
-  setAuctionSettled,
+  reduxSafeFoodNounAuction,
+  reduxSafeFoodNewNounAuction,
+  reduxSafeFoodNounBid,
+  setActiveFoodNounAuction,
+  setFoodNounAuctionExtended,
+  setFoodNounAuctionSettled,
   setFullAuction,
-} from './state/slices/auction';
+} from './state/slices/foodNounAuction';
+
 import onDisplayNounAuction, {
   setLastAuctionNounId,
   setOnDisplayAuctionNounId,
@@ -30,7 +42,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache, useQuery } from "@apollo/c
 import { latestAuctionsQuery as latestfoodAuctions } from './wrappers/foodnoun-subgraph';
 import { latestAuctionsQuery as latestNounAuctions } from './wrappers/noun-subgraph';
 import { useEffect } from 'react';
-import pastAuctions, { addPastNounAuctions, addPastFoodNounAuctions } from './state/slices/pastAuctions';
+import pastAuctions, { addPastNounAuctions, addPastFoodNounAuctions } from './state/slices/pastNounAuctions';
 import LogsUpdater from './state/updaters/logs';
 import config, { CHAIN_ID, ChainId_Sepolia, createNetworkHttpUrl } from "./config";
 import { WebSocketProvider } from '@ethersproject/providers';
@@ -38,7 +50,7 @@ import { BigNumber, BigNumberish } from 'ethers';
 import { NounsAuctionHouseFactory } from '@nouns/sdk';
 import dotenv from 'dotenv';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { appendBid } from './state/slices/auction';
+import { appendBid } from './state/slices/nounAuction';
 import { ConnectedRouter, connectRouter } from 'connected-react-router';
 import { createBrowserHistory, History } from 'history';
 import { applyMiddleware, createStore, combineReducers, PreloadedState } from 'redux';
@@ -130,7 +142,7 @@ const ChainSubscriber: React.FC = () => {
     );
 
     const foodnounsAuctionHouseContract = NounsAuctionHouseFactory.connect(
-      config.addresses.nounsAuctionHouseProxy,
+      config.foodNounAddresses.nounsAuctionHouseProxy,
       foodnounswsProvider,
     );
 
@@ -161,14 +173,14 @@ const ChainSubscriber: React.FC = () => {
       nounId: BigNumberish,
       startTime: BigNumberish,
       endTime: BigNumberish,
-      nounAuction = false,
+      foodAuction = true,
     ) => {
       dispatch(
-        setActiveAuction(reduxSafeNewAuction({ nounId, startTime, endTime, settled: false, nounAuction })),
+        setActiveAuction(reduxSafeNewAuction({ nounId, startTime, endTime, settled: false, foodAuction })),
       );
       const nounIdNumber = BigNumber.from(nounId).toNumber();
       dispatch(push(nounPath(nounIdNumber)));
-      if (nounAuction) {
+      if (foodAuction) {
         dispatch(setOnDisplayAuctionNounId(nounIdNumber));
         dispatch(setLastAuctionNounId(nounIdNumber));
       } else {
@@ -185,14 +197,14 @@ const ChainSubscriber: React.FC = () => {
 
     // Fetch the current auction
     let fetchedAuction = await nounsAuctionHouseContract.auction();
-    const currentNounAuction: Auction = { ...fetchedAuction, nounAuction: true };
+    const currentNounAuction: Auction = { ...fetchedAuction, foodAuction: true };
     dispatch(setFullAuction(reduxSafeAuction(currentNounAuction)));
     dispatch(setOnDisplayAuctionNounId(currentNounAuction.nounId.toNumber()));
     dispatch(setLastAuctionNounId(currentNounAuction.nounId.toNumber()));
 
     // Fetch the current auction
     fetchedAuction = await foodnounsAuctionHouseContract.auction();
-    const currentFoodNounAuction: Auction = { ...fetchedAuction, nounAuction: false };
+    const currentFoodNounAuction: Auction = { ...fetchedAuction, foodAuction: false };
     dispatch(setFullAuction(reduxSafeAuction(currentFoodNounAuction)));
     dispatch(setLastAuctionFoodNounId(currentFoodNounAuction.nounId.toNumber()));
 
@@ -236,7 +248,7 @@ const ChainSubscriber: React.FC = () => {
       processAuctionSettled(nounId, winner, amount),
     );
   };
-  loadState();
+  void loadState();
 
   return <></>;
 };

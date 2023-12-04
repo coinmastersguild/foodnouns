@@ -5,7 +5,7 @@ import config from '../config';
 import BigNumber from 'bignumber.js';
 import { isNounderNoun } from '../utils/nounderNoun';
 import { useAppSelector } from '../hooks';
-import { AuctionState } from '../state/slices/auction';
+import { NounAuctionState } from '../state/slices/nounAuction';
 
 export enum AuctionHouseContractFunction {
   auction = 'auction',
@@ -23,10 +23,10 @@ export interface Auction {
   startTime: EthersBN;
   nounId: EthersBN;
   settled: boolean;
-  nounAuction?: boolean;
+  foodAuction?: boolean;
 }
 
-const abi = new utils.Interface(NounsAuctionHouseABI);
+const abi = new utils.Interface(NounsAuctionHouseABI); // foodnouns ABI is same as nouns ABI
 
 export const useAuction = (auctionHouseProxyAddress: string) => {
   const auction = useContractCall<Auction>({
@@ -41,7 +41,7 @@ export const useAuction = (auctionHouseProxyAddress: string) => {
 export const useAuctionMinBidIncPercentage = () => {
   const minBidIncrement = useContractCall({
     abi,
-    address: config.addresses.nounsAuctionHouseProxy,
+    address: config.foodNounAddresses.nounsAuctionHouseProxy,
     method: 'minBidIncrementPercentage',
     args: [],
   });
@@ -65,7 +65,7 @@ export const useNounCanVoteTimestamp = (nounId: number) => {
 
   const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);
 
-  const maybeNounCanVoteTimestamp = pastAuctions.find((auction: AuctionState, i: number) => {
+  const maybeNounCanVoteTimestamp = pastAuctions.find((auction: NounAuctionState, i: number) => {
     const maybeNounId = auction.activeFoodNounAuction?.nounId;
     return maybeNounId ? EthersBN.from(maybeNounId).eq(EthersBN.from(nextNounIdForQuery)) : false;
   })?.activeFoodNounAuction?.startTime;

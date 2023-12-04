@@ -1,6 +1,7 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 
 export interface BidEvent {
+  foodAuction?: boolean;
   nounId: BigNumberish;
   sender: string;
   value: BigNumberish;
@@ -10,25 +11,28 @@ export interface BidEvent {
 }
 
 export interface AuctionCreateEvent {
+  foodAuction?: boolean;
   nounId: BigNumberish;
   startTime: BigNumberish;
   endTime: BigNumberish;
   settled: boolean;
-  nounAuction: boolean;
 }
 
 export interface AuctionSettledEvent {
+  foodAuction?: boolean;
   nounId: BigNumberish;
   winner: string;
   amount: BigNumberish;
 }
 
 export interface AuctionExtendedEvent {
+  foodAuction?: boolean;
   nounId: BigNumberish;
   endTime: BigNumberish;
 }
 
 export interface Bid {
+  foodAuction?: boolean;
   nounId: BigNumber;
   sender: string;
   value: BigNumber;

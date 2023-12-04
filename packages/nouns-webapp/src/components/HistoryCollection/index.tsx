@@ -32,7 +32,7 @@ const HistoryCollection: React.FC<HistoryCollectionProps> = (props: HistoryColle
   });
 
   const nounsContent = nounIds.map((nounId, i) => {
-    return !nounId ? <LoadingNoun key={i} /> : <StandaloneNoun key={i} nounId={nounId} nounAuction={false} />;
+    return !nounId ? <LoadingNoun key={i} /> : <StandaloneNoun key={i} nounId={nounId} foodAuction={true} />;
   });
 
   return (

@@ -7,8 +7,9 @@ import TruncatedAmount from '../TruncatedAmount';
 import BigNumber from 'bignumber.js';
 import { Bid } from '../../utils/types';
 import { BigNumber as EthersBN } from '@ethersproject/bignumber';
-import { useNounAuctionBids } from '../../wrappers/useOnDisplayNounAuction';
+import { useNounAuctionBids } from '../../wrappers/useOnDisplayAuction';
 import { useAppSelector } from '../../hooks';
+import Auction from "../Auction";
 
 const bidItem = (bid: Bid, index: number, classes: any, isCool?: boolean) => {
   const bidAmount = <TruncatedAmount amount={new BigNumber(EthersBN.from(bid.value).toString())} />;
@@ -43,14 +44,14 @@ const bidItem = (bid: Bid, index: number, classes: any, isCool?: boolean) => {
   );
 };
 
-const BidHistory: React.FC<{  }> = props => {
-  const { auctionId, nounAuction, max, classes } = props;
+const BidHistory: React.FC<{ // @ts-ignore
+  auction: Auction; max: number; classes?: any }> = props => {
+  const { auction, max, classes } = props;
   const isCool = useAppSelector(state => state.application.isCoolBackground);
   const bids = useNounAuctionBids(auction);
   const bidContent =
-    bids &&
     bids
-      .map((bid: Bid, i: number) => {
+      ?.map((bid: Bid, i: number) => {
         return bidItem(bid, i, classes, isCool);
       })
       .slice(0, max);

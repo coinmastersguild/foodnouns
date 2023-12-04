@@ -17,6 +17,7 @@ interface ExternalContractAddresses {
 
 export type ContractAddresses = NounsContractAddresses & ExternalContractAddresses;
 
+// Foodnouns and nouns each have a separate instance of AppConfig
 interface AppConfig {
   jsonRpcUri: string;
   wsRpcUri: string;
@@ -94,7 +95,7 @@ const app: {
     },
   },
   foodnouns: {
-    [ChainId_Sepolia]: { // TODO: new testnet
+    [ChainId_Sepolia]: {
       jsonRpcUri: createNetworkHttpUrl('sepolia'),
       wsRpcUri: createNetworkWsUrl('sepolia'),
       subgraphApiUri: '',
@@ -148,20 +149,31 @@ const externalAddresses: Record<SupportedChains, ExternalContractAddresses> = {
   },
 };
 
-const getAddresses = (): ContractAddresses => {
-  let nounsAddresses = {} as NounsContractAddresses;
+const getFoodNounAddresses = (): ContractAddresses => {
+  let foodNounsAddresses = {} as NounsContractAddresses;
   try {
-    nounsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
+    foodNounsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
   } catch (e) {
     console.warn("getContractAddressesForChainOrThrow: ", e)
   }
-  return { ...nounsAddresses, nounsAuctionHouseProxy: "0xfAa4bbe589a39745833e2BecE8d401b6195A07b1", ...externalAddresses[CHAIN_ID] };
+  return { ...foodNounsAddresses, ...externalAddresses[CHAIN_ID] };
+};
+
+const getNounAddresses = (): ContractAddresses => {
+  let nounsAddresses = {} as NounsContractAddresses;
+  try {
+    nounsAddresses = getContractAddressesForChainOrThrow(1);
+  } catch (e) {
+    console.warn("getContractAddressesForChainOrThrow: ", e)
+  }
+  return { ...nounsAddresses, ...externalAddresses[1] };
 };
 
 const config = {
   nounsApp: app.nouns['1'],
   foodnounsApp: app.foodnouns[CHAIN_ID],
-  addresses: getAddresses(),
+  foodNounAddresses: getFoodNounAddresses(),
+  nounsAddresses: getNounAddresses(),
 };
 
 export default config;

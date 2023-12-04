@@ -2,9 +2,9 @@
   "compilerOptions": {
     /*
      * Uncomment for small accuracy reduction & vast build time reduction for
-     * --watch mode 
+     * --watch mode
      */
-    // "assumeChangesOnlyAffectDirectDependencies": true,
+     "assumeChangesOnlyAffectDirectDependencies": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
     "declaration": true,

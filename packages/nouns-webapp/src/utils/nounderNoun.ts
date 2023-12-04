@@ -1,5 +1,5 @@
 import { Auction } from '../wrappers/nounsAuction';
-import { AuctionState } from '../state/slices/auction';
+import { AuctionsState } from '../state/slices/nounAuction';
 import { BigNumber } from '@ethersproject/bignumber';
 
 export const isNounderNoun = (nounId: BigNumber) => {
@@ -14,20 +14,20 @@ const emptyNounderAuction = (onDisplayAuctionId: number): Auction => {
     endTime: BigNumber.from(0).toJSON(),
     nounId: BigNumber.from(onDisplayAuctionId).toJSON(),
     settled: false,
-    nounAuction: false
+    foodAuction: false
   };
 };
 
-const findAuction = (id: BigNumber, auctions: AuctionState[]): Auction | undefined => {
+const findAuction = (id: BigNumber, auctions: AuctionsState[]): Auction | undefined => {
   let auction = auctions.find(auction => {
-    if (!auction.activeFoodNounAuction) return undefined;
-    return BigNumber.from(auction.activeFoodNounAuction?.nounId).eq(id);
-  })?.activeFoodNounAuction;
+    if (!auction.activeAuction) return undefined;
+    return BigNumber.from(auction.activeAuction?.nounId).eq(id);
+  })?.activeAuction;
   if (!auction) {
     auction = auctions.find(auction => {
-      if (!auction.activeNounAuction) return undefined;
-      return BigNumber.from(auction.activeNounAuction?.nounId).eq(id);
-    })?.activeNounAuction;
+      if (!auction.activeAuction) return undefined;
+      return BigNumber.from(auction.activeAuction?.nounId).eq(id);
+    })?.activeAuction;
   }
   return auction
 };
@@ -40,7 +40,7 @@ const findAuction = (id: BigNumber, auctions: AuctionState[]): Auction | undefin
  */
 export const generateEmptyNounderAuction = (
   nounId: BigNumber,
-  pastAuctions: AuctionState[],
+  pastAuctions: AuctionsState[],
 ): Auction => {
   const nounderAuction = emptyNounderAuction(nounId.toNumber());
   // use nounderAuction.nounId + 1 to get mint time

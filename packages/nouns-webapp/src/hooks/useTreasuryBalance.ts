@@ -12,7 +12,7 @@ import { totalBid } from '../wrappers/foodnoun-subgraph';
  * @returns Total balance of treasury (ETH + Lido) as EthersBN
  */
 export const useTreasuryBalance = () => {
-  const ethBalance = useEtherBalance(config.addresses.nounsDaoExecutor);
+  const ethBalance = useEtherBalance(config.foodNounAddresses.nounsDaoExecutor);
   const lidoBalanceAsETH = useLidoBalance();
   return ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
 };

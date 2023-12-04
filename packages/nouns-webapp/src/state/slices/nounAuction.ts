@@ -8,28 +8,24 @@ import {
 } from '../../utils/types';
 import { Auction as IAuction } from '../../wrappers/nounsAuction';
 
-export interface AuctionState {
+export interface NounAuctionState {
   activeNounAuction?: IAuction;
-  activeFoodNounAuction?: IAuction;
   nounBids: BidEvent[];
-  foodnounBids: BidEvent[];
 }
 
-const initialState: AuctionState = {
+const initialState: NounAuctionState = {
   activeNounAuction: undefined,
-  activeFoodNounAuction: undefined,
   nounBids: [],
-  foodnounBids: [],
 };
 
-export const reduxSafeNewAuction = (auction: AuctionCreateEvent): IAuction => ({
+export const reduxSafeNewNounAuction = (auction: AuctionCreateEvent): IAuction => ({
   amount: BigNumber.from(0).toJSON(),
   bidder: '',
   startTime: BigNumber.from(auction.startTime).toJSON(),
   endTime: BigNumber.from(auction.endTime).toJSON(),
   nounId: BigNumber.from(auction.nounId).toJSON(),
   settled: false,
-  nounAuction: auction.nounAuction,
+  foodAuction: false,
 });
 
 export const reduxSafeAuction = (auction: IAuction): IAuction => ({
@@ -39,7 +35,7 @@ export const reduxSafeAuction = (auction: IAuction): IAuction => ({
   endTime: BigNumber.from(auction.endTime).toJSON(),
   nounId: BigNumber.from(auction.nounId).toJSON(),
   settled: auction.settled,
-  nounAuction: auction.nounAuction,
+  foodAuction: auction.foodAuction,
 });
 
 export const reduxSafeBid = (bid: BidEvent): BidEvent => ({
@@ -49,6 +45,7 @@ export const reduxSafeBid = (bid: BidEvent): BidEvent => ({
   extended: bid.extended,
   transactionHash: bid.transactionHash,
   timestamp: bid.timestamp,
+  foodAuction: bid.foodAuction
 });
 
 const maxBid = (bids: BidEvent[]): BidEvent => {
@@ -60,7 +57,7 @@ const maxBid = (bids: BidEvent[]): BidEvent => {
 const auctionsEqual = (
   a: IAuction,
   b: AuctionSettledEvent | AuctionCreateEvent | BidEvent | AuctionExtendedEvent,
-) => BigNumber.from(a.nounId).eq(BigNumber.from(b.nounId));
+) => BigNumber.from(a.nounId).eq(BigNumber.from(b.nounId)) && !!a.foodAuction === !!b.foodAuction;
 
 const containsBid = (bidEvents: BidEvent[], bidEvent: BidEvent) =>
   bidEvents.map(bid => bid.transactionHash).indexOf(bidEvent.transactionHash) >= 0;
@@ -68,43 +65,26 @@ const containsBid = (bidEvents: BidEvent[], bidEvent: BidEvent) =>
 /**
  * State of **current** auction (sourced via websocket)
  */
-export const auctionSlice = createSlice({
-  name: 'auction',
+export const nounAuctionSlice = createSlice({
+  name: 'nounAuction',
   initialState,
   reducers: {
-    setActiveAuction: (state, action: PayloadAction<AuctionCreateEvent>) => {
-      if (action.payload.nounAuction) {
-        state.activeNounAuction = reduxSafeNewAuction(action.payload);
+    setActiveNounAuction: (state, action: PayloadAction<AuctionCreateEvent>) => {
+        state.activeNounAuction = reduxSafeNewNounAuction(action.payload);
         state.nounBids = [];
-      } else {
-        state.activeFoodNounAuction = reduxSafeNewAuction(action.payload);
-        state.foodnounBids = [];
-      }
-      console.log('processed auction create', action.payload);
     },
     setFullAuction: (state, action: PayloadAction<IAuction>) => {
-      console.log(`from set full auction: `, action.payload);
-      if (action.payload.nounAuction) {
         state.activeNounAuction = reduxSafeAuction(action.payload);
-      } else {
-        state.activeFoodNounAuction = reduxSafeAuction(action.payload);
       }
     },
     appendBid: (state, action: PayloadAction<BidEvent>) => {
-      if (!state.activeNounAuction || !state.activeFoodNounAuction) return;
+      if (!state.activeNounAuction) return;
       if (auctionsEqual(state.activeNounAuction, action.payload)) {
         if (containsBid(state.nounBids, action.payload)) return;
         state.nounBids = [reduxSafeBid(action.payload), ...state.nounBids];
         const maxBid_ = maxBid(state.nounBids);
         state.activeNounAuction.amount = BigNumber.from(maxBid_.value).toJSON();
         state.activeNounAuction.bidder = maxBid_.sender;
-        console.log('processed bid', action.payload);
-      } else if (auctionsEqual(state.activeFoodNounAuction, action.payload)) {
-        if (containsBid(state.foodnounBids, action.payload)) return;
-        state.foodnounBids = [reduxSafeBid(action.payload), ...state.foodnounBids];
-        const maxBid_ = maxBid(state.foodnounBids);
-        state.activeFoodNounAuction.amount = BigNumber.from(maxBid_.value).toJSON();
-        state.activeFoodNounAuction.bidder = maxBid_.sender;
         console.log('processed bid', action.payload);
       }
     },
@@ -122,11 +102,18 @@ export const auctionSlice = createSlice({
       console.log('processed auction settled', action.payload);
     },
     setAuctionExtended: (state, action: PayloadAction<AuctionExtendedEvent>) => {
-      if (!state.activeNounAuction || !state.activeFoodNounAuction) return;
-      if (auctionsEqual(state.activeNounAuction, action.payload)) {
+      const { activeNounAuction, activeFoodNounAuction } = state;
+      if (!activeNounAuction && !activeFoodNounAuction) return;
+
+      // @ts-ignore
+      if (auctionsEqual(activeNounAuction, action.payload)) {
+        // @ts-ignore
         state.activeNounAuction.endTime = BigNumber.from(action.payload.endTime).toJSON();
-      } else if (auctionsEqual(state.activeFoodNounAuction, action.payload)) {
-        state.activeFoodNounAuction.endTime = BigNumber.from(action.payload.endTime).toJSON();
+      } else { // @ts-ignore
+        if (auctionsEqual(state.activeNounAuction, action.payload)) {
+                // @ts-ignore
+                state.activeFoodNounAuction.endTime = BigNumber.from(action.payload.endTime).toJSON();
+              }
       }
       console.log('processed auction extended', action.payload);
     },
@@ -134,11 +121,11 @@ export const auctionSlice = createSlice({
 });
 
 export const {
-  setActiveAuction,
+  setActiveNounAuction,
   appendBid,
   setAuctionExtended,
   setAuctionSettled,
   setFullAuction,
-} = auctionSlice.actions;
+} = nounAuctionSlice.actions;
 
-export default auctionSlice.reducer;
+export default nounAuctionSlice.reducer;

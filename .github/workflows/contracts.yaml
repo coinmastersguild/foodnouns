@@ -6,8 +6,8 @@ on:
       - master
   pull_request:
     paths:
-      - 'packages/nouns-contracts/**'
-      - 'packages/nouns-subgraph/**'
+      - 'packages/foodnouns-contracts/**'
+      - 'packages/foodnouns-subgraph/**'
     branches:
       - '**'
 
@@ -32,11 +32,11 @@ jobs:
       - run: yarn build
       - name: Run contract tests
         run: |
-          cd packages/nouns-contracts
+          cd packages/foodnouns-contracts
           yarn test
       - name: Run contract coverage
         run: |
-          cd packages/nouns-contracts
+          cd packages/foodnouns-contracts
           yarn coverage
       - name: Uninstall Yarn
         if: always()
@@ -47,10 +47,10 @@ jobs:
           version: nightly
       - name: Run Forge build
         run: |
-          cd packages/nouns-contracts
+          cd packages/foodnouns-contracts
           forge --version
           forge build --sizes
       - name: Run Forge tests
         run: |
-          cd packages/nouns-contracts
+          cd packages/foodnouns-contracts
           forge test -vvv --ffi

@@ -1,7 +1,13 @@
 {
-  "packages": ["packages/*","!packages/nouns-contracts"],
-  "nohoist": ["packages/nouns-contracts"],
-  "npmclient": "yarn",
-  "version": "0.0.0",
-  "useWorkspaces": true
+  "packages": [
+    "packages/*",
+    "!packages/foodnouns-contracts"
+  ],
+  "nohoist": [
+    "packages/foodnouns-contracts"
+  ],
+  "npmClient": "yarn",
+  "version": "independent",
+  "useWorkspaces": true,
+  "lerna": "5.2.0"
 }

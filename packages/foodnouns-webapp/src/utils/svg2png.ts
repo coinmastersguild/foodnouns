@@ -25,16 +25,15 @@ export const svg2png = (
     canvas.height = newHeight;
 
     const ctx = canvas.getContext('2d');
-    const DOMURL = window.URL || window.webkitURL || window;
     const img = new Image();
     const svg = new Blob([modSvg.outerHTML], { type: 'image/svg+xml' });
-    const url = DOMURL.createObjectURL(svg);
+    const url = URL.createObjectURL(svg);
     img.onload = () => {
       if (!ctx) return;
       ctx.scale(newWidth / width, newHeight / height);
       ctx.drawImage(img, 0, 0);
       const png = canvas.toDataURL('image/png');
-      DOMURL.revokeObjectURL(png);
+      URL.revokeObjectURL(png);
       try {
         resolve(png);
       } catch (e) {

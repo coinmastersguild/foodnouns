@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M40 0H0v40h40V0z" fill="url(#paint0_linear)"/>
   <path fill-rule="evenodd" clip-rule="evenodd" d="M10 20c0 5.523 4.477 10 10 10s10-4.477 10-10-4.477-10-10-10-10 4.477-10 10zm7.444-3.222a.667.667 0 00-.666.666v5.112c0 .368.298.666.666.666h5.112a.667.667 0 00.666-.666v-5.112a.667.667 0 00-.666-.666h-5.112z" fill="#fff"/>

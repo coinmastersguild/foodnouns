@@ -8,9 +8,11 @@ interface HoverCardProps {
   id: string;
 }
 
+// @ts-expect-error todo
 const HoverCard: React.FC<HoverCardProps> = props => {
   const { hoverCardContent, tip, id } = props;
 
+  // @ts-expect-error TODO
   return (
     <>
       <ReactTooltip

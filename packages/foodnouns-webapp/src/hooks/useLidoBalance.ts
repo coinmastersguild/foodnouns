@@ -16,7 +16,6 @@ function useLidoBalance(): BigNumber | undefined {
 
   const lidoContract = useMemo((): Contract | undefined => {
     if (!library || !addresses.lidoToken) return;
-    // @ts-ignore
     return new Contract(addresses.lidoToken, erc20Interface, library);
   }, [library]);
 

@@ -33,7 +33,7 @@ export class PNGCollectionEncoder implements IEncoder {
 
   /**
    * Decode a PNG image and re-encode using a custom run-length encoding
-   * @param image The image name
+   * @param name The image name
    * @param png The png image data
    * @param folder An optional containing folder name
    */

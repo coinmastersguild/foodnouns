@@ -20,7 +20,7 @@
     "@nouns/sdk": "^0.2.0",
     "@types/pngjs": "^6.0.1",
     "chai": "^4.2.0",
-    "mocha": "^8.4.0",
+    "mocha": "^10.0.2",
     "pngjs": "^6.0.0"
   },
   "dependencies": {

@@ -36,7 +36,6 @@ import config, { CHAIN_ID, createNetworkHttpUrl } from './config';
 import { WebSocketProvider } from '@ethersproject/providers';
 import { BigNumber, BigNumberish } from 'ethers';
 import { NounsAuctionHouseFactory } from '@foodnouns/sdk';
-import dotenv from 'dotenv';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { appendBid } from './state/slices/auction';
 import { ConnectedRouter, connectRouter } from 'connected-react-router';
@@ -49,8 +48,6 @@ import { nounPath } from './utils/history';
 import { push } from 'connected-react-router';
 import { LanguageProvider } from './i18n/LanguageProvider';
 import { Auction } from './wrappers/nounsAuction';
-
-dotenv.config();
 
 export const history = createBrowserHistory();
 

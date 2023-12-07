@@ -11,10 +11,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.20.0
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.20.0
       - name: Install Yarn
         run: npm install -g yarn
       - run: yarn
@@ -32,10 +32,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.20.0
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.20.0
       - name: Install Yarn
         run: npm install -g yarn
       - run: yarn

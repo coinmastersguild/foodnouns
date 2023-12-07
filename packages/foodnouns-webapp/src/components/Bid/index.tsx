@@ -86,12 +86,12 @@ const Bid: React.FC<{
   );
 
   const { send: placeBid, state: placeBidState } = useContractFunction(
-    // @ts-ignore
+    // @ts-expect-error
     nounsAuctionHouseContract,
     AuctionHouseContractFunction.createBid,
   );
   const { send: settleAuction, state: settleAuctionState } = useContractFunction(
-    // @ts-ignore
+    // @ts-expect-error
     nounsAuctionHouseContract,
     AuctionHouseContractFunction.settleCurrentAndCreateNewAuction,
   );
@@ -128,7 +128,7 @@ const Bid: React.FC<{
     }
 
     const value = utils.parseEther(bidInputRef.current.value.toString());
-    // @ts-ignore
+    // @ts-expect-error
     const contract = connectContractToSigner(nounsAuctionHouseContract, undefined, library);
     const gasLimit = await contract.estimateGas.createBid(auction.nounId, {
       value,

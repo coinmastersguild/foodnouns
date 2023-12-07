@@ -206,6 +206,7 @@ const ProposalTransactionFormModal = ({
       </Modal.Header>
       <Modal.Body>
         <StepProgressBar className={classes.stepProgressBar} steps={steps} />
+        {/* @ts-expect-error TODO*/}
         <Step step={0}>
           <label htmlFor="callee-address">
             <Trans>Address (Callee or Recipient)</Trans>
@@ -217,12 +218,14 @@ const ProposalTransactionFormModal = ({
             onChange={e => setAddress(e.target.value)}
           />
         </Step>
+        {/* @ts-expect-error TODO*/}
         <Step step={1}>
           <label htmlFor="eth-value">
             <Trans>Value in ETH (Optional)</Trans>
           </label>
           <FormControl value={value} id="eth-value" onChange={e => setValue(e.target.value)} />
         </Step>
+        {/* @ts-expect-error TODO*/}
         <Step step={2}>
           <label htmlFor="function">
             <Trans>Function (Optional)</Trans>
@@ -248,6 +251,7 @@ const ProposalTransactionFormModal = ({
             onChange={(e: ChangeEvent<HTMLInputElement>) => validateAndSetABI(e.target.files?.[0])}
           />
         </Step>
+        {/* @ts-expect-error TODO*/}
         <Step step={3}>
           {abi?.functions[func]?.inputs?.length ? (
             <FormGroup as={Row}>
@@ -274,6 +278,7 @@ const ProposalTransactionFormModal = ({
             <Trans>No arguments required </Trans>
           )}
         </Step>
+        {/* @ts-expect-error TODO*/}
         <Step step={4}>
           <Row>
             <Col sm="3">

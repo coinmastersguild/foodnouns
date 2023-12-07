@@ -13,6 +13,7 @@ const NavBarLink: React.FC<{ to: string; className?: string }> = props => {
       onClick={onClick}
       target={target}
     >
+      {/* @ts-expect-error TODO*/}
       {children}
     </Link>
   );

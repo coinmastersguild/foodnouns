@@ -58,7 +58,7 @@ const nounsSDKLink = (
 
 const DEFAULT_TRAIT_TYPE = 'heads';
 
-const encoder = new PNGCollectionEncoder(ImageData.palette);
+const encoder = new PNGCollectionEncoder(ImageData?.palette);
 
 const traitKeyToTitle: Record<string, string> = {
   heads: 'head',
@@ -108,7 +108,6 @@ const Playground: React.FC = () => {
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pendingTrait, modSeed],
   );
 

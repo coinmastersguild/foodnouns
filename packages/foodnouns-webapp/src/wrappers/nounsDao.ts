@@ -439,7 +439,7 @@ export const useProposal = (id: string | number): Proposal | undefined => {
 
 export const useCastVote = () => {
   const { send: castVote, state: castVoteState } = useContractFunction(
-    // @ts-expect-error
+    // @ts-expect-error TODO
     nounsDaoContract,
     'castVote',
   );
@@ -448,7 +448,7 @@ export const useCastVote = () => {
 
 export const useCastVoteWithReason = () => {
   const { send: castVoteWithReason, state: castVoteWithReasonState } = useContractFunction(
-    // @ts-expect-error
+    // @ts-expect-error TODO
     nounsDaoContract,
     'castVoteWithReason',
   );
@@ -456,14 +456,14 @@ export const useCastVoteWithReason = () => {
 };
 
 export const usePropose = () => {
-  // @ts-expect-error
+  // @ts-expect-error TODO
   const { send: propose, state: proposeState } = useContractFunction(nounsDaoContract, 'propose');
   return { propose, proposeState };
 };
 
 export const useQueueProposal = () => {
   const { send: queueProposal, state: queueProposalState } = useContractFunction(
-    // @ts-expect-error
+    // @ts-expect-error TODO
     nounsDaoContract,
     'queue',
   );
@@ -472,7 +472,7 @@ export const useQueueProposal = () => {
 
 export const useExecuteProposal = () => {
   const { send: executeProposal, state: executeProposalState } = useContractFunction(
-    // @ts-expect-error
+    // @ts-expect-error TODO
     nounsDaoContract,
     'execute',
   );

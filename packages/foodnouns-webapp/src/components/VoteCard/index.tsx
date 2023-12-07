@@ -76,7 +76,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
       if (localStorage.getItem(ensCacheKey(delegateInfo.delegate))) {
         return;
       }
-      // @ts-expect-error
+      // @ts-expect-error TODO
       lookupAddress(library, delegateInfo.delegate)
         .then(name => {
           // Store data as mapping of address_Expiration => address or ENS

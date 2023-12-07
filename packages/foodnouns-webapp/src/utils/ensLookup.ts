@@ -29,7 +29,7 @@ export const useReverseENSLookUp = (address: string) => {
       // If address not in local storage, attempt to resolve via RPC call.
       // At this stage if the item is in local storage we know it isn't expired.
       if (!localStorage.getItem(ensCacheKey(address))) {
-        // @ts-expect-error
+        // @ts-expect-error TODO
         lookupAddress(library, address)
           .then(name => {
             if (!name) return;

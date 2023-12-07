@@ -1,7 +1,7 @@
 import classes from './Noun.module.css';
 import React from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
+// @ts-expect-error TODO
 import loadingNoun from '../../assets/loading-skull-noun.gif';
 import Image from 'react-bootstrap/Image';
 import NounTraitsOverlay from '../NounTraitsOverlay';

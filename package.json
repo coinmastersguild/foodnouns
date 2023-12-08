@@ -1,29 +1,32 @@
 {
   "name": "foodnouns-root",
   "private": true,
+  "packageManager": "yarn@1.22.19",
   "engines": {
     "node": ">=16.20.0"
   },
   "scripts": {
     "lerna": "lerna",
     "dev:web": "cd packages/foodnouns-webapp && yarn start",
-    "build": "lerna run build",
+    "build": "lerna run build --ignore @foodnouns/contracts --include-dependencies",
     "test": "lerna run --parallel test",
-    "bootstrap": "yarn cache clean && rm -rf node_modules && lerna bootstrap",
+    "bootstrap": "yarn cache clean && npx lerna@5.2.0 bootstrap",
     "clean": "yarn cache clean && lerna run clean",
     "clean:dev": "npx lerna@5.2.0 run clean --scope @foodnouns/*",
-    "prepare": "lerna run prepare --scope=@foodnouns/{assets,contracts,sdk}",
-    "lint": "eslint 'packages/**/*.ts' --fix",
-    "format": "prettier --write 'packages/**/*.{ts(x)?,sol,md,css,json}' '!**/typechain/**'"
+    "prepare": "lerna run prepare --scope=@foodnouns/{assets,sdk}",
+    "lint:fix": "eslint 'packages/**/*.ts' --fix",
+    "format": "prettier --write 'packages/**/*.{ts(x)?,sol,md,css,json}' '!**/typechain/**'",
+    "vercel:install": "yarn install --frozen-lockfile",
+    "vercel:build": "lerna run build --ignore @foodnouns/contracts --include-dependencies"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
     "@types/mocha": "^10.0.2",
     "@types/node": "^12.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.42.0",
     "chai": "^4.2.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^8.1.0",
     "husky": "^5.0.9",
     "lerna": "5.2.0",
     "lint-staged": "13",
@@ -47,5 +50,8 @@
       "yarn lint",
       "yarn format"
     ]
+  },
+  "dependencies": {
+    "nx": "^17.1.3"
   }
 }

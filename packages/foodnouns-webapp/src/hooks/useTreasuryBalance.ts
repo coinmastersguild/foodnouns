@@ -16,7 +16,6 @@ export const useTreasuryBalance = () => {
   const lidoBalanceAsETH = useLidoBalance();
   return ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
 };
-
 /**
  * Computes treasury usd value of treasury assets (ETH + Lido) at current ETH-USD exchange rate
  *

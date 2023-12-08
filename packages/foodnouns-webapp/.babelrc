@@ -8,9 +8,9 @@
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "node": "current"
-        }
+        "useBuiltIns": "usage",
+        "corejs": 3,
+        "targets": "> 0.25%, not dead"
       }
     ],
     "@babel/preset-react"

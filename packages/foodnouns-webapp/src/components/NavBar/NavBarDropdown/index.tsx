@@ -6,8 +6,6 @@ import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { ExternalURL, externalURL } from '../../../utils/externalURL';
 
-
-
 export enum NavBarButtonStyle {
   COOL_INFO,
   COOL_WALLET,
@@ -80,19 +78,17 @@ export const getNavBarButtonVariant = (buttonStyle?: NavBarButtonStyle) => {
 const NavBarDropdown: React.FC<NavBarButtonProps> = props => {
   const { buttonText, buttonIcon, buttonStyle, onClick, disabled } = props;
   const [ open, setOpen ] = useState<boolean>(false);
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const handleDropDownFocus = (state:boolean) => {
     setOpen(!state);
   };
-  let isDisabled = disabled ?? false;
-  const closeNav = () => setIsNavExpanded(false);
-  
+  const isDisabled = disabled ?? false;
+
   return (
     <>
-      <div 
+      <div
         className={`${classes.wrapper} ${getNavBarButtonVariant(buttonStyle)}`}
         onClick={(e)=> handleDropDownFocus(open)}
-      > 
+      >
         <div
           className={clsx(classes.button, isDisabled ? classes.btnDisabled : classes.btnEnabled)}
         >
@@ -106,7 +102,6 @@ const NavBarDropdown: React.FC<NavBarButtonProps> = props => {
               className={classes.nounsNavLink}
               target="_blank"
               rel="noreferrer"
-              onClick={closeNav}
             >
               <NavBarButton
                 buttonText={<Trans>Discord</Trans>}
@@ -117,7 +112,6 @@ const NavBarDropdown: React.FC<NavBarButtonProps> = props => {
               className={classes.nounsNavLink}
               target="_blank"
               rel="noreferrer"
-              onClick={closeNav}
             >
               <NavBarButton
                 buttonText={<Trans>Twitter</Trans>}

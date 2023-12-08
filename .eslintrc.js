@@ -8,14 +8,25 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'prettier',
+    // buffer
+    // 'plugin:node/recommended',
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "@typescript-eslint/no-namespace": "warn",
+    "@typescript-eslint/no-this-alias": "warn",
+    "@typescript-eslint/no-inferrable-types": "warn",
   },
   root: true,
   env: {
     node: true,
   },
-  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts'],
+  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts', '**/*/test.ts', '**/*/lingui.config.ts']
 };

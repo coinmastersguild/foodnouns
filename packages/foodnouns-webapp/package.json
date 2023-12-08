@@ -6,11 +6,9 @@
     "@apollo/client": "^3.3.21",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@davatar/react": "^1.10.3",
-    "@foodnouns/assets": "npm:@coinmasters/assets@0.3.0",
-    "@foodnouns/assets-latest": "npm:@nouns/assets@0.5.0",
+    "@foodnouns/assets": "*",
     "@foodnouns/contracts": "npm:@nouns/contracts@0.2.0",
-    "@foodnouns/sdk": "npm:@coinmasters/sdk@0.2.0",
-    "@foodnouns/sdk-latest": "npm:@nouns/sdk@0.4.0",
+    "@foodnouns/sdk": "*",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
@@ -21,6 +19,9 @@
     "@lingui/macro": "^3.9.0",
     "@lingui/react": "^3.9.0",
     "@netlify/functions": "^0.7.2",
+    "@nouns/assets": "0.5.0",
+    "@nouns/contracts": "0.3.0",
+    "@nouns/sdk": "0.4.0",
     "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -73,12 +74,13 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
-    "react-app-rewired": "^2.2.1"
+    "react-app-rewired": "^2.2.1",
+    "webpack": "^5.89.0"
   },
   "scripts": {
     "clean": "rimraf dist tsconfig.build.tsbuildinfo",
     "start": "react-app-rewired start",
-    "build": "yarn i18n:compile && react-app-rewired build",
+    "build": "yarn i18n:compile && NODE_OPTIONS=--max-old-space-size=8192 DISABLE_ESLINT_PLUGIN=true react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "prepare": "yarn i18n:compile",
@@ -88,9 +90,11 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
     ],
     "development": [
       "last 1 chrome version",

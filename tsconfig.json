@@ -5,6 +5,9 @@
         { "path": "packages/foodnouns-contracts" },
         { "path": "packages/foodnouns-sdk" },
         { "path": "packages/foodnouns-subgraph" },
-        { "path": "packages/foodnouns-webapp" },
-    ]
+        { "path": "packages/foodnouns-webapp" }
+    ],
+  "compilerOptions": {
+    "jsx": "react"
+  }
 }

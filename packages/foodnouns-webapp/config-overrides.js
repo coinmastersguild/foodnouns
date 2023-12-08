@@ -1,5 +1,6 @@
 const { override, babelInclude } = require('customize-cra');
 const path = require('path');
+const { ProvidePlugin } = require('webpack');
 
 module.exports = override(
   babelInclude([
@@ -36,6 +37,8 @@ module.exports = override(
       alias: { ...config.resolve.alias, stream: 'stream-browserify' },
     };
 
+
+    // Webpack 5 no longer bundles polyfills for default Node modules
     config.resolve.fallback = {
       ...config.resolve.fallback,
       assert: false,
@@ -48,8 +51,24 @@ module.exports = override(
       https: false,
       // stream: false,
       crypto: false,
-      "crypto-browserify": false
+      "crypto-browserify": false,
+      // crypto: require.resolve('crypto-browserify'),
+      // http: require.resolve('stream-http'),
+      // https: require.resolve('https-browserify'),
+      // fs: require.resolve('browserify-fs'),
+      os: false, //require.resolve('os-browserify'),
+      // path: require.resolve('path-browserify'),
+      stream: require.resolve('stream-browserify'),
     };
+
+    // Also provide polyfills for some Node globals.
+    config.plugins = [
+      ...(config.plugins ?? []),
+      new ProvidePlugin({
+        Buffer: ['buffer/', 'Buffer'],
+        process: ['process/browser.js'],
+      }),
+    ];
 
     return config;
   }

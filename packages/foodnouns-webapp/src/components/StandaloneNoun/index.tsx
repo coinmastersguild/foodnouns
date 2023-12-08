@@ -1,7 +1,7 @@
-import { ImageData as foodNoundata, getNounData as getFoodNounData } from '@foodnouns/assets';
-import { ImageData as nounData, getNounData } from '@foodnouns/assets-latest';
+import { ImageData as foodNounData, getNounData as getFoodNounData } from '@foodnouns/assets';
+import { ImageData as nounData, getNounData } from '@nouns/assets';
 import { buildSVG as buildFoodNounSVG } from '@foodnouns/sdk';
-import { buildSVG as buildNounSVG } from '@foodnouns/sdk-latest';
+import { buildSVG as buildNounSVG } from '@nouns/sdk';
 import { BigNumber as EthersBN } from 'ethers';
 import { INounSeed, useNounSeed } from '../../wrappers/nounToken';
 import Noun from '../Noun';
@@ -34,7 +34,7 @@ export const getNoun = (nounId: string | EthersBN, seed: INounSeed, nounAuction:
   const description = `Foodnoun ${id} is a member of the Foodnouns DAO`;
   const { parts, background } = nounAuction ? getNounData(seed) : getFoodNounData(seed);
   const image = `data:image/svg+xml;base64,${btoa(nounAuction ? buildNounSVG(parts,
-    nounData.palette, "d5d7e1") : buildFoodNounSVG(parts, foodNoundata.palette, "d5d7e1"))}`;
+    nounData.palette, "d5d7e1") : buildFoodNounSVG(parts, foodNounData.palette, "d5d7e1"))}`;
 
   return {
     name,

@@ -3,7 +3,7 @@ import { BigNumber as EthersBN, ethers, utils } from 'ethers';
 import { NounsTokenABI, NounsTokenFactory } from '@foodnouns/contracts';
 import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
-import { clientFactory, seedsQuery } from './subgraph';
+import { seedsQuery } from './subgraph';
 import { useEffect } from 'react';
 import { nounclient } from '..';
 

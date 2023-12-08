@@ -52,7 +52,7 @@ const Bid: React.FC<{
 }> = props => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
   const { library } = useEthers();
-  let { auction, auctionEnded } = props;
+  const { auction, auctionEnded } = props;
   const activeLocale = useActiveLocale();
   const nounsAuctionHouseContract = new NounsAuctionHouseFactory().attach(
     config.addresses.nounsAuctionHouseProxy,
@@ -243,11 +243,6 @@ const Bid: React.FC<{
 
   const isDisabled =
     placeBidState.status === 'Mining' || settleAuctionState.status === 'Mining' || !activeAccount;
-
-  const fomoNounsBtnOnClickHandler = () => {
-    // Open Fomo Nouns in a new tab
-    window.open('https://fomonouns.wtf', '_blank')?.focus();
-  };
 
   const isWalletConnected = activeAccount !== undefined;
 

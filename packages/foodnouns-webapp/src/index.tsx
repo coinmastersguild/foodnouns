@@ -191,16 +191,16 @@ const ChainSubscriber: React.FC = () => {
 
     // Fetch the previous 24hours of  bids
     const previousNounBids = await nounsAuctionHouseContract.queryFilter(nounbidFilter, 0 - BLOCKS_PER_DAY);
-    for (let event of previousNounBids) {
+    for (const event of previousNounBids) {
       if (event.args === undefined) return;
-      processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
+      void processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
     }
 
     // Fetch the previous 24hours of  bids
     const previousFoodNounBids = await foodnounsAuctionHouseContract.queryFilter(foodnounbidFilter, 0 - BLOCKS_PER_DAY);
-    for (let event of previousFoodNounBids) {
+    for (const event of previousFoodNounBids) {
       if (event.args === undefined) return;
-      processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
+      void processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
     }
 
     nounsAuctionHouseContract.on(nounbidFilter, (nounId, sender, value, extended, event) =>

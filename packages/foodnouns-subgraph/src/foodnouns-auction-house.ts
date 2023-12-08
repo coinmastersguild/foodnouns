@@ -1,17 +1,16 @@
-/* eslint-disable prefer-const */
 import { BigInt, log } from '@graphprotocol/graph-ts';
 import {
   AuctionBid,
   AuctionCreated,
   AuctionExtended,
   AuctionSettled,
-} from './types/NounsAuctionHouse/NounsAuctionHouse';
+} from './types/FoodNounsAuctionHouse/FoodNounsAuctionHouse'
 import { getGovernanceEntity } from './utils/helpers';
 import { Auction, Noun, Bid } from './types/schema';
 import { getOrCreateAccount } from './utils/helpers';
 
 export function handleAuctionCreated(event: AuctionCreated): void {
-  let nounId = event.params.nounId.toString();
+  let nounId = event.params.nounId?.toString();
 
   let noun = Noun.load(nounId);
   if (noun == null) {
@@ -22,7 +21,7 @@ export function handleAuctionCreated(event: AuctionCreated): void {
     return;
   }
 
-  let auction = new Auction(nounId);
+  const auction = new Auction(nounId);
   auction.noun = noun.id;
   auction.amount = BigInt.fromI32(0);
   auction.startTime = event.params.startTime;

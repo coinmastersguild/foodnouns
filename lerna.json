@@ -9,5 +9,6 @@
   "npmClient": "yarn",
   "version": "independent",
   "useWorkspaces": true,
-  "lerna": "5.2.0"
+  "lerna": "5.2.0",
+  "useNx": true
 }

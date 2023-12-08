@@ -150,7 +150,7 @@ const Playground: React.FC = () => {
     setModSeed(prev => {
       // -1 traitIndex = random
       if (traitIndex < 0) {
-        let state = { ...prev };
+        const state = { ...prev };
         delete state[trait.title];
         return state;
       }
@@ -187,7 +187,7 @@ const Playground: React.FC = () => {
     const reader = new FileReader();
     reader.onload = e => {
       try {
-        const buffer = Buffer.from(e?.target?.result!);
+        const buffer = Buffer.from(e?.target?.result);
         const png = PNG.sync.read(buffer);
         if (png.width !== 32 || png.height !== 32) {
           throw new Error('Image must be 32x32');
@@ -305,7 +305,7 @@ const Playground: React.FC = () => {
                             className={classes.traitFormBtn}
                             value={trait.traitNames[selectIndexes?.[trait.title]] ?? -1}
                             onChange={e => {
-                              let index = e.currentTarget.selectedIndex;
+                              const index = e.currentTarget.selectedIndex;
                               traitButtonHandler(trait, index - 1); // - 1 to account for 'random'
                               setSelectIndexes({
                                 ...selectIndexes,

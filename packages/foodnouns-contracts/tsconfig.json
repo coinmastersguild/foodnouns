@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "include": [
     "utils.ts",
     "./tasks",
@@ -10,7 +10,7 @@
     "./files/*.json"
   ],
   "exclude": [
-    "./test/foundry/**",
+    "./test/foundry/**"
   ],
   "files": ["./hardhat.config.ts"],
   "references": [

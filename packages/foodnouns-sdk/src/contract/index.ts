@@ -1,6 +1,7 @@
 export { getContractAddressesForChainOrThrow } from './addresses';
 export { getContractsForChainOrThrow } from './contracts';
-export { ChainId, ContractAddresses } from './types';
+export { ChainId } from './types';
+export type { ContractAddresses } from './types';
 export {
   NounsTokenABI,
   NounsAuctionHouseABI,

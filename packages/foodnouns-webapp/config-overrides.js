@@ -59,6 +59,8 @@ module.exports = override(
       os: false, //require.resolve('os-browserify'),
       // path: require.resolve('path-browserify'),
       stream: require.resolve('stream-browserify'),
+      url: false //webpack < 5 used to include polyfills for node.js core modules by default,
+      // resolve.fallback: { "url": require.resolve("url/") }' is another option if we need it
     };
 
     // Also provide polyfills for some Node globals.

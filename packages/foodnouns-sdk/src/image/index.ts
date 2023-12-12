@@ -1,6 +1,6 @@
 export { PNGCollectionEncoder } from './png-collection-encoder';
 export { buildSVG } from './svg-builder';
-export {
+export type {
   IEncoder,
   Rect,
   LineBounds,

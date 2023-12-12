@@ -12,7 +12,7 @@ import {
 import classes from './Playground.module.css';
 import React, { ChangeEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import Link from '../../components/Link';
-import { ImageData, getNounData, getRandomNounSeed } from '@foodnouns/assets';
+import { ImageData, getNounData, getRandomNounSeed as getRandomFoodNounSeed } from '@foodnouns/assets';
 import { buildSVG, EncodedImage, PNGCollectionEncoder } from '@foodnouns/sdk';
 import InfoIcon from '../../assets/icons/Info.svg';
 import Noun from '../../components/Noun';
@@ -100,7 +100,7 @@ const Playground: React.FC = () => {
   const generateNounSvg = React.useCallback(
     (amount: number = 1) => {
       for (let i = 0; i < amount; i++) {
-        const seed = { ...getRandomNounSeed(), ...modSeed };
+        const seed = { ...getRandomFoodNounSeed(), ...modSeed };
         const { parts, background } = getNounData(seed);
         const svg = buildSVG(parts, encoder.data.palette, background);
         setNounSvgs(prev => {

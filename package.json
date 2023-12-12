@@ -5,51 +5,43 @@
   "engines": {
     "node": ">=16.20.0"
   },
+  "workspaces": {
+    "packages": [
+      "packages/foodnouns-webapp",
+      "packages/foodnouns-sdk",
+      "packages/foodnouns-subgraph",
+      "packages/foodnouns-assets"
+    ]
+  },
   "scripts": {
-    "lerna": "lerna",
-    "dev:web": "cd packages/foodnouns-webapp && yarn start",
-    "build": "lerna run build --ignore @foodnouns/contracts --include-dependencies",
+    "lerna": "npx lerna@6.0.3",
+    "start:web": "cd packages/foodnouns-webapp && yarn start",
+    "build": "lerna run build --stream",
     "test": "lerna run --parallel test",
-    "bootstrap": "yarn cache clean && npx lerna@5.2.0 bootstrap",
-    "clean": "yarn cache clean && lerna run clean",
-    "clean:dev": "npx lerna@5.2.0 run clean --scope @foodnouns/*",
-    "prepare": "lerna run prepare --scope=@foodnouns/{assets,sdk}",
+    "bootstrap": "yarn cache clean && npx lerna@6.0.3 bootstrap",
+    "clean": "lerna run clean && && yarn cache clean",
+    "clean:yolo": "yarn clean && rm yarn.lock",
+    "prepare": "lerna run prepare",
     "lint:fix": "eslint 'packages/**/*.ts' --fix",
     "format": "prettier --write 'packages/**/*.{ts(x)?,sol,md,css,json}' '!**/typechain/**'",
-    "vercel:install": "yarn install --frozen-lockfile",
+    "vercel:install": "yarn install --immutable",
     "vercel:build": "lerna run build --ignore @foodnouns/contracts --include-dependencies"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
     "@types/mocha": "^10.0.2",
-    "@types/node": "^12.0.0",
+    "@types/node": "^20.5.7",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.42.0",
     "chai": "^4.2.0",
     "eslint-config-prettier": "^8.1.0",
-    "husky": "^5.0.9",
-    "lerna": "5.2.0",
-    "lint-staged": "13",
+    "lerna": "6.0.3",
     "mocha": "^10.0.2",
     "pinst": "^2.1.6",
     "prettier": "^2.3.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.0.0",
-    "typescript": "^4.7.4"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "yarn lint",
-      "yarn format"
-    ]
+    "typescript": "5.0.4"
   },
   "dependencies": {
     "nx": "^17.1.3"

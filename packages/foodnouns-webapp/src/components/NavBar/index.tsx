@@ -21,8 +21,8 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
 import { Trans } from '@lingui/macro';
-import { useState } from 'react';
-import DarkModeToggle from '../../DarkModeToggle';
+import React, { useState } from 'react';
+// import DarkModeToggle from '../../DarkModeToggle';
 
 const NavBar = () => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
@@ -83,7 +83,6 @@ const NavBar = () => {
               )}
             </Nav.Item>
           </div>
-          {/*<DarkModeToggle />*/}
           <Navbar.Toggle
             className={classes.navBarToggle}
             aria-controls="basic-navbar-nav"

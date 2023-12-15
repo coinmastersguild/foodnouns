@@ -19,7 +19,7 @@
     "resolveJsonModule": true,
     "baseUrl": "./packages",
     "paths": {
-      "@shapeshiftoss/*": ["$1/src/*"]
+      "@foodnouns/*": ["$1/[packages]/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -28,7 +28,7 @@
     "skipLibCheck": true,
     "strict": false,
     "strictNullChecks": false,
-    "target": "ES2016",
+    "target": "es2020",
     "emitDeclarationOnly": true,
     // Ensure that Babel can safely transpile files in the TypeScript project
     "isolatedModules": true,
@@ -36,10 +36,10 @@
   },
   "exclude": ["**/dist", "**/*.config.ts"],
   "references": [
-//    { "path": "packages/foodnouns-api" },
-//    { "path": "packages/foodnouns-assets" },
-//    { "path": "packages/foodnouns-contracts" },
-//    { "path": "packages/foodnouns-sdk" },
+    { "path": "packages/foodnouns-api" },
+    { "path": "packages/foodnouns-assets" },
+    { "path": "packages/foodnouns-contracts" },
+    { "path": "packages/foodnouns-sdk" },
     { "path": "packages/foodnouns-subgraph" },
     { "path": "packages/foodnouns-webapp" }
   ],

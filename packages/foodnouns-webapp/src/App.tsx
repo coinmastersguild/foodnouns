@@ -25,6 +25,7 @@ import { CHAIN_ID } from './config';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { AvatarProvider } from '@davatar/react';
 import dayjs from 'dayjs';
+import React from 'react';
 
 function App() {
   const { account, chainId, library } = useEthers();

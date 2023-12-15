@@ -3,6 +3,5 @@
   "version": "independent",
   "useWorkspaces": true,
   "lerna": "6.0.3",
-  "useNx": true,
-  "ignoreChanges": ["**/*.md", "**/.env"]
+  "useNx": true
 }

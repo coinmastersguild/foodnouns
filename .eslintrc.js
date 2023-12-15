@@ -8,8 +8,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    // buffer
-    // 'plugin:node/recommended',
+    'plugin:node/recommended',
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -23,10 +22,11 @@ module.exports = {
     "@typescript-eslint/no-namespace": "warn",
     "@typescript-eslint/no-this-alias": "warn",
     "@typescript-eslint/no-inferrable-types": "warn",
+    "node/no-unsupported-features/es-syntax": "off",
   },
   root: true,
   env: {
     node: true,
   },
-  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts', '**/*/test.ts', '**/*/lingui.config.ts']
+  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts', '**/*/test.ts']
 };

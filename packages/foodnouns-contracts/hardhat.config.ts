@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { HardhatUserConfig } from 'hardhat/config';
 import dotenv from 'dotenv';
 import '@nomiclabs/hardhat-waffle';
@@ -37,6 +36,7 @@ const config: HardhatUserConfig = {
       initialBaseFeePerGas: 0,
     },
   },
+  // @ts-expect-error
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },

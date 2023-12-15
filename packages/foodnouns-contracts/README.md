@@ -1,4 +1,10 @@
-# @foodnouns/contracts
+# @foodnouns/contracts  
+
+### TODO: Change out TypeChain as it is in "soft deprecation" mode:
+https://github.com/dethcrypto/TypeChain?tab=readme-ov-file  
+"I now consider TypeChain to be legacy software and no longer use it personally.
+The ecosystem around Abitype, Wagmi, Viem got really good and it provides a superior Developer Experience by parsing 
+ABIs directly within the TypeScript type system. Hardhat can also be used with Viem. I recommend giving it a try!"  
 
 ## Background
 

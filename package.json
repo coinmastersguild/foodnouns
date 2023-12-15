@@ -1,40 +1,42 @@
 {
   "name": "foodnouns-root",
   "private": true,
+  "author": "FOODNOUNS <foodnouns.wtf>",
   "packageManager": "yarn@1.22.19",
   "engines": {
-    "node": ">=16.20.0"
+    "node": ">=18.16.0"
   },
   "workspaces": {
     "packages": [
-      "packages/foodnouns-webapp",
-      "packages/foodnouns-sdk",
-      "packages/foodnouns-subgraph",
-      "packages/foodnouns-assets"
-    ]
+      "packages/*"
+    ],
+    "version": "independent"
   },
   "scripts": {
     "lerna": "npx lerna@6.0.3",
     "start:web": "cd packages/foodnouns-webapp && yarn start",
-    "build": "lerna run build --stream",
+    "build": "lerna run build --ignore @foodnouns/contracts --ignore @foodnouns-api --stream",
     "test": "lerna run --parallel test",
     "bootstrap": "yarn cache clean && npx lerna@6.0.3 bootstrap",
-    "clean": "lerna run clean && && yarn cache clean",
+    "clean": "lerna run clean --scope @foodnouns/* && rm -rf coverage test-report node_modules && yarn cache clean",
     "clean:yolo": "yarn clean && rm yarn.lock",
     "prepare": "lerna run prepare",
-    "lint:fix": "eslint 'packages/**/*.ts' --fix",
+    "lint:fix": "eslint --fix",
     "format": "prettier --write 'packages/**/*.{ts(x)?,sol,md,css,json}' '!**/typechain/**'",
-    "vercel:install": "yarn install --immutable",
+    "vercel-install": "yarn install --frozen-lockfile",
     "vercel:build": "lerna run build --ignore @foodnouns/contracts --include-dependencies"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
     "@types/mocha": "^10.0.2",
     "@types/node": "^20.5.7",
-    "@typescript-eslint/eslint-plugin": "^5.41.0",
-    "@typescript-eslint/parser": "^5.42.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "chai": "^4.2.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "lerna": "6.0.3",
     "mocha": "^10.0.2",
     "pinst": "^2.1.6",
@@ -42,8 +44,5 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.0.0",
     "typescript": "5.0.4"
-  },
-  "dependencies": {
-    "nx": "^17.1.3"
   }
 }

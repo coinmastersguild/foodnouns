@@ -4,9 +4,9 @@
     "rootDir": "src",
     "outDir": "dist"
   },
-  "references": [
-    {
-      "path": "../foodnouns-contracts/tsconfig.build.json"
-    }
-  ]
+//  "references": [
+//    {
+//      "path": "../foodnouns-contracts/tsconfig.build.json"
+//    }
+//  ]
 }

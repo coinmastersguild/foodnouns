@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { Proposal } from '../../wrappers/nounsDao';
 import NounImageVoteTable from '../NounImageVoteTable';

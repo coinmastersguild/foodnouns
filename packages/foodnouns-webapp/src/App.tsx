@@ -31,17 +31,20 @@ function App() {
   const { account, chainId, library } = useEthers();
   const dispatch = useAppDispatch();
   dayjs.extend(relativeTime);
+  const activeAccount = useAppSelector(state => state.account.activeAccount);
 
   useEffect(() => {
-    // Local account array updated
+    if (!!account && !!activeAccount) {
+      console.log('millz !!account && !!activeAccount, :', activeAccount)
+    }
     dispatch(setActiveAccount(account));
-  }, [account, dispatch]);
+  }, [account, dispatch, activeAccount, chainId]);
 
   const alertModal = useAppSelector(state => state.application.alertModal);
 
   return (
     <div className={`${classes.wrapper}`}>
-      {Number(CHAIN_ID) !== chainId && <NetworkAlert />}
+      {chainId && Number(CHAIN_ID) !== chainId && <NetworkAlert />}
       {alertModal.show && (
         <AlertModal
           title={alertModal.title}
@@ -50,9 +53,8 @@ function App() {
         />
       )}
       <BrowserRouter>
-        <AvatarProvider
-          provider={chainId === ChainId.Mainnet ? library as any : undefined}
-          batchLookups={true}
+        <Davatar
+          address={`0x00000000000000000000000`}
         >
           <NavBar />
           <Switch>
@@ -74,7 +76,7 @@ function App() {
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />
-        </AvatarProvider>
+        </Davatar>
       </BrowserRouter>
     </div>
   );

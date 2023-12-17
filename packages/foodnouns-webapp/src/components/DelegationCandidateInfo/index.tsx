@@ -1,6 +1,6 @@
 import Avatar from '@davatar/react';
 import { Trans } from '@lingui/macro';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
 import ShortAddress from '../ShortAddress';
 import { useAccountVotes } from '../../wrappers/nounToken';

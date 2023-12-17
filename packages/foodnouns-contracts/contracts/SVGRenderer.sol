@@ -24,7 +24,7 @@ contract SVGRenderer is ISVGRenderer {
     uint256 private constant _INDEX_TO_BYTES3_FACTOR = 3;
 
     // prettier-ignore
-    string private constant _SVG_START_TAG = '<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">';
+    string private constant _SVG_START_TAG = '<svg width="320" height="320" viewBox="0 0 320 320" shape-rendering="crispEdges">';
     string private constant _SVG_END_TAG = '</svg>';
 
     struct ContentBounds {
@@ -89,9 +89,9 @@ contract SVGRenderer is ISVGRenderer {
         returns (string memory svg)
     {
         string[33] memory lookup = [
-            '0', '10', '20', '30', '40', '50', '60', '70', 
-            '80', '90', '100', '110', '120', '130', '140', '150', 
-            '160', '170', '180', '190', '200', '210', '220', '230', 
+            '0', '10', '20', '30', '40', '50', '60', '70',
+            '80', '90', '100', '110', '120', '130', '140', '150',
+            '160', '170', '180', '190', '200', '210', '220', '230',
             '240', '250', '260', '270', '280', '290', '300', '310',
             '320'
         ];

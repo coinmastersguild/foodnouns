@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavLocalSwitcher.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

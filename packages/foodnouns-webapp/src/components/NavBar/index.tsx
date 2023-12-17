@@ -21,7 +21,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
 import { Trans } from '@lingui/macro';
-import React, { useState } from 'react';
+import { useState } from 'react';
 // import DarkModeToggle from '../../DarkModeToggle';
 
 const NavBar = () => {

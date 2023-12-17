@@ -6,7 +6,7 @@
   "author": "Nounders",
   "homepage": "https://nouns.wtf",
   "license": "GPL-3.0",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

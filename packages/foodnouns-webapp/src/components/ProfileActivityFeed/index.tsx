@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Col, Collapse, Table } from 'react-bootstrap';
 import Section from '../../layout/Section';
 import classes from './ProfileActivityFeed.module.css';

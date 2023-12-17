@@ -1,5 +1,5 @@
 import { Auction } from '../../wrappers/nounsAuction';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { Row, Col } from 'react-bootstrap';
 import classes from './AuctionActivity.module.css';
@@ -55,7 +55,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
   const showBidModalHandler = () => {
     setShowBidHistoryModal(true);
   };
-  const dismissBidModalHanlder = () => {
+  const dismissBidModalHandler = () => {
     setShowBidHistoryModal(false);
   };
 
@@ -87,7 +87,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
   return (
     <>
       {showBidHistoryModal && (
-        <BidHistoryModal onDismiss={dismissBidModalHanlder} auction={auction} />
+        <BidHistoryModal onDismiss={dismissBidModalHandler} auction={auction} />
       )}
 
       <AuctionActivityWrapper>

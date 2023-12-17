@@ -6,8 +6,7 @@ Learn more about FOODNOUNS at [foodnouns.wtf](https://foodnouns.wtf) ⌐◨-◨
 ## Tech overview:
 - `lerna` monorepo v6.0.3: https://blog.nrwl.io/lerna-reborn-whats-new-in-v6-10aec6e9091c
 - `yarn` v1 workspaces
-- Currently depends on Node.js in a 16.20 environment for dev and prod deployments
-  **Note**: this needs to be upgraded to 18.x sometime before Feb. 2024 or Vercel will nuke any future, without the possibility of rolling back 
+- Node.js v18.16
 - ./packages/foodnouns-webapp is the front-end for foodnouns.wtf [foodnouns.wtf](https://foodnouns.wtf)
 - The front-end displays both nouns.wtf and foodnouns.wtf auctions simultaneously (WIP)
 

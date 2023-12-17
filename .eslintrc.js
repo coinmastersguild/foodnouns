@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'packages/*/tsconfig.json',
+    project: './tsconfig.json',
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
@@ -9,6 +9,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:node/recommended',
+    // 'lingui'
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',

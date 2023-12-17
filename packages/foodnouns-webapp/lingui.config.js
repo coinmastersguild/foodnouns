@@ -1,6 +1,3 @@
-/**
- * Taken from https://github.com/Uniswap/interface/blob/main/lingui.config.ts with minor modifications
- */
 const linguiConfig = {
   catalogs: [
     {

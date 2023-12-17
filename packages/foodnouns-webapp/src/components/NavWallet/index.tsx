@@ -1,6 +1,6 @@
 import Davatar from '@davatar/react';
 import { useEthers } from '@usedapp/core';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { getNavBarButtonVariant, NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavWallet.module.css';

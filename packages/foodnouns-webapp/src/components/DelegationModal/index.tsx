@@ -1,6 +1,6 @@
 import classes from './DelegationModal.module.css';
 import ReactDOM from 'react-dom';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ChangeDelegatePannel from '../ChangeDelegatePannel';
 import CurrentDelegatePannel from '../CurrentDelegatePannel';
 import { XIcon } from '@heroicons/react/solid';

@@ -1,8 +1,1 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "rootDirs": ["src", "typechain", "abi/**/*.json"],
-    "outDir": "dist"
-  },
-  "include": ["src", "typechain", "abi/**/*.json"]
-}
+

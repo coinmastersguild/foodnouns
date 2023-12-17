@@ -1,5 +1,9 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDirs": ["src", "typechain", "abi/**/*.json"],
+    "outDir": "dist"
+  },
   "include": [
     "utils.ts",
     "./tasks",
@@ -19,3 +23,4 @@
     }
   ]
 }
+

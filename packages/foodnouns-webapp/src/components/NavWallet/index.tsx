@@ -1,6 +1,6 @@
 import Davatar from '@davatar/react';
 import { useEthers } from '@usedapp/core';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { getNavBarButtonVariant, NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavWallet.module.css';
@@ -110,7 +110,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     history,
   );
 
-  const customDropdownToggle = React.forwardRef<RefType, Props>(({ onClick, value }, ref) => (
+  const customDropdownToggle = forwardRef<RefType, Props>(({ onClick, value }, ref) => (
     <>
       <div
         className={clsx(
@@ -136,7 +136,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     </>
   ));
 
-  const CustomMenu = React.forwardRef((props: CustomMenuProps, ref: React.Ref<HTMLDivElement>) => {
+  const CustomMenu = forwardRef((props: CustomMenuProps, ref: React.Ref<HTMLDivElement>) => {
     return (
       <div
         ref={ref}

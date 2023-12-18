@@ -1,8 +1,8 @@
+import React, { useEffect, useState, useRef, ChangeEvent, useCallback } from 'react';
 import { Auction, AuctionHouseContractFunction } from '../../wrappers/nounsAuction';
 import { useEthers, useContractFunction } from '@usedapp/core';
 import { connectContractToSigner } from '@usedapp/core/dist/cjs/src/hooks';
 import { useAppSelector } from '../../hooks';
-import { useEffect, useState, useRef, ChangeEvent, useCallback } from 'react';
 import { utils, BigNumber as EthersBN } from 'ethers';
 import BigNumber from 'bignumber.js';
 import classes from './Bid.module.css';

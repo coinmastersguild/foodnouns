@@ -19,7 +19,7 @@ interface AuctionPageProps {
   initialAuctionId?: number;
 }
 
-const AuctionPage: React.FC<AuctionPageProps> = props => {
+const AuctionPage = (props: AuctionPageProps) => {
   const { initialAuctionId } = props;
   const onDisplayNounAuction = useOnDisplayNounAuction();
   const onDisplayFoodNounAuction = useOnDisplayFoodNounAuction();

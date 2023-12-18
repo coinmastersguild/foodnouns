@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react';
 import { Auction } from '../../wrappers/nounsAuction';
-import { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { Row, Col } from 'react-bootstrap';
 import classes from './AuctionActivity.module.css';

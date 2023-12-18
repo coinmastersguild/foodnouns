@@ -32,15 +32,15 @@
     "emitDeclarationOnly": true,
     // Ensure that Babel can safely transpile files in the TypeScript project
     "isolatedModules": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "exclude": ["**/dist", "**/*.config.ts"],
   "references": [
-    { "path": "packages/foodnouns-api" },
-    { "path": "packages/foodnouns-assets" },
-    { "path": "packages/foodnouns-contracts" },
-    { "path": "packages/foodnouns-sdk" },
-    { "path": "packages/foodnouns-subgraph" },
+//    { "path": "packages/foodnouns-api" },
+//    { "path": "packages/foodnouns-assets" },
+//    { "path": "packages/foodnouns-contracts" },
+//    { "path": "packages/foodnouns-sdk" },
+//    { "path": "packages/foodnouns-subgraph" },
     { "path": "packages/foodnouns-webapp" }
   ],
 }

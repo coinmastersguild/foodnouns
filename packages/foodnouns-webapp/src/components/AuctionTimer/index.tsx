@@ -1,8 +1,8 @@
+import React, { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { Auction } from '../../wrappers/nounsAuction';
 import classes from './AuctionTimer.module.css';
-import { useState, useEffect, useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
 import clsx from 'clsx';

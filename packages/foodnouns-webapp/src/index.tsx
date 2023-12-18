@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { ChainId, DAppProvider } from '@usedapp/core';
 import { Web3ReactProvider } from '@web3-react/core';
+import { BrowserRouter } from 'react-router-dom';
 import { providers } from 'ethers';
 import account from './state/slices/account';
 import application from './state/slices/application';
@@ -29,7 +30,10 @@ import onDisplayFoodNounAuction, {
 import { ApolloProvider, useQuery } from '@apollo/client';
 import { clientFactory, latestAuctionsQuery } from './wrappers/subgraph';
 import { useEffect } from 'react';
-import pastAuctions, { addPastNounAuctions, addPastFoodNounAuctions } from './state/slices/pastAuctions';
+import pastAuctions, {
+  addPastNounAuctions,
+  addPastFoodNounAuctions,
+} from './state/slices/pastAuctions';
 import LogsUpdater from './state/updaters/logs';
 import config, { CHAIN_ID, createNetworkHttpUrl } from './config';
 import { WebSocketProvider } from '@ethersproject/providers';
@@ -59,22 +63,16 @@ const createRootReducer = (history: History) =>
     logs,
     pastAuctions,
     onDisplayNounAuction,
-    onDisplayFoodNounAuction
+    onDisplayFoodNounAuction,
   });
 
-export default function configureStore(preloadedState: PreloadedState<never>) {
-  const store = createStore(
-    createRootReducer(history), // root reducer with router state
+export default function configureStore(preloadedState: {}) {
+  // future TODO: upgrade to @reduxjs/toolkit configureStore
+  return createStore(
+    createRootReducer(history),
     preloadedState,
-    composeWithDevTools(
-      applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
-        // ... other middlewares ...
-      ),
-    ),
+    composeWithDevTools(applyMiddleware(routerMiddleware(history))),
   );
-
-  return store;
 }
 
 const store = configureStore({});
@@ -116,7 +114,7 @@ const ChainSubscriber: React.FC = () => {
     const foodnounswsProvider = new WebSocketProvider(config.foodnounsApp.wsRpcUri);
 
     const nounsAuctionHouseContract = NounsAuctionHouseFactory.connect(
-      "0x830BD73E4184ceF73443C15111a1DF14e495C706",
+      '0x830BD73E4184ceF73443C15111a1DF14e495C706',
       nounswsProvider,
     );
 
@@ -130,10 +128,26 @@ const ChainSubscriber: React.FC = () => {
     const nouncreatedFilter = nounsAuctionHouseContract.filters.AuctionCreated(null, null, null);
     const nounsettledFilter = nounsAuctionHouseContract.filters.AuctionSettled(null, null, null);
 
-    const foodnounbidFilter = foodnounsAuctionHouseContract.filters.AuctionBid(null, null, null, null);
-    const foodnounextendedFilter = foodnounsAuctionHouseContract.filters.AuctionExtended(null, null);
-    const foodnouncreatedFilter = foodnounsAuctionHouseContract.filters.AuctionCreated(null, null, null);
-    const foodnounsettledFilter = foodnounsAuctionHouseContract.filters.AuctionSettled(null, null, null);
+    const foodnounbidFilter = foodnounsAuctionHouseContract.filters.AuctionBid(
+      null,
+      null,
+      null,
+      null,
+    );
+    const foodnounextendedFilter = foodnounsAuctionHouseContract.filters.AuctionExtended(
+      null,
+      null,
+    );
+    const foodnouncreatedFilter = foodnounsAuctionHouseContract.filters.AuctionCreated(
+      null,
+      null,
+      null,
+    );
+    const foodnounsettledFilter = foodnounsAuctionHouseContract.filters.AuctionSettled(
+      null,
+      null,
+      null,
+    );
 
     const processBidFilter = async (
       nounId: BigNumberish,
@@ -155,7 +169,9 @@ const ChainSubscriber: React.FC = () => {
       nounAuction = false,
     ) => {
       dispatch(
-        setActiveAuction(reduxSafeNewAuction({ nounId, startTime, endTime, settled: false, nounAuction })),
+        setActiveAuction(
+          reduxSafeNewAuction({ nounId, startTime, endTime, settled: false, nounAuction }),
+        ),
       );
       const nounIdNumber = BigNumber.from(nounId).toNumber();
       dispatch(push(nounPath(nounIdNumber)));
@@ -188,14 +204,20 @@ const ChainSubscriber: React.FC = () => {
     dispatch(setLastAuctionFoodNounId(currentFoodNounAuction.nounId.toNumber()));
 
     // Fetch the previous 24hours of  bids
-    const previousNounBids = await nounsAuctionHouseContract.queryFilter(nounbidFilter, 0 - BLOCKS_PER_DAY);
+    const previousNounBids = await nounsAuctionHouseContract.queryFilter(
+      nounbidFilter,
+      0 - BLOCKS_PER_DAY,
+    );
     for (const event of previousNounBids) {
       if (event.args === undefined) return;
       void processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
     }
 
     // Fetch the previous 24hours of  bids
-    const previousFoodNounBids = await foodnounsAuctionHouseContract.queryFilter(foodnounbidFilter, 0 - BLOCKS_PER_DAY);
+    const previousFoodNounBids = await foodnounsAuctionHouseContract.queryFilter(
+      foodnounbidFilter,
+      0 - BLOCKS_PER_DAY,
+    );
     for (const event of previousFoodNounBids) {
       if (event.args === undefined) return;
       void processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
@@ -233,7 +255,9 @@ const ChainSubscriber: React.FC = () => {
 };
 
 const PastAuctions: React.FC = () => {
-  const latestAuctionId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
+  const latestAuctionId = useAppSelector(
+    state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId,
+  );
   const { data: foodnounData } = useQuery(latestAuctionsQuery(), { client });
   const { data: nounData } = useQuery(latestAuctionsQuery(), { client: nounclient });
   const dispatch = useAppDispatch();
@@ -247,29 +271,31 @@ const PastAuctions: React.FC = () => {
 };
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <ChainSubscriber />
-      <React.StrictMode>
-        <Web3ReactProvider
-          getLibrary={
-            provider => new providers.JsonRpcProvider(provider) // ethers v5
-          }
-        >
-          <ApolloProvider client={client}>
-            <PastAuctions />
-            <DAppProvider config={useDappConfig}>
-              <LanguageProvider>
-                {/*<DarkModeProvider>*/}
+  <BrowserRouter>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <ChainSubscriber />
+        <React.StrictMode>
+          <Web3ReactProvider
+            getLibrary={
+              provider => new providers.JsonRpcProvider(provider) // ethers v5
+            }
+          >
+            <ApolloProvider client={client}>
+              <PastAuctions />
+              <DAppProvider config={useDappConfig}>
+                <LanguageProvider>
+                  {/*<DarkModeProvider>*/}
                   <App />
-                {/*</DarkModeProvider>*/}
-              </LanguageProvider>
-              <Updaters />
-            </DAppProvider>
-          </ApolloProvider>
-        </Web3ReactProvider>
-      </React.StrictMode>
-    </ConnectedRouter>
-  </Provider>,
+                  {/*</DarkModeProvider>*/}
+                </LanguageProvider>
+                <Updaters />
+              </DAppProvider>
+            </ApolloProvider>
+          </Web3ReactProvider>
+        </React.StrictMode>
+      </ConnectedRouter>
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root'),
 );

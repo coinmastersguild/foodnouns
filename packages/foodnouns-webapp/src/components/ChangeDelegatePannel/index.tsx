@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { Trans } from '@lingui/macro';
 import { useEthers } from '@usedapp/core';
 import clsx from 'clsx';
 import { isAddress } from 'ethers/lib/utils';
-import { useEffect, useState } from 'react';
 import { Collapse, FormControl } from 'react-bootstrap';
 import currentDelegatePannelClasses from '../CurrentDelegatePannel/CurrentDelegatePannel.module.css';
 import DelegationCandidateInfo from '../DelegationCandidateInfo';

@@ -10,7 +10,7 @@ import {
   Popover,
 } from 'react-bootstrap';
 import classes from './Playground.module.css';
-import { ChangeEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import Link from '../../components/Link';
 import { ImageData, getNounData, getRandomNounSeed as getRandomFoodNounSeed } from '@foodnouns/assets';
 import { buildSVG, EncodedImage, PNGCollectionEncoder } from '@foodnouns/sdk';
@@ -97,7 +97,7 @@ const Playground: React.FC = () => {
 
   const customTraitFileRef = useRef<HTMLInputElement>(null);
 
-  const generateNounSvg = React.useCallback(
+  const generateNounSvg = useCallback(
     (amount: number = 1) => {
       for (let i = 0; i < amount; i++) {
         const seed = { ...getRandomFoodNounSeed(), ...modSeed };

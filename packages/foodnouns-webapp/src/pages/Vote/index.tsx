@@ -16,7 +16,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import advanced from 'dayjs/plugin/advancedFormat';
 import VoteModal from '../../components/VoteModal';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import ProposalHeader from '../../components/ProposalHeader';

@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ChainId, useEthers } from '@usedapp/core';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setActiveAccount } from './state/slices/account';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { setAlertModal } from './state/slices/application';
 import classes from './App.module.css';
 import '../src/css/globals.css';
@@ -25,7 +25,6 @@ import { CHAIN_ID } from './config';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { AvatarProvider } from '@davatar/react';
 import dayjs from 'dayjs';
-import React from 'react';
 
 function App() {
   const { account, chainId, library } = useEthers();
@@ -35,7 +34,6 @@ function App() {
 
   useEffect(() => {
     if (!!account && !!activeAccount) {
-      console.log('millz !!account && !!activeAccount, :', activeAccount)
     }
     dispatch(setActiveAccount(account));
   }, [account, dispatch, activeAccount, chainId]);
@@ -43,42 +41,36 @@ function App() {
   const alertModal = useAppSelector(state => state.application.alertModal);
 
   return (
-    <div className={`${classes.wrapper}`}>
-      {chainId && Number(CHAIN_ID) !== chainId && <NetworkAlert />}
-      {alertModal.show && (
-        <AlertModal
-          title={alertModal.title}
-          content={<p>{alertModal.message}</p>}
-          onDismiss={() => dispatch(setAlertModal({ ...alertModal, show: false }))}
-        />
-      )}
-      <BrowserRouter>
-        <Davatar
-          address={`0x00000000000000000000000`}
-        >
-          <NavBar />
-          <Switch>
-            <Route exact path="/" component={AuctionPage} />
-            <Redirect from="/auction/:id" to="/noun/:id" />
-            <Route
-              exact
-              path="/noun/:id"
-              render={props => <AuctionPage initialAuctionId={Number(props.match.params.id)} />}
-            />
-            <Route exact path="/nounders" component={NoundersPage} />
-            <Route exact path="/create-proposal" component={CreateProposalPage} />
-            <Route exact path="/vote" component={GovernancePage} />
-            <Route exact path="/vote/:id" component={VotePage} />
-            <Route exact path="/playground" component={Playground} />
-            <Route exact path="/leaderboard" component={Leaderboard} />
-            <Route exact path="/settlements" component={Settlements} />
-            <Route exact path="/unminted" component={Unminted} />
-            <Route component={NotFoundPage} />
-          </Switch>
-          <Footer />
-        </Davatar>
-      </BrowserRouter>
-    </div>
+      <div className={`${classes.wrapper}`}>
+        {chainId && Number(CHAIN_ID) !== chainId && <NetworkAlert />}
+        {alertModal.show && (
+          <AlertModal
+            title={alertModal.title}
+            content={<p>{alertModal.message}</p>}
+            onDismiss={() => dispatch(setAlertModal({ ...alertModal, show: false }))}
+          />
+        )}
+        <NavBar />
+        <Switch>
+        <Route exact path="/" component={AuctionPage} />
+          {/*<Redirect from="/auction/:id" to="/noun/:id" />*/}
+          {/*<Route*/}
+          {/*  exact*/}
+          {/*  path="/noun/:id"*/}
+          {/*  render={props => <AuctionPage initialAuctionId={Number(props.match.params.id)} />}*/}
+          {/*/>*/}
+          {/*<Route exact path="/nounders" component={NoundersPage} />*/}
+          {/*<Route exact path="/create-proposal" component={CreateProposalPage} />*/}
+          {/*<Route exact path="/vote" component={GovernancePage} />*/}
+          {/*<Route exact path="/vote/:id" component={VotePage} />*/}
+          {/*<Route exact path="/playground" component={Playground} />*/}
+          {/*<Route exact path="/leaderboard" component={Leaderboard} />*/}
+          {/*<Route exact path="/settlements" component={Settlements} />*/}
+          {/*<Route exact path="/unminted" component={Unminted} />*/}
+          {/*<Route component={NotFoundPage} />*/}
+        </Switch>
+        <Footer />
+      </div>
   );
 }
 

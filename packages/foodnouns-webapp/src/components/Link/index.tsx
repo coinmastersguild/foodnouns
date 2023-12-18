@@ -1,7 +1,10 @@
-import { ReactNode } from 'react';
 import classes from './Link.module.css';
 
-const Link: React.FC<{ text: ReactNode; url: string; leavesPage: boolean }> = props => {
+const Link = (props: {
+  text: any;
+  url: any;
+  leavesPage: any;
+}) => {
   const { text, url, leavesPage } = props;
   return (
     <a
@@ -14,4 +17,5 @@ const Link: React.FC<{ text: ReactNode; url: string; leavesPage: boolean }> = pr
     </a>
   );
 };
+
 export default Link;

@@ -5,8 +5,6 @@ import { useEthers } from '@usedapp/core';
 import clsx from 'clsx';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-import { TrezorConnector } from '@web3-react/trezor-connector';
 import { FortmaticConnector } from '@web3-react/fortmatic-connector';
 import config, { CHAIN_ID } from '../../config';
 import classes from './WalletConnectModal.module.css';
@@ -40,19 +38,6 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
       />
       <WalletButton
         onClick={() => {
-          const walletlink = new WalletConnectConnector({
-            supportedChainIds,
-            chainId: CHAIN_ID,
-            rpc: {
-              [CHAIN_ID]: config.foodnounsApp.jsonRpcUri,
-            },
-          });
-          activate(walletlink);
-        }}
-        walletType={WALLET_TYPE.walletconnect}
-      />
-      <WalletButton
-        onClick={() => {
           const walletlink = new WalletLinkConnector({
             appName: 'foodnouns.WTF',
             appLogoUrl: 'https://nouns.wtf/static/media/logo.cdea1650.svg',
@@ -83,18 +68,18 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
         }}
         walletType={WALLET_TYPE.ledger}
       /> */}
-      <WalletButton
-        onClick={() => {
-          const trezor = new TrezorConnector({
-            chainId: CHAIN_ID,
-            url: config.foodnounsApp.jsonRpcUri,
-            manifestAppUrl: 'https://nouns.wtf',
-            manifestEmail: 'nounops+trezorconnect@protonmail.com',
-          });
-          activate(trezor);
-        }}
-        walletType={WALLET_TYPE.trezor}
-      />
+      {/*<WalletButton*/}
+      {/*  onClick={() => {*/}
+      {/*    const trezor = new TrezorConnector({*/}
+      {/*      chainId: CHAIN_ID,*/}
+      {/*      url: config.foodnounsApp.jsonRpcUri,*/}
+      {/*      manifestAppUrl: 'https://nouns.wtf',*/}
+      {/*      manifestEmail: 'nounops+trezorconnect@protonmail.com',*/}
+      {/*    });*/}
+      {/*    activate(trezor);*/}
+      {/*  }}*/}
+      {/*  walletType={WALLET_TYPE.trezor}*/}
+      {/*/>*/}
       <div
         className={clsx(classes.clickable, classes.walletConnectData)}
         onClick={() => localStorage.removeItem('walletconnect')}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { CSSProperties, FC, forwardRef, ReactNode, Ref, useState } from 'react';
 import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import classes from './NavLocalSwitcher.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,13 +29,13 @@ type Props = {
 type RefType = number;
 
 type CustomMenuProps = {
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
+  children?: ReactNode;
+  style?: CSSProperties;
   className?: string;
   labeledBy?: string;
 };
 
-const NavLocaleSwitcher: React.FC<NavLocalSwitcherProps> = props => {
+const NavLocaleSwitcher: FC<NavLocalSwitcherProps> = props => {
   const { buttonStyle } = props;
 
   const [buttonUp, setButtonUp] = useState(false);
@@ -71,7 +71,7 @@ const NavLocaleSwitcher: React.FC<NavLocalSwitcherProps> = props => {
     history,
   );
 
-  const customDropdownToggle = React.forwardRef<RefType, Props>(({ onClick, value }, ref) => (
+  const customDropdownToggle = forwardRef<RefType, Props>(({ onClick, value }, ref) => (
     <>
       <div
         className={clsx(
@@ -95,7 +95,7 @@ const NavLocaleSwitcher: React.FC<NavLocalSwitcherProps> = props => {
     </>
   ));
 
-  const CustomMenu = React.forwardRef((props: CustomMenuProps, ref: React.Ref<HTMLDivElement>) => {
+  const CustomMenu = forwardRef((props: CustomMenuProps, ref: Ref<HTMLDivElement>) => {
     return (
       <div
         ref={ref}

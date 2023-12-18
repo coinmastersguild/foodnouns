@@ -1,5 +1,5 @@
 {
-  "name": "foodnouns-root",
+  "name": "foodnouns",
   "private": true,
   "author": "FOODNOUNS <foodnouns.wtf>",
   "packageManager": "yarn@1.22.19",
@@ -8,23 +8,23 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/foodnouns-webapp"
     ],
     "version": "independent"
   },
   "scripts": {
     "lerna": "npx lerna@6.0.3",
     "start:web": "cd packages/foodnouns-webapp && yarn start",
-    "build": "lerna run build --ignore @foodnouns/contracts --ignore @foodnouns/api --include-dependencies --stream",
+    "build": "lerna run build --stream",
     "test": "lerna run --parallel test",
     "bootstrap": "yarn cache clean && npx lerna@6.0.3 bootstrap",
-    "clean": "lerna run clean --scope @foodnouns/* && rm -rf coverage test-report node_modules && yarn cache clean",
+    "clean": "lerna run clean && rm -rf node_modules && yarn cache clean",
     "clean:yolo": "yarn clean && rm yarn.lock",
-    "prepare": "lerna run prepare --ignore @foodnouns/contracts --include-dependencies",
+    "prepare": "lerna run prepare",
     "lint:fix": "eslint --fix",
     "format": "prettier --write 'packages/**/*.{ts(x)?,sol,md,css,json}' '!**/typechain/**'",
     "vercel-install": "yarn install --frozen-lockfile",
-    "vercel:build": "lerna run build --ignore @foodnouns/contracts --include-dependencies"
+    "vercel:build": "lerna run build"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",

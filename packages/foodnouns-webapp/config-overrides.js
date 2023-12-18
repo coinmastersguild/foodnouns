@@ -5,7 +5,7 @@ const { ProvidePlugin } = require('webpack');
 module.exports = override(
   babelInclude([
     path.resolve('src'),
-    path.resolve('node_modules/@svgr/webpack'),
+    // path.resolve('node_modules/@svgr/webpack'),
   ]),
   (config) => {
     // const svgRule = config.module.rules.find((rule) =>
@@ -42,25 +42,17 @@ module.exports = override(
     config.resolve.fallback = {
       ...config.resolve.fallback,
       assert: false,
-      fs: false, // ignore 'fs' module from sdk
-      zlib: require.resolve('browserify-zlib'),
       tls: false,
       net: false,
-      path: false,
-      http: false,
-      https: false,
-      // stream: false,
-      crypto: false,
-      "crypto-browserify": false,
-      // crypto: require.resolve('crypto-browserify'),
-      // http: require.resolve('stream-http'),
-      // https: require.resolve('https-browserify'),
-      // fs: require.resolve('browserify-fs'),
-      os: false, //require.resolve('os-browserify'),
-      // path: require.resolve('path-browserify'),
+      os: require.resolve('os-browserify'),
       stream: require.resolve('stream-browserify'),
-      url: false //webpack < 5 used to include polyfills for node.js core modules by default,
-      // resolve.fallback: { "url": require.resolve("url/") }' is another option if we need it
+      url: require.resolve("url"),
+      crypto: require.resolve('crypto-browserify'),
+      http: require.resolve('stream-http'),
+      https: require.resolve('https-browserify'),
+      fs: require.resolve('browserify-fs'),
+      path: require.resolve('path-browserify'),
+      zlib: require.resolve('browserify-zlib'),
     };
 
     // Also provide polyfills for some Node globals.

@@ -173,13 +173,13 @@ export const useHasVotedOnProposal = (proposalId: string | undefined): boolean =
 
   // Fetch a voting receipt for the passed proposal id
   const [receipt] =
-    useContractCall<[any]>({
+    useContractCall({
       abi,
       address: nounsDaoContract.address,
       method: 'getReceipt',
       args: [proposalId, account],
     }) || [];
-  return receipt?.hasVoted ?? false;
+  return !!receipt?.hasVoted;
 };
 
 export const useProposalVote = (proposalId: string | undefined): string => {
@@ -187,7 +187,7 @@ export const useProposalVote = (proposalId: string | undefined): string => {
 
   // Fetch a voting receipt for the passed proposal id
   const [receipt] =
-    useContractCall<[any]>({
+    useContractCall({
       abi,
       address: nounsDaoContract.address,
       method: 'getReceipt',
@@ -209,7 +209,7 @@ export const useProposalVote = (proposalId: string | undefined): string => {
 
 export const useProposalCount = (): number | undefined => {
   const [count] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: nounsDaoContract.address,
       method: 'proposalCount',
@@ -220,7 +220,7 @@ export const useProposalCount = (): number | undefined => {
 
 export const useProposalThreshold = (): number | undefined => {
   const [count] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: nounsDaoContract.address,
       method: 'proposalThreshold',
@@ -231,7 +231,7 @@ export const useProposalThreshold = (): number | undefined => {
 
 const useVotingDelay = (nounsDao: string): number | undefined => {
   const [blockDelay] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: nounsDao,
       method: 'votingDelay',
@@ -387,8 +387,8 @@ export const useAllProposalsViaChain = (skip = false): ProposalData => {
     }));
   };
 
-  const proposals = useContractCalls<ProposalCallResult>(requests('proposals'));
-  const proposalStates = useContractCalls<[ProposalState]>(requests('state'));
+  const proposals = useContractCalls<(requests('proposals'));
+  const proposalStates = useContractCalls(requests('state'));
 
   const formattedLogs = useFormattedProposalCreatedLogs(skip);
 
@@ -439,7 +439,6 @@ export const useProposal = (id: string | number): Proposal | undefined => {
 
 export const useCastVote = () => {
   const { send: castVote, state: castVoteState } = useContractFunction(
-    // @ts-expect-error TODO
     nounsDaoContract,
     'castVote',
   );
@@ -448,7 +447,6 @@ export const useCastVote = () => {
 
 export const useCastVoteWithReason = () => {
   const { send: castVoteWithReason, state: castVoteWithReasonState } = useContractFunction(
-    // @ts-expect-error TODO
     nounsDaoContract,
     'castVoteWithReason',
   );
@@ -456,14 +454,12 @@ export const useCastVoteWithReason = () => {
 };
 
 export const usePropose = () => {
-  // @ts-expect-error TODO
   const { send: propose, state: proposeState } = useContractFunction(nounsDaoContract, 'propose');
   return { propose, proposeState };
 };
 
 export const useQueueProposal = () => {
   const { send: queueProposal, state: queueProposalState } = useContractFunction(
-    // @ts-expect-error TODO
     nounsDaoContract,
     'queue',
   );
@@ -472,7 +468,6 @@ export const useQueueProposal = () => {
 
 export const useExecuteProposal = () => {
   const { send: executeProposal, state: executeProposalState } = useContractFunction(
-    // @ts-expect-error TODO
     nounsDaoContract,
     'execute',
   );

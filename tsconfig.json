@@ -4,7 +4,7 @@
      * Uncomment for small accuracy reduction & vast build time reduction for
      * --watch mode
      */
-//    "assumeChangesOnlyAffectDirectDependencies": true,
+    "assumeChangesOnlyAffectDirectDependencies": true,
     "alwaysStrict": false,
     // Ensure that .d.ts files are created by tsc, but not .js files
     "declaration": true,

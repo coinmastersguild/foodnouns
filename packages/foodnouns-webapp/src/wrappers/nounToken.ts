@@ -36,24 +36,24 @@ const isSeedValid = (seed: Record<string, any> | undefined) => {
   return hasExpectedKeys && hasValidValues;
 };
 
-export const useNounToken = (nounId: EthersBN) => {
-  const [noun] =
-    useContractCall<[string]>({
-      abi,
-      address: config.addresses.nounsToken,
-      method: 'dataURI',
-      args: [nounId],
-    }) || [];
-
-  if (!noun) {
-    return;
-  }
-
-  const nounImgData = noun.split(';base64,').pop() as string;
-  const json: NounToken = JSON.parse(atob(nounImgData));
-
-  return json;
-};
+// export const useNounToken = (nounId: EthersBN) => {
+//   const [noun] =
+//     useCalls({
+//       abi,
+//       address: config.addresses.nounsToken,
+//       method: 'dataURI',
+//       args: [nounId],
+//     }) || [];
+//
+//   if (!noun) {
+//     return;
+//   }
+//
+//   const nounImgData = noun.split(';base64,').pop() as string;
+//   const json: NounToken = JSON.parse(atob(nounImgData));
+//
+//   return json;
+// };
 
 const seedArrayToObject = (seeds: (INounSeed & { id: string })[]) => {
   return seeds.reduce<Record<string, INounSeed>>((acc, seed) => {
@@ -103,7 +103,7 @@ export const useNounSeed = (nounId: EthersBN, isNoun: boolean) => {
     method: 'seeds',
     args: [nounId],
   };
-  const response = useContractCall<INounSeed>(request) || seed;
+  const response = useContractCall(request) || seed;
   if (response) {
     const seedCache = localStorage.getItem(seedCacheKey);
     if (seedCache && isSeedValid(response)) {
@@ -131,7 +131,7 @@ export const useUserVotes = (): number | undefined => {
 
 export const useAccountVotes = (account?: string): number | undefined => {
   const [votes] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: config.addresses.nounsToken,
       method: 'getCurrentVotes',
@@ -143,7 +143,7 @@ export const useAccountVotes = (account?: string): number | undefined => {
 export const useUserDelegatee = (): string | undefined => {
   const { account } = useEthers();
   const [delegate] =
-    useContractCall<[string]>({
+    useContractCall({
       abi,
       address: config.addresses.nounsToken,
       method: 'delegates',
@@ -157,7 +157,7 @@ export const useUserVotesAsOfBlock = (block: number | undefined): number | undef
 
   // Check for available votes
   const [votes] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: config.addresses.nounsToken,
       method: 'getPriorVotes',
@@ -169,7 +169,6 @@ export const useUserVotesAsOfBlock = (block: number | undefined): number | undef
 export const useDelegateVotes = () => {
   const nounsToken = new NounsTokenFactory().attach(config.addresses.nounsToken);
 
-  // @ts-expect-error TODO
   const { send, state } = useContractFunction(nounsToken, 'delegate');
 
   return { send, state };
@@ -177,7 +176,7 @@ export const useDelegateVotes = () => {
 
 export const useNounTokenBalance = (address: string): number | undefined => {
   const [tokenBalance] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: config.addresses.nounsToken,
       method: 'balanceOf',
@@ -190,7 +189,7 @@ export const useUserNounTokenBalance = (): number | undefined => {
   const { account } = useEthers();
 
   const [tokenBalance] =
-    useContractCall<[EthersBN]>({
+    useContractCall({
       abi,
       address: config.addresses.nounsToken,
       method: 'balanceOf',

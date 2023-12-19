@@ -1,6 +1,12 @@
+import { FC, ReactNode } from 'react';
 import classes from './AuctionActivityWrapper.module.css';
 
-const AuctionActivityWrapper: React.FC<{}> = props => {
-  return <div className={classes.wrapper}>{props.children}</div>;
+
+interface AuctionActivityWrapperProps {
+  children?: ReactNode | any; // TODO look at this again
+}
+
+const AuctionActivityWrapper: FC<AuctionActivityWrapperProps> = (props) => {
+  return <div className={classes.wrapper}>{props?.children}</div>;
 };
 export default AuctionActivityWrapper;

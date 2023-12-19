@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Auction } from '../../wrappers/nounsAuction';
 import BigNumber from 'bignumber.js';
 import { Row, Col } from 'react-bootstrap';
@@ -36,7 +36,7 @@ interface AuctionActivityProps {
   displayGraphDepComps: boolean;
 }
 
-const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityProps) => {
+const AuctionActivity: FC<AuctionActivityProps> = (props: AuctionActivityProps) => {
   const {
     auction,
     isFirstAuction,

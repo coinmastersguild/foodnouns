@@ -1,5 +1,5 @@
 import { useContractCall } from '@usedapp/core';
-import { BigNumber as EthersBN, ethers } from 'ethers';
+import { BigNumber as EthersBN, utils } from 'ethers';
 import { NounsAuctionHouseABI } from '@foodnouns/sdk';
 import config from '../config';
 import BigNumber from 'bignumber.js';
@@ -26,19 +26,20 @@ export interface Auction {
   nounAuction: boolean;
 }
 
-const abi = new ethers.utils.Interface(NounsAuctionHouseABI);
+const abi = new utils.Interface(NounsAuctionHouseABI);
 
-export const useAuction = (auctionHouseProxyAddress: string) => {
-  const auction = useContractCall<Auction>({
-    abi,
-    address: auctionHouseProxyAddress,
-    method: 'auction',
-    args: [],
-  });
-  return auction as Auction;
-};
+// export const useAuction = (auctionHouseProxyAddress: string) => {
+//   const auction = useContractCall<Auction>({
+//     abi,
+//     address: auctionHouseProxyAddress,
+//     method: 'auction',
+//     args: [],
+//   });
+//   return auction as Auction;
+// };
 
 export const useAuctionMinBidIncPercentage = () => {
+  // @ts-ignore
   const minBidIncrement = useContractCall({
     abi,
     address: config.addresses.nounsAuctionHouseProxy,

@@ -20,7 +20,7 @@
   "include": [
       "**/*.ts",
       "**/*.tsx",
-    "./declarations.d.ts",
+    "./src/declarations.d.ts",
     "**/*.json"
     ],
     "exclude": ["node_modules", "build", "dist"]

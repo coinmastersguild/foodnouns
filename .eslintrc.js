@@ -9,7 +9,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:node/recommended',
-    // 'lingui'
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -29,5 +28,5 @@ module.exports = {
   env: {
     node: true,
   },
-  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts', '**/*/test.ts']
+  ignorePatterns: ['**/*.js', 'dist', '**/*.d.ts', '**/*/test.ts', '**/*/lingui.config.ts']
 };

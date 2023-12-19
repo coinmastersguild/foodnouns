@@ -14,6 +14,7 @@
   },
   "scripts": {
     "lerna": "npx lerna@6.0.3",
+    "dev:web": "cd packages/foodnouns-webapp && yarn dev",
     "start:web": "cd packages/foodnouns-webapp && yarn start",
     "build": "lerna run build --stream",
     "test": "lerna run --parallel test",

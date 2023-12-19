@@ -387,7 +387,7 @@ export const useAllProposalsViaChain = (skip = false): ProposalData => {
     }));
   };
 
-  const proposals = useContractCalls<(requests('proposals'));
+  const proposals = useContractCalls(requests('proposals'));
   const proposalStates = useContractCalls(requests('state'));
 
   const formattedLogs = useFormattedProposalCreatedLogs(skip);

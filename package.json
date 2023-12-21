@@ -9,41 +9,14 @@
   "workspaces": {
     "packages": [
       "packages/foodnouns-webapp"
-    ],
-    "version": "independent"
+    ]
   },
   "scripts": {
-    "lerna": "npx lerna@6.0.3",
-    "dev:web": "cd packages/foodnouns-webapp && yarn dev",
-    "start:web": "cd packages/foodnouns-webapp && yarn start",
-    "build": "lerna run build --stream",
-    "test": "lerna run --parallel test",
-    "bootstrap": "yarn cache clean && npx lerna@6.0.3 bootstrap",
-    "clean": "lerna run clean && rm -rf node_modules && yarn cache clean",
-    "clean:yolo": "yarn clean && rm yarn.lock",
-    "prepare": "lerna run prepare",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write 'packages/**/*.{ts(x)?,sol,md,css,json}' '!**/typechain/**'",
-    "vercel-install": "yarn install --frozen-lockfile",
-    "vercel:build": "lerna run build"
+    "build": "yarn workspace @foodnouns-webapp build",
+    "clean:nuke": "rm -rf node_modules yarn.lock"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.15",
-    "@types/mocha": "^10.0.2",
-    "@types/node": "^20.5.7",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
-    "chai": "^4.2.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-prettier": "4.0.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "lerna": "6.0.3",
-    "mocha": "^10.0.2",
-    "pinst": "^2.1.6",
-    "prettier": "^2.3.0",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.0.0",
-    "typescript": "5.0.4"
+    "prettier": "^3.1.1",
+    "typescript": "5.3.3"
   }
 }

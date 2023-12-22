@@ -44,21 +44,11 @@ cp .env.example .env
 yarn start
 ```
 
-## Other commands:
-
-### Run Linter
-
-```sh
-yarn lint
-```
-
-### Run Prettier
-
-```sh
-yarn format
-```
-
 ## Packages
+
+### foodnouns-webapp
+
+The [foodnouns webapp](packages/foodnouns-webapp) is the frontend for interacting with FoodNouns AND Noun auctions as hosted at [foodnouns.wtf](https://foodnouns.wtf).
 
 ### foodnouns-api
 
@@ -66,7 +56,7 @@ The [foodnouns api](packages/foodnouns-api) is an HTTP webserver that hosts toke
 
 ### foodnouns-assets
 
-The [food assets](packages/foodnouns-assets) package holds the FoodNoun PNG and run-length encoded image data.
+The [foodnouns assets](packages/foodnouns-assets) package holds the FoodNoun PNG and run-length encoded image data.
 
 ### foodnouns-contracts
 
@@ -79,7 +69,3 @@ The [foodnouns sdk](packages/foodnouns-sdk) exposes the Nouns contract addresses
 ### foodnouns-subgraph
 
 In order to make retrieving more complex data from the auction history, [foodnouns subgraph](packages/foodnouns-subgraph) contains subgraph manifests that are deployed onto [The Graph](https://thegraph.com).
-
-### foodnouns-webapp
-
-The [foodnouns webapp](packages/foodnouns-webapp) is the frontend for interacting with FoodNouns AND Noun auctions as hosted at [foodnouns.wtf](https://foodnouns.wtf).

@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+// const webpack = require('webpack');
 
 module.exports = {
   webpack: {
@@ -17,20 +17,15 @@ module.exports = {
         zlib: require.resolve('browserify-zlib'),
       });
       webpackConfig.resolve.fallback = fallback;
-      webpackConfig.plugins = (webpackConfig.plugins || []).concat([
-        new webpack.ProvidePlugin({
-          process: 'process/browser',
-          Buffer: ['buffer', 'Buffer'],
-        }),
-      ]);
-    }
+      return webpackConfig;
+    },
   },
   eslint: {
     enable: true,  /* TODO: change?  */
   },
-    configure: {
-      parser: '@babel/eslint-parser'
-  },
+  //   configure: {
+  //     parser: '@babel/eslint-parser'
+  // },
   typescript: {
     enableTypeChecking: false /* TODO: change?  */
   },
@@ -41,5 +36,4 @@ module.exports = {
       ['@babel/plugin-proposal-nullish-coalescing-operator'],
     ],
   },
-
 };

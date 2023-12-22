@@ -1,16 +1,25 @@
-# FOODNOUNS Monorepo
+<div align="center">
+  <p align="center">
+    <a href="https://foodnouns.wtf" target="blank">
+        <img src="public/food-nouns-logo.svg" width="200" alt="FOODNOUNS Logo" /></a>
+  </p>
+  <h1>FOODNOUNS Monorepo</h1>
+  <p>
+    FOODNOUNS is a tasty spork of NounsDAO, the OG generative art collective run by a group of crypto misfits.  <br/>
+    Learn more about FOODNOUNS at <a href="https://foodnouns.wtf">FOODNOUNS.wtf ⌐◨-◨</a>
+</p>
 
-FOODNOUNS is a tasty spork of NounsDAO, the OG generative art collective run by a group of crypto misfits.
-Learn more about FOODNOUNS at [foodnouns.wtf](https://foodnouns.wtf) ⌐◨-◨
+</div>
 
 ## Tech overview:
-- `lerna` monorepo v6.0.3: https://blog.nrwl.io/lerna-reborn-whats-new-in-v6-10aec6e9091c
-- `yarn` v1 workspaces
-- Node.js v18.16
-- ./packages/foodnouns-webapp is the front-end for foodnouns.wtf [foodnouns.wtf](https://foodnouns.wtf)
-- The front-end displays both nouns.wtf and foodnouns.wtf auctions simultaneously (WIP)
 
-## First time monorepo setup:
+- `yarn` v1 workspaces
+- A TypeScript and React front-end + `@craco/craco` for customizing webpack v5 config
+- `Node.js` v18.16.0
+- `./packages/foodnouns-webapp` is the front-end for [foodnouns.wtf](https://foodnouns.wtf)
+- The webapp displays both foodnouns and nouns and auctions simultaneously (WIP)
+
+## Quickstart:
 
 ### Install dependencies from the root directory
 
@@ -18,7 +27,7 @@ Learn more about FOODNOUNS at [foodnouns.wtf](https://foodnouns.wtf) ⌐◨-◨
 yarn
 ```
 
-### Build all packages
+### Build packages (just the wep-app for now) // TODO: more
 
 ```sh
 yarn build
@@ -27,60 +36,15 @@ yarn build
 ### Run the web-app auction page locally:
 
 ```sh
-yarn dev:web
-```
-## Other commands:  
-
-### Run Linter (optional)
-
-```sh
-yarn lint
+# switch to webapp
+cd packages/foodnouns-webapp
+# Copy example environment file with your own values
+cp .env.example .env
+# Start local development
+yarn start
 ```
 
-### Run Prettier (optional)
-
-```sh
-yarn format
-```
-
-## Packages
-
-### foodnouns-api
-
-The [foodnouns api](packages/foodnouns-api) is an HTTP webserver that hosts token metadata. This is currently unused because on-chain, data URIs are enabled.
-
-### foodnouns-assets
-The [food assets](packages/foodnouns-assets) package holds the FoodNoun PNG and run-length encoded image data.
-
-### foodnouns-contracts
-
-The [nouns contracts](packages/foodnouns-contracts) is the suite of Solidity contracts powering Nouns DAO.
-
-### foodnouns-sdk
-
-The [nouns sdk](packages/foodnouns-sdk) exposes the Nouns contract addresses, ABIs, and instances as well as image encoding and SVG building utilities.
-
-### foodnouns-subgraph
-
-In order to make retrieving more complex data from the auction history, [nouns subgraph](packages/foodnouns-subgraph) contains subgraph manifests that are deployed onto [The Graph](https://thegraph.com).
-
-### foodnouns-webapp
-
-The [nouns webapp](packages/foodnouns-webapp) is the frontend for interacting with Noun auctions as hosted at [foodnouns.wtf](https://foodnouns.wtf).
-
-## Quickstart to all the things
-
-### Install dependencies
-
-```sh
-yarn
-```
-
-### Build all packages
-
-```sh
-yarn build
-```
+## Other commands:
 
 ### Run Linter
 
@@ -93,3 +57,29 @@ yarn lint
 ```sh
 yarn format
 ```
+
+## Packages
+
+### foodnouns-api
+
+The [foodnouns api](packages/foodnouns-api) is an HTTP webserver that hosts token metadata. This is currently unused because on-chain, data URIs are enabled.
+
+### foodnouns-assets
+
+The [food assets](packages/foodnouns-assets) package holds the FoodNoun PNG and run-length encoded image data.
+
+### foodnouns-contracts
+
+The [foodnouns contracts](packages/foodnouns-contracts) is the suite of Solidity contracts powering Nouns DAO.
+
+### foodnouns-sdk
+
+The [foodnouns sdk](packages/foodnouns-sdk) exposes the Nouns contract addresses, ABIs, and instances as well as image encoding and SVG building utilities.
+
+### foodnouns-subgraph
+
+In order to make retrieving more complex data from the auction history, [foodnouns subgraph](packages/foodnouns-subgraph) contains subgraph manifests that are deployed onto [The Graph](https://thegraph.com).
+
+### foodnouns-webapp
+
+The [foodnouns webapp](packages/foodnouns-webapp) is the frontend for interacting with FoodNouns AND Noun auctions as hosted at [foodnouns.wtf](https://foodnouns.wtf).

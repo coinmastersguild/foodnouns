@@ -4,7 +4,7 @@ import { NounsAuctionHouseABI } from '@foodnouns/sdk';
 import config from '../config';
 import BigNumber from 'bignumber.js';
 import { isNounderNoun } from '../utils/nounderNoun';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks/reduxHooks';
 import { AuctionState } from '../state/slices/auction';
 
 export enum AuctionHouseContractFunction {

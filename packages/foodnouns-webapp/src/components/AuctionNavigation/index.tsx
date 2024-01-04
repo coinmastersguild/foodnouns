@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './AuctionNavigation.module.css';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 const AuctionNavigation: React.FC<{
   isFirstAuction: boolean;

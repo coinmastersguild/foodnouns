@@ -4,10 +4,8 @@ import duration from 'dayjs/plugin/duration';
 import { Auction } from '../../wrappers/nounsAuction';
 import classes from './AuctionTimer.module.css';
 import { Row, Col } from 'react-bootstrap';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import clsx from 'clsx';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 
 dayjs.extend(duration);
 
@@ -46,14 +44,14 @@ const AuctionTimer: React.FC<{
   }, [auction, auctionTimer]);
 
   const auctionContentLong = auctionEnded ? (
-    <Trans>Auction ended</Trans>
+    <p>Auction ended</p>
   ) : (
-    <Trans>Auction ends in</Trans>
+    <p>Auction ends in</p>
   );
   const auctionContentShort = auctionEnded ? (
-    <Trans>Auction ended</Trans>
+    <p>Auction ended</p>
   ) : (
-    <Trans>Time left</Trans>
+    <p>Time left</p>
   );
 
   const flooredMinutes = Math.floor(timerDuration.minutes());
@@ -81,8 +79,8 @@ const AuctionTimer: React.FC<{
             )
           ) : (
             <>
-              <Trans>Ends on</Trans> {i18n.date(new Date(endTimeUnix * 1000), { month: 'short' })}{' '}
-              {i18n.date(new Date(endTimeUnix * 1000), { day: 'numeric' })} <Trans>at</Trans>
+              <p>Ends on</p> {i18n.date(new Date(endTimeUnix * 1000), { month: 'short' })}{' '}
+              {i18n.date(new Date(endTimeUnix * 1000), { day: 'numeric' })} <p>at</p>
             </>
           )}
         </h4>
@@ -99,7 +97,7 @@ const AuctionTimer: React.FC<{
               <span>
                 {`${Math.floor(timerDuration.hours())}`}
                 <span className={classes.small}>
-                  <Trans>h</Trans>
+                  <p>h</p>
                 </span>
               </span>
             </div>
@@ -107,7 +105,7 @@ const AuctionTimer: React.FC<{
               <span>
                 {`${flooredMinutes}`}
                 <span className={classes.small}>
-                  <Trans>m</Trans>
+                  <p>m</p>
                 </span>
               </span>
             </div>
@@ -115,7 +113,7 @@ const AuctionTimer: React.FC<{
               <span>
                 {`${flooredSeconds}`}
                 <span className={classes.small}>
-                  <Trans>s</Trans>
+                  <p>s</p>
                 </span>
               </span>
             </div>

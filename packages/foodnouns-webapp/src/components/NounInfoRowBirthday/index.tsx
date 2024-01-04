@@ -6,10 +6,10 @@ import classes from './NounInfoRowBirthday.module.css';
 import _BirthdayIcon from '../../assets/icons/Birthday.svg';
 
 import { Image } from 'react-bootstrap';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { AuctionState } from '../../state/slices/auction';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 
 interface NounInfoRowBirthdayProps {
   nounId: number;
@@ -44,7 +44,7 @@ const NounInfoRowBirthday: React.FC<NounInfoRowBirthdayProps> = props => {
 
   const startTime = getNounBirthday(nounIdForQuery, pastAuctions);
   if (!startTime) {
-    return <Trans>Error fetching Noun birthday</Trans>;
+    return <p>Error fetching Noun birthday</p>;
   }
 
   const birthday = new Date(Number(startTime._hex) * 1000);
@@ -54,7 +54,7 @@ const NounInfoRowBirthday: React.FC<NounInfoRowBirthdayProps> = props => {
       <span>
         <Image src={_BirthdayIcon} className={classes.birthdayIcon} />
       </span>
-      <Trans>Born</Trans>
+      <p>Born</p>
       <span className={classes.nounInfoRowBirthday}>
         {i18n.date(birthday, { month: 'long', year: 'numeric', day: '2-digit' })}
       </span>

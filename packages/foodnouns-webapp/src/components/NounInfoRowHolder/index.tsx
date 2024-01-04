@@ -10,8 +10,8 @@ import config from '../../config';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import ShortAddress from '../ShortAddress';
 
-import { useAppSelector } from '../../hooks';
-import { Trans } from '@lingui/macro';
+import { useAppSelector } from '../../hooks/reduxHooks';
+
 
 interface NounInfoRowHolderProps {
   nounId: number;
@@ -28,14 +28,14 @@ const NounInfoRowHolder: React.FC<NounInfoRowHolderProps> = props => {
     return (
       <div className={classes.nounHolderInfoContainer}>
         <span className={classes.nounHolderLoading}>
-          <Trans>Loading...</Trans>
+          <p>Loading...</p>
         </span>
       </div>
     );
   } else if (error) {
     return (
       <div>
-        <Trans>Failed to fetch Noun info</Trans>
+        <p>Failed to fetch Noun info</p>
       </div>
     );
   }
@@ -49,7 +49,7 @@ const NounInfoRowHolder: React.FC<NounInfoRowHolderProps> = props => {
         <Image src={_HeartIcon} className={classes.heartIcon} />
       </span>
       <span>
-        <Trans>Winner</Trans>
+        <p>Winner</p>
       </span>
       <span>
         <a
@@ -61,7 +61,7 @@ const NounInfoRowHolder: React.FC<NounInfoRowHolderProps> = props => {
           rel="noreferrer"
         >
           {winner.toLowerCase() === config.addresses.nounsAuctionHouseProxy.toLowerCase() ? (
-            <Trans>Nouns Auction House</Trans>
+            <p>Nouns Auction House</p>
           ) : (
             shortAddressComponent
           )}

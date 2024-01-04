@@ -1,7 +1,7 @@
 import classes from './Contribution.module.css';
 import Section from '../../layout/Section';
 import { useContributionsBalance, useContributionsUSDValue } from '../../hooks/useTreasuryBalance';
-import { i18n } from '@lingui/core';
+
 
 const Contribution = () => {
   const contributionsBalance = useContributionsBalance();

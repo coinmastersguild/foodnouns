@@ -17,7 +17,7 @@ import timezone from 'dayjs/plugin/timezone';
 import advanced from 'dayjs/plugin/advancedFormat';
 import VoteModal from '../../components/VoteModal';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import clsx from 'clsx';
 import ProposalHeader from '../../components/ProposalHeader';
 import ProposalContent from '../../components/ProposalContent';
@@ -30,8 +30,8 @@ import {
   Delegates,
 } from '../../wrappers/subgraph';
 import { getNounVotes } from '../../utils/getNounsVotes';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 import { ReactNode } from 'react-markdown/lib/react-markdown';
 
 dayjs.extend(utc);
@@ -104,12 +104,12 @@ const VotePage = ({
 
   const startOrEndTimeCopy = () => {
     if (startDate?.isBefore(now) && endDate?.isAfter(now)) {
-      return <Trans>Ends</Trans>;
+      return <p>Ends</p>;
     }
     if (endDate?.isBefore(now)) {
-      return <Trans>Ended</Trans>;
+      return <p>Ended</p>;
     }
-    return <Trans>Starts</Trans>;
+    return <p>Starts</p>;
   };
 
   const startOrEndTimeTime = () => {
@@ -119,7 +119,7 @@ const VotePage = ({
     return endDate;
   };
 
-  const moveStateButtonAction = hasSucceeded ? <Trans>Queue</Trans> : <Trans>Execute</Trans>;
+  const moveStateButtonAction = hasSucceeded ? <p>Queue</p> : <p>Execute</p>;
   const moveStateAction = (() => {
     if (hasSucceeded) {
       return () => {
@@ -152,8 +152,8 @@ const VotePage = ({
           break;
         case 'Success':
           setModal({
-            title: <Trans>Success</Trans>,
-            message: successMessage || <Trans>Transaction Successful!</Trans>,
+            title: <p>Success</p>,
+            message: successMessage || <p>Transaction Successful!</p>,
             show: true,
           });
           setPending?.(false);
@@ -161,8 +161,8 @@ const VotePage = ({
           break;
         case 'Fail':
           setModal({
-            title: <Trans>Transaction Failed</Trans>,
-            message: tx?.errorMessage || <Trans>Please try again.</Trans>,
+            title: <p>Transaction Failed</p>,
+            message: tx?.errorMessage || <p>Please try again.</p>,
             show: true,
           });
           setPending?.(false);
@@ -170,8 +170,8 @@ const VotePage = ({
           break;
         case 'Exception':
           setModal({
-            title: <Trans>Error</Trans>,
-            message: getErrorMessage?.(tx?.errorMessage) || <Trans>Please try again.</Trans>,
+            title: <p>Error</p>,
+            message: getErrorMessage?.(tx?.errorMessage) || <p>Please try again.</p>,
             show: true,
           });
           setPending?.(false);
@@ -186,7 +186,7 @@ const VotePage = ({
     () =>
       onTransactionStateChange(
         queueProposalState,
-        <Trans>Proposal Queued!</Trans>,
+        <p>Proposal Queued!</p>,
         setQueuePending,
       ),
     [queueProposalState, onTransactionStateChange, setModal],
@@ -196,7 +196,7 @@ const VotePage = ({
     () =>
       onTransactionStateChange(
         executeProposalState,
-        <Trans>Proposal Executed!</Trans>,
+        <p>Proposal Executed!</p>,
         setExecutePending,
       ),
     [executeProposalState, onTransactionStateChange, setModal],
@@ -249,7 +249,7 @@ const VotePage = ({
   }
 
   if (error) {
-    return <Trans>Failed to fetch</Trans>;
+    return <p>Failed to fetch</p>;
   }
 
   const isWalletConnected = !(activeAccount === undefined);
@@ -290,7 +290,7 @@ const VotePage = ({
                 {isQueuePending || isExecutePending ? (
                   <Spinner animation="border" />
                 ) : (
-                  <Trans>{moveStateButtonAction} Proposal ⌐◧-◧</Trans>
+                  <p>{moveStateButtonAction} Proposal ⌐◧-◧</p>
                 )}
               </Button>
             </Col>
@@ -302,9 +302,9 @@ const VotePage = ({
           className={classes.toggleDelegateVoteView}
         >
           {isDelegateView ? (
-            <Trans>Switch to Noun view</Trans>
+            <p>Switch to Noun view</p>
           ) : (
-            <Trans>Switch to delegate view</Trans>
+            <p>Switch to delegate view</p>
           )}
         </p>
         <Row>
@@ -342,15 +342,15 @@ const VotePage = ({
                 <div className={classes.voteMetadataRow}>
                   <div className={classes.voteMetadataRowTitle}>
                     <h1>
-                      <Trans>Threshold</Trans>
+                      <p>Threshold</p>
                     </h1>
                   </div>
                   <div className={classes.thresholdInfo}>
                     <span>
-                      <Trans>Quorum</Trans>
+                      <p>Quorum</p>
                     </span>
                     <h3>
-                      <Trans>{i18n.number(proposal.quorumVotes)} votes</Trans>
+                      <p>{i18n.number(proposal.quorumVotes)} votes</p>
                     </h3>
                   </div>
                 </div>
@@ -393,7 +393,7 @@ const VotePage = ({
                   </div>
                   <div className={classes.snapshotBlock}>
                     <span>
-                      <Trans>Taken at block</Trans>
+                      <p>Taken at block</p>
                     </span>
                     <h3>{proposal.createdBlock}</h3>
                   </div>

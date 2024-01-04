@@ -8,13 +8,13 @@ import { ProposalState } from '../../wrappers/nounsDao';
 
 import classes from './NounProfileVoteRow.module.css';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import VoteStatusPill from '../VoteStatusPill';
 
 import _PendingVoteIcon from '../../assets/icons/PendingVote.svg';
 import { Vote } from '../../utils/vote';
 import { NounVoteHistory } from '../ProfileActivityFeed';
-import { Trans } from '@lingui/macro';
+
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 
@@ -45,19 +45,19 @@ const selectIconForNounVoteActivityRow = (proposal: Proposal, vote?: NounVoteHis
 const selectVotingInfoText = (proposal: Proposal, vote?: NounVoteHistory) => {
   if (!vote) {
     if (proposal.status === ProposalState.PENDING || proposal.status === ProposalState.ACTIVE) {
-      return <Trans>Waiting for</Trans>;
+      return <p>Waiting for</p>;
     }
-    return <Trans>Absent for</Trans>;
+    return <p>Absent for</p>;
   } else if (vote.supportDetailed) {
     switch (vote.supportDetailed) {
       case Vote.FOR:
-        return <Trans>Voted for</Trans>;
+        return <p>Voted for</p>;
       case Vote.ABSTAIN:
       default:
-        return <Trans>Abstained on</Trans>;
+        return <p>Abstained on</p>;
     }
   } else {
-    return <Trans>Voted against</Trans>;
+    return <p>Voted against</p>;
   }
 };
 
@@ -84,33 +84,33 @@ const selectProposalStatus = (proposal: Proposal) => {
 const selectProposalText = (proposal: Proposal) => {
   switch (proposal.status) {
     case ProposalState.PENDING:
-      return <Trans>Pending</Trans>;
+      return <p>Pending</p>;
     case ProposalState.ACTIVE:
-      return <Trans>Active</Trans>;
+      return <p>Active</p>;
     case ProposalState.SUCCEEDED:
-      return <Trans>Succeeded</Trans>;
+      return <p>Succeeded</p>;
     case ProposalState.EXECUTED:
-      return <Trans>Executed</Trans>;
+      return <p>Executed</p>;
     case ProposalState.DEFEATED:
-      return <Trans>Defeated</Trans>;
+      return <p>Defeated</p>;
     case ProposalState.QUEUED:
-      return <Trans>Queued</Trans>;
+      return <p>Queued</p>;
     case ProposalState.CANCELLED:
-      return <Trans>Canceled</Trans>;
+      return <p>Canceled</p>;
     case ProposalState.VETOED:
-      return <Trans>Vetoed</Trans>;
+      return <p>Vetoed</p>;
     case ProposalState.EXPIRED:
-      return <Trans>Expired</Trans>;
+      return <p>Expired</p>;
     default:
-      return <Trans>Undetermined</Trans>;
+      return <p>Undetermined</p>;
   }
 };
 
 const NounProfileVoteRow: React.FC<NounProfileVoteRowProps> = props => {
   const { proposal, vote } = props;
 
-  const history = useHistory();
-  const proposalOnClickHandler = () => history.push(proposal.id ? `/vote/${proposal.id}` : '/vote');
+  const navigate = useNavigate();
+  const proposalOnClickHandler = () => navigate(proposal.id ? `/vote/${proposal.id}` : '/vote');
   const activeLocale = useActiveLocale();
 
   return (

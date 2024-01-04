@@ -6,8 +6,8 @@ import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { TransactionStatus } from '@usedapp/core';
 import NavBarButton, { NavBarButtonStyle } from '../NavBarButton';
 import clsx from 'clsx';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 
 interface VoteModalProps {
   show: boolean;
@@ -31,7 +31,7 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
 
   const getVoteErrorMessage = (error: string | undefined) => {
     if (error?.match(/voter already voted/)) {
-      return <Trans>User Already Voted</Trans>;
+      return <p>User Already Voted</p>;
     }
     return error;
   };
@@ -49,15 +49,15 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
         setIsVoteSuccessful(true);
         break;
       case 'Fail':
-        setFailureCopy(<Trans>Transaction Failed</Trans>);
-        setErrorMessage(state?.errorMessage || <Trans>Please try again.</Trans>);
+        setFailureCopy(<p>Transaction Failed</p>);
+        setErrorMessage(state?.errorMessage || <p>Please try again.</p>);
         setIsLoading(false);
         setIsVoteFailed(true);
         break;
       case 'Exception':
-        setFailureCopy(<Trans>Error</Trans>);
+        setFailureCopy(<p>Error</p>);
         setErrorMessage(
-          getVoteErrorMessage(state?.errorMessage) || <Trans>Please try again.</Trans>,
+          getVoteErrorMessage(state?.errorMessage) || <p>Please try again.</p>,
         );
         setIsLoading(false);
         setIsVoteFailed(true);
@@ -96,20 +96,20 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
       {isVoteSucessful && (
         <div className={classes.transactionStatus}>
           <p>
-            <Trans>
+            <p>
               You've successfully voted on on prop {i18n.number(parseInt(proposalId || '0'))}
-            </Trans>
+            </p>
           </p>
 
           <div className={classes.voteSuccessBody}>
-            <Trans>Thank you for voting.</Trans>
+            <p>Thank you for voting.</p>
           </div>
         </div>
       )}
       {isVoteFailed && (
         <div className={classes.transactionStatus}>
           <p className={classes.voteFailureTitle}>
-            <Trans>There was an error voting for your account.</Trans>
+            <p>There was an error voting for your account.</p>
           </p>
           <div className={classes.voteFailureBody}>
             {failureCopy}: <span className={classes.voteFailureErrorMessage}>{errorMessage}</span>
@@ -122,12 +122,12 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
             <NavBarButton
               buttonText={
                 availableVotes > 1 ? (
-                  <Trans>
+                  <p>
                     Cast {i18n.number(availableVotes)} votes for Prop{' '}
                     {i18n.number(parseInt(proposalId || '0'))}
-                  </Trans>
+                  </p>
                 ) : (
-                  <Trans>Cast 1 vote for Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
+                  <p>Cast 1 vote for Prop {i18n.number(parseInt(proposalId || '0'))}</p>
                 )
               }
               buttonIcon={<></>}
@@ -143,12 +143,12 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
             <NavBarButton
               buttonText={
                 availableVotes > 1 ? (
-                  <Trans>
+                  <p>
                     Cast {i18n.number(availableVotes)} votes against Prop{' '}
                     {i18n.number(parseInt(proposalId || '0'))}
-                  </Trans>
+                  </p>
                 ) : (
-                  <Trans>Cast 1 vote against Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>
+                  <p>Cast 1 vote against Prop {i18n.number(parseInt(proposalId || '0'))}</p>
                 )
               }
               buttonIcon={<></>}
@@ -163,9 +163,9 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
           <div onClick={() => setVote(Vote.ABSTAIN)}>
             <NavBarButton
               buttonText={
-                <Trans>
+                <p>
                   Abstain from voting on Prop {i18n.number(parseInt(proposalId || '0'))}
-                </Trans>
+                </p>
               }
               buttonIcon={<></>}
               buttonStyle={
@@ -176,7 +176,7 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
             />
           </div>
           <br />
-          <FloatingLabel controlId="reasonTextarea" label={<Trans>Reason (Optional)</Trans>}>
+          <FloatingLabel controlId="reasonTextarea" label={<p>Reason (Optional)</p>}>
             <FormControl
               as="textarea"
               placeholder={
@@ -202,7 +202,7 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
             }}
             className={vote === undefined ? classes.submitBtnDisabled : classes.submitBtn}
           >
-            {isLoading ? <Spinner animation="border" /> : <Trans>Submit Vote</Trans>}
+            {isLoading ? <Spinner animation="border" /> : <p>Submit Vote</p>}
           </Button>
         </div>
       )}
@@ -223,7 +223,7 @@ const VoteModal = ({ show, onHide, proposalId, availableVotes }: VoteModalProps)
       {show && (
         <Modal
           onDismiss={resetNonSuccessStateAndHideModal}
-          title={<Trans>Vote on Prop {i18n.number(parseInt(proposalId || '0'))}</Trans>}
+          title={<p>Vote on Prop {i18n.number(parseInt(proposalId || '0'))}</p>}
           content={voteModalContent}
         />
       )}

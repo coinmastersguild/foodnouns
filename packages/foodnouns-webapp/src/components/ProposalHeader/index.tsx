@@ -9,8 +9,8 @@ import clsx from 'clsx';
 import { isMobileScreen } from '../../utils/isMobile';
 import { useUserVotesAsOfBlock } from '../../wrappers/nounToken';
 import { useBlockTimestamp } from '../../hooks/useBlockTimestamp';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import { transactionLink } from '../ProposalContent';
 import ShortAddress from '../ShortAddress';
@@ -29,22 +29,22 @@ interface ProposalHeaderProps {
 const getTranslatedVoteCopyFromString = (proposalVote: string) => {
   if (proposalVote === 'For') {
     return (
-      <Trans>
+      <p>
         You voted <strong>For</strong> this proposal
-      </Trans>
+      </p>
     );
   }
   if (proposalVote === 'Against') {
     return (
-      <Trans>
+      <p>
         You voted <strong>Against</strong> this proposal
-      </Trans>
+      </p>
     );
   }
   return (
-    <Trans>
+    <p>
       You <strong>Abstained</strong> from this proposal
-    </Trans>
+    </p>
   );
 };
 
@@ -65,13 +65,13 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
         <>
           {!availableVotes && (
             <div className={classes.noVotesText}>
-              <Trans>You have no votes.</Trans>
+              <p>You have no votes.</p>
             </div>
           )}
         </>
       ) : (
         <div className={classes.connectWalletText}>
-          <Trans>Connect a wallet to vote.</Trans>
+          <p>Connect a wallet to vote.</p>
         </div>
       )}
       <Button
@@ -79,7 +79,7 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
         disabled={disableVoteButton}
         onClick={submitButtonClickHandler}
       >
-        <Trans>Submit vote</Trans>
+        <p>Submit vote</p>
       </Button>
     </>
   );
@@ -96,12 +96,12 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
   );
 
   const proposedAtTransactionHash = (
-    <Trans>
+    <p>
       at{' '}
       <span className={classes.propTransactionHash}>
         {transactionLink(proposal.transactionHash)}
       </span>
-    </Trans>
+    </p>
   );
 
   return (
@@ -115,7 +115,7 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
             <span>
               <div className="d-flex">
                 <div>
-                  <Trans>Proposal {i18n.number(parseInt(proposal.id || '0'))}</Trans>
+                  <p>Proposal {i18n.number(parseInt(proposal.id || '0'))}</p>
                 </div>
                 <div>
                   <ProposalStatus status={proposal?.status} className={classes.proposalStatus} />
@@ -144,13 +144,13 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
             id="byLineHoverCard"
           >
             <div className={classes.proposalByLineWrapperJp}>
-              <Trans>
+              <p>
                 <span className={classes.proposedByJp}>Proposed by: </span>
                 <span className={classes.proposerJp}>{proposer}</span>
                 <span className={classes.propTransactionWrapperJp}>
                   {proposedAtTransactionHash}
                 </span>
-              </Trans>
+              </p>
             </div>
           </HoverCard>
         ) : (
@@ -187,14 +187,14 @@ const ProposalHeader: React.FC<ProposalHeaderProps> = props => {
 
       {proposal && isActiveForVoting && proposalCreationTimestamp && !!availableVotes && !hasVoted && (
         <Alert variant="success" className={classes.voterIneligibleAlert}>
-          <Trans>
+          <p>
             Only Nouns you owned or were delegated to you before{' '}
             {i18n.date(new Date(proposalCreationTimestamp * 1000), {
               dateStyle: 'long',
               timeStyle: 'long',
             })}{' '}
             are eligible to vote.
-          </Trans>
+          </p>
         </Alert>
       )}
     </>

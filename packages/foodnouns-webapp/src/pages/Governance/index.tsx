@@ -6,8 +6,8 @@ import classes from './Governance.module.css';
 import { utils } from 'ethers/lib/ethers';
 import clsx from 'clsx';
 import { useTreasuryBalance, useTreasuryUSDValue } from '../../hooks/useTreasuryBalance';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 
 const GovernancePage = () => {
   const { data: proposals } = useAllProposals();
@@ -18,36 +18,36 @@ const GovernancePage = () => {
   const treasuryBalanceUSD = useTreasuryUSDValue();
 
   // Note: We have to extract this copy out of the <span> otherwise the Lingui macro gets confused
-  const nounSingular = <Trans>FOODNOUN</Trans>;
-  const nounPlural = <Trans>FOODNOUNS</Trans>;
+  const nounSingular = <p>FOODNOUN</p>;
+  const nounPlural = <p>FOODNOUNS</p>;
 
   return (
     <Section fullWidth={false} className={classes.section}>
       <Col lg={10} className={classes.wrapper}>
         <Row className={classes.headerRow}>
           <span>
-            <Trans>Governance</Trans>
+            <p>Governance</p>
           </span>
           <h1>
-            <Trans>FOODNOUNS DAO</Trans>
+            <p>FOODNOUNS DAO</p>
           </h1>
         </Row>
         <p className={classes.subheading}>
-          <Trans>
+          <p>
             FOODNOUNS govern <span className={classes.boldText}>FOODNOUNS DAO</span>. FOODNOUNS can
             vote on proposals or delegate their vote to a third party. A minimum of{' '}
             <span className={classes.boldText}>
               {nounsRequired} {threshold === 0 ? nounSingular : nounPlural}
             </span>{' '}
             is required to submit proposals.
-          </Trans>
+          </p>
         </p>
 
         <Row className={classes.treasuryInfoCard}>
           <Col lg={8} className={classes.treasuryAmtWrapper}>
             <Row className={classes.headerRow}>
               <span>
-                <Trans>Treasury</Trans>
+                <p>Treasury</p>
               </span>
             </Row>
             <Row>
@@ -70,11 +70,11 @@ const GovernancePage = () => {
             </Row>
           </Col>
           <Col className={classes.treasuryInfoText}>
-            <Trans>
+            <p>
               This treasury exists for <span className={classes.boldText}>FOODNOUNS DAO</span>{' '}
               participants to allocate resources for the long-term growth and prosperity of the
               FOODNOUNS project.
-            </Trans>
+            </p>
           </Col>
         </Row>
         <Proposals proposals={proposals} />

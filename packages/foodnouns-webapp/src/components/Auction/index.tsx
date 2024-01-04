@@ -1,15 +1,13 @@
-import { Col } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import { StandaloneNounWithSeed } from '../StandaloneNoun';
 import AuctionActivity from '../AuctionActivity';
-import { Row, Container } from 'react-bootstrap';
 import { setStateBackgroundColor } from '../../state/slices/application';
 import { LoadingNoun } from '../Noun';
 import { Auction as IAuction } from '../../wrappers/nounsAuction';
 import classes from './Auction.module.css';
 import { INounSeed } from '../../wrappers/nounToken';
 import NounderNounContent from '../NounderNounContent';
-import { useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { isNounderNoun } from '../../utils/nounderNoun';
 import {
   setNextOnDisplayAuctionNounId,
@@ -17,6 +15,7 @@ import {
 } from '../../state/slices/onDisplayNounAuction';
 import { beige, grey } from '../../utils/nounBgColors';
 import { setNextOnDisplayAuctionFoodNounId, setPrevOnDisplayAuctionFoodNounId } from '../../state/slices/onDisplayFoodNounAuction';
+import { useNavigate } from 'react-router-dom';
 
 interface AuctionProps {
   auction?: IAuction;
@@ -25,7 +24,7 @@ interface AuctionProps {
 const Auction: React.FC<AuctionProps> = props => {
   const { auction: currentAuction } = props;
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentAuctionNoun = currentAuction?.nounAuction;
   const isCurrentAuctionNoun = Boolean(currentAuctionNoun);
@@ -41,7 +40,7 @@ const Auction: React.FC<AuctionProps> = props => {
       dispatch(setPrevOnDisplayAuctionNounId());
     else {
       dispatch(setPrevOnDisplayAuctionFoodNounId());
-      currentAuction && history.push(`/noun/${currentAuction.nounId.toNumber() - 1}`);
+      currentAuction && navigate(`/noun/${currentAuction.nounId.toNumber() - 1}`);
     }
   };
   const nextAuctionHandler = () => {
@@ -49,7 +48,7 @@ const Auction: React.FC<AuctionProps> = props => {
       dispatch(setNextOnDisplayAuctionNounId());
     else {
       dispatch(setNextOnDisplayAuctionFoodNounId());
-      currentAuction && history.push(`/noun/${currentAuction.nounId.toNumber() + 1}`);
+      currentAuction && navigate(`/noun/${currentAuction.nounId.toNumber() + 1}`);
     }
   };
 

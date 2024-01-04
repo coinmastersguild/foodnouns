@@ -7,7 +7,7 @@ import { StandaloneNounRoundedCorners } from '../StandaloneNoun';
 import { useFoodNounAuctionBids } from '../../wrappers/onDisplayFoodNounAuction';
 import { Bid } from '../../utils/types';
 import BidHistoryModalRow from '../BidHistoryModalRow';
-import { Trans } from '@lingui/macro';
+
 
 export const Backdrop: React.FC<{ onDismiss: () => void }> = props => {
   return <div className={classes.backdrop} onClick={props.onDismiss} />;
@@ -38,7 +38,7 @@ const BidHistoryModalOverlay: React.FC<{
 
             <div className={classes.title}>
               <h2>
-                <Trans>Bids for</Trans>
+                <p>Bids for</p>
               </h2>
               <h1>Foodnoun {auction && auction.nounId.toString()}</h1>
             </div>
@@ -52,7 +52,7 @@ const BidHistoryModalOverlay: React.FC<{
               </ul>
             ) : (
               <div className={classes.nullStateText}>
-                <Trans>Bids will appear here</Trans>
+                <p>Bids will appear here</p>
               </div>
             )}
           </div>

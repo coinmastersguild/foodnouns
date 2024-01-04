@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { useEthers } from '@usedapp/core';
 import React from 'react';
 import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
@@ -25,21 +25,21 @@ const CurrentDelegatePannel: React.FC<CurrentDelegatePannelProps> = props => {
       <div>
         <div className={classes.header}>
           <h1 className={classes.title}>
-            <Trans>Delegation</Trans>
+            <p>Delegation</p>
           </h1>
 
           <p className={classes.copy}>
-            <Trans>
+            <p>
               Noun votes are not transferable, but are{' '}
               <span className={classes.emph}>delegatable</span>, which means you can assign your
               vote to someone else as long as you own your Noun.
-            </Trans>
+            </p>
           </p>
         </div>
 
         <div className={classes.contentWrapper}>
           <div className={classes.current}>
-            <Trans>Current Delegate</Trans>
+            <p>Current Delegate</p>
           </div>
           <div className={classes.delegateInfoWrapper}>
             <div className={classes.ens}>
@@ -52,12 +52,12 @@ const CurrentDelegatePannel: React.FC<CurrentDelegatePannelProps> = props => {
 
       <div className={classes.buttonWrapper}>
         <NavBarButton
-          buttonText={<Trans>Close</Trans>}
+          buttonText={<p>Close</p>}
           buttonStyle={NavBarButtonStyle.DELEGATE_BACK}
           onClick={onSecondaryBtnClick}
         />
         <NavBarButton
-          buttonText={<Trans>Update Delegate</Trans>}
+          buttonText={<p>Update Delegate</p>}
           buttonStyle={NavBarButtonStyle.DELEGATE_PRIMARY}
           onClick={onPrimaryBtnClick}
         />

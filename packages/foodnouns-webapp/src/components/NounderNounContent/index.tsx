@@ -12,9 +12,9 @@ import bidBtnClasses from '../BidHistoryBtn/BidHistoryBtn.module.css';
 import auctionActivityClasses from '../AuctionActivity/AuctionActivity.module.css';
 import CurrentBid, { BID_N_A } from '../CurrentBid';
 import Winner from '../Winner';
-import { Trans } from '@lingui/macro';
 
-import { useAppSelector } from '../../hooks';
+
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 const NounderNounContent: React.FC<{
   mintTimestamp: BigNumber;
@@ -77,11 +77,11 @@ const NounderNounContent: React.FC<{
                 ` ${nounContentClasses.bidRow}`
               }
             >
-              <Trans>
+              <p>
                 Every 10th FOODNOUN will be sent to the FOODNOUNDER multi-sig for the first year and
                 every 11th FOODNOUN will be sent to the Kitchen Nouncil multi-sig for the first 2
                 years where they will be vested and distributed to individual founding members.
-              </Trans>
+              </p>
             </li>
           </ul>
           <div
@@ -93,7 +93,7 @@ const NounderNounContent: React.FC<{
               to="/nounders"
               className={isCool ? bidBtnClasses.bidHistoryCool : bidBtnClasses.bidHistoryWarm}
             >
-              <Trans>Learn more</Trans> →
+              <p>Learn more</p> →
             </Link>
           </div>
         </Col>

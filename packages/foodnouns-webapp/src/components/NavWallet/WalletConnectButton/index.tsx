@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import NavBarButton, { NavBarButtonStyle } from '../../NavBarButton';
-import { Trans } from '@lingui/macro';
+
 
 interface WalletConnectButtonProps {
   className: string;
@@ -13,7 +13,7 @@ const WalletConnectButton: React.FC<WalletConnectButtonProps> = props => {
   const { className, onClickHandler, buttonStyle } = props;
   return (
     <Nav.Link className={className} onClick={onClickHandler}>
-      <NavBarButton buttonStyle={buttonStyle} buttonText={<Trans>Connect</Trans>} />
+      <NavBarButton buttonStyle={buttonStyle} buttonText={<p>Connect</p>} />
     </Nav.Link>
   );
 };

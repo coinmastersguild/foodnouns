@@ -1,17 +1,17 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
 
 interface DarkModeContextProps {
-    isDarkMode: boolean;
-    toggleDarkMode: () => void;
+    isDarkMode?: boolean;
+    toggleDarkMode?: () => void;
 }
 
-const DarkModeContext = createContext<DarkModeContextProps | undefined>(undefined);
+const DarkModeContext = createContext<DarkModeContextProps>({});
 
 interface DarkModeProviderProps {
     children: ReactNode;
 }
 
-export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) => {
+export const DarkModeProvider: FC<DarkModeProviderProps> = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
         const savedMode = localStorage.getItem('darkMode');
         return savedMode ? JSON.parse(savedMode) : false;
@@ -25,9 +25,9 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
     const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
     return (
-        <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-            {children}
-        </DarkModeContext.Provider>
+      <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+          {children}
+      </DarkModeContext.Provider>
     );
 };
 

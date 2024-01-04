@@ -1,6 +1,6 @@
 import { useBlockNumber } from '@usedapp/core';
 import { useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { useReadonlyProvider } from '../../hooks/useReadonlyProvider';
 import { EventFilter, keyToFilter } from '../../utils/logParsing';
 import { fetchedLogs, fetchedLogsError, fetchingLogs } from '../slices/logs';

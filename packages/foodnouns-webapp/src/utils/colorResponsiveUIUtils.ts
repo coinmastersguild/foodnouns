@@ -1,4 +1,4 @@
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks/reduxHooks';
 
 export const shouldUseStateBg = (history: any) => {
   return (
@@ -14,7 +14,7 @@ export const shouldUseStateBg = (history: any) => {
  * @param whiteState  What to return if the state is white
  * @param coolState  What to return if the state is cool
  * @param warmState  What to return is the state is warm
- * @param history  History object from useHistory
+ * @param history  History object from useNavigate
  * @returns item corresponding to current state
  */
 export const usePickByState = (whiteState: any, coolState: any, warmState: any, history: any) => {

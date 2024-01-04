@@ -1,15 +1,35 @@
 import Modal from '../Modal';
 import classes from './LanguageSelectionModal.module.css';
-import { setLocale } from '../../i18n/setLocale';
+import i18n from 'i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { Trans } from '@lingui/macro';
-import { SUPPORTED_LOCALES, SupportedLocale, LOCALE_LABEL } from '../../i18n/locales';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
+
+interface Languages {
+  en: Language;
+  jp: Language;
+  es: Language;
+}
+
+interface Language {
+  nativeName: string;
+}
 
 interface LanguageSelectionModalProps {
   onDismiss: () => void;
 }
+
+const SUPPORTED_LNG: Languages = {
+  en: {
+    nativeName: 'English',
+  },
+  jp: {
+    nativeName: '日本語',
+  },
+  es: {
+    nativeName: 'Español',
+  },
+};
 
 /**
  * Note: This is only used on mobile. On desktop, language is selected via a dropdown.
@@ -20,19 +40,19 @@ const LanguageSelectionModal: React.FC<LanguageSelectionModalProps> = props => {
 
   const modalContent = (
     <div className={classes.LanguageSelectionModal}>
-      {SUPPORTED_LOCALES.map((locale: SupportedLocale) => {
+      {Object.keys(SUPPORTED_LNG).map((lng: string) => {
         return (
           <div
             className={classes.languageButton}
-            key={locale}
+            key={lng}
             onClick={() => {
-              setLocale(locale);
+              void i18n.changeLanguage(lng);
               onDismiss();
             }}
           >
-            {LOCALE_LABEL[locale]}
-            {locale === activeLocale && (
-              <FontAwesomeIcon icon={faCheck} height={24} width={24} className={classes.icon} />
+            {SUPPORTED_LNG[lng as keyof Languages].nativeName}
+            {lng === activeLocale && (
+              <FontAwesomeIcon height={24} width={24} className={classes.icon}  icon={faCheck} />
             )}
           </div>
         );
@@ -41,7 +61,7 @@ const LanguageSelectionModal: React.FC<LanguageSelectionModalProps> = props => {
   );
 
   return (
-    <Modal title={<Trans>Select Language</Trans>} content={modalContent} onDismiss={onDismiss} />
+    <Modal title={<p>Select Language</p>} content={modalContent} onDismiss={onDismiss} />
   );
 };
 export default LanguageSelectionModal;

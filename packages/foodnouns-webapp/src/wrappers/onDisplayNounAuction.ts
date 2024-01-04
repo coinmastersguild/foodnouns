@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../hooks/reduxHooks';
 import { generateEmptyNounderAuction, isNounderNoun } from '../utils/nounderNoun';
 import { Bid, BidEvent } from '../utils/types';
 import { Auction } from './nounsAuction';

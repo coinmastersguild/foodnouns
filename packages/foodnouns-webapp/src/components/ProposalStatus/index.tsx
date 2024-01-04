@@ -2,7 +2,7 @@ import classes from './ProposalStatus.module.css';
 import { ProposalState } from '../../wrappers/nounsDao';
 import React from 'react';
 import clsx from 'clsx';
-import { Trans } from '@lingui/macro';
+
 
 const statusVariant = (status: ProposalState | undefined) => {
   switch (status) {
@@ -26,25 +26,25 @@ const statusVariant = (status: ProposalState | undefined) => {
 const statusText = (status: ProposalState | undefined) => {
   switch (status) {
     case ProposalState.PENDING:
-      return <Trans>Pending</Trans>;
+      return <p>Pending</p>;
     case ProposalState.ACTIVE:
-      return <Trans>Active</Trans>;
+      return <p>Active</p>;
     case ProposalState.SUCCEEDED:
-      return <Trans>Succeeded</Trans>;
+      return <p>Succeeded</p>;
     case ProposalState.EXECUTED:
-      return <Trans>Executed</Trans>;
+      return <p>Executed</p>;
     case ProposalState.DEFEATED:
-      return <Trans>Defeated</Trans>;
+      return <p>Defeated</p>;
     case ProposalState.QUEUED:
-      return <Trans>Queued</Trans>;
+      return <p>Queued</p>;
     case ProposalState.CANCELLED:
-      return <Trans>Canceled</Trans>;
+      return <p>Canceled</p>;
     case ProposalState.VETOED:
-      return <Trans>Vetoed</Trans>;
+      return <p>Vetoed</p>;
     case ProposalState.EXPIRED:
-      return <Trans>Expired</Trans>;
+      return <p>Expired</p>;
     default:
-      return <Trans>Undetermined</Trans>;
+      return <p>Undetermined</p>;
   }
 };
 

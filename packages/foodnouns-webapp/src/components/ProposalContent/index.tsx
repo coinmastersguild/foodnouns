@@ -7,7 +7,7 @@ import remarkBreaks from 'remark-breaks';
 import { buildEtherscanAddressLink, buildEtherscanTxLink } from '../../utils/etherscan';
 import { utils } from 'ethers';
 import classes from './ProposalContent.module.css';
-import { Trans } from '@lingui/macro';
+
 import EnsOrLongAddress from '../EnsOrLongAddress';
 
 interface ProposalContentProps {
@@ -41,7 +41,7 @@ const ProposalContent: React.FC<ProposalContentProps> = props => {
       <Row>
         <Col className={classes.section}>
           <h5>
-            <Trans>Description</Trans>
+            <p>Description</p>
           </h5>
           {proposal?.description && (
             <ReactMarkdown
@@ -55,7 +55,7 @@ const ProposalContent: React.FC<ProposalContentProps> = props => {
       <Row>
         <Col className={classes.section}>
           <h5>
-            <Trans>Proposed Transactions</Trans>
+            <p>Proposed Transactions</p>
           </h5>
           <ol>
             {proposal?.details?.map((d, i) => {

@@ -19,7 +19,7 @@ import classes from './ProposalTransactionFormModal.module.css';
 import BigNumber from 'bignumber.js';
 import 'bs-custom-file-input';
 import 'react-stepz/dist/index.css';
-import { Trans } from '@lingui/macro';
+
 
 interface ProposalTransactionFormModalProps {
   show: boolean;
@@ -201,7 +201,7 @@ const ProposalTransactionFormModal = ({
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          <Trans>Add a Proposal Transaction</Trans>
+          <p>Add a Proposal Transaction</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -209,7 +209,7 @@ const ProposalTransactionFormModal = ({
         {/* @ts-expect-error TODO*/}
         <Step step={0}>
           <label htmlFor="callee-address">
-            <Trans>Address (Callee or Recipient)</Trans>
+            <p>Address (Callee or Recipient)</p>
           </label>
           <FormControl
             value={address}
@@ -221,14 +221,14 @@ const ProposalTransactionFormModal = ({
         {/* @ts-expect-error TODO*/}
         <Step step={1}>
           <label htmlFor="eth-value">
-            <Trans>Value in ETH (Optional)</Trans>
+            <p>Value in ETH (Optional)</p>
           </label>
           <FormControl value={value} id="eth-value" onChange={e => setValue(e.target.value)} />
         </Step>
         {/* @ts-expect-error TODO*/}
         <Step step={2}>
           <label htmlFor="function">
-            <Trans>Function (Optional)</Trans>
+            <p>Function (Optional)</p>
           </label>
           <FormControl
             value={func}
@@ -275,7 +275,7 @@ const ProposalTransactionFormModal = ({
               ))}
             </FormGroup>
           ) : (
-            <Trans>No arguments required </Trans>
+            <p>No arguments required </p>
           )}
         </Step>
         {/* @ts-expect-error TODO*/}
@@ -283,7 +283,7 @@ const ProposalTransactionFormModal = ({
           <Row>
             <Col sm="3">
               <b>
-                <Trans>Address</Trans>
+                <p>Address</p>
               </b>
             </Col>
             <Col sm="9" className="text-break">
@@ -295,31 +295,31 @@ const ProposalTransactionFormModal = ({
           <Row>
             <Col sm="3">
               <b>
-                <Trans>Value</Trans>
+                <p>Value</p>
               </b>
             </Col>
-            <Col sm="9">{value ? `${value} ETH` : <Trans>None</Trans>}</Col>
+            <Col sm="9">{value ? `${value} ETH` : <p>None</p>}</Col>
           </Row>
           <Row>
             <Col sm="3">
               <b>
-                <Trans>Function</Trans>
+                <p>Function</p>
               </b>
             </Col>
             <Col sm="9" className="text-break">
-              {func || <Trans>None</Trans>}
+              {func || <p>None</p>}
             </Col>
           </Row>
           <Row>
             <Col sm="3">
               <b>
-                <Trans>Arguments</Trans>
+                <p>Arguments</p>
               </b>
             </Col>
             <Col sm="9">
               <hr />
             </Col>
-            <Col sm="9">{abi?.functions[func]?.inputs?.length ? '' : <Trans>None</Trans>}</Col>
+            <Col sm="9">{abi?.functions[func]?.inputs?.length ? '' : <p>None</p>}</Col>
           </Row>
           {abi?.functions[func]?.inputs.map((input, i) => (
             <Row key={i}>
@@ -339,13 +339,13 @@ const ProposalTransactionFormModal = ({
             size="lg"
             disabled={currentStep === 0}
           >
-            <Trans>Back</Trans>
+            <p>Back</p>
           </Button>
           <Button onClick={stepForwardOrCallback} variant="primary" size="lg">
             {currentStep !== steps.length - 1 ? (
-              <Trans>Next</Trans>
+              <p>Next</p>
             ) : (
-              <Trans>Add Transaction</Trans>
+              <p>Add Transaction</p>
             )}
           </Button>
         </div>

@@ -3,7 +3,7 @@ import Section from '../../layout/Section';
 import { Col } from 'react-bootstrap';
 import calendar_noun from '../../assets/calendar_noun.png';
 import Noun from '../Noun';
-import { Trans } from '@lingui/macro';
+
 
 const Banner = () => {
   return (
@@ -11,11 +11,11 @@ const Banner = () => {
       <Col lg={6}>
         <div className={classes.wrapper}>
           <h1>
-            <Trans>ONE FOODNOUN,</Trans>
+            <p>ONE FOODNOUN,</p>
             <br />
-            <Trans>EVERY BREAKFAST, LUNCH & DINNER</Trans>
+            <p>EVERY BREAKFAST, LUNCH & DINNER</p>
             <br />
-            <Trans>FOREVER.</Trans>
+            <p>FOREVER.</p>
           </h1>
         </div>
       </Col>

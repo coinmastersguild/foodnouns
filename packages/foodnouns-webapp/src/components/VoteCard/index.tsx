@@ -4,8 +4,8 @@ import { Proposal } from '../../wrappers/nounsDao';
 import NounImageVoteTable from '../NounImageVoteTable';
 import VoteProgressBar from '../VoteProgressBar';
 import classes from './VoteCard.module.css';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 import DelegateGroupedNounImageVoteTable from '../DelegateGroupedNounImageVoteTable';
 import { useEthers } from '@usedapp/core';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
@@ -40,19 +40,19 @@ const VoteCard: React.FC<VoteCardProps> = props => {
   switch (variant) {
     case VoteCardVariant.FOR:
       titleClass = classes.for;
-      titleCopy = <Trans>For</Trans>;
+      titleCopy = <p>For</p>;
       voteCount = proposal.forCount;
       supportDetailedValue = 1;
       break;
     case VoteCardVariant.AGAINST:
       titleClass = classes.against;
-      titleCopy = <Trans>Against</Trans>;
+      titleCopy = <p>Against</p>;
       voteCount = proposal.againstCount;
       supportDetailedValue = 0;
       break;
     default:
       titleClass = classes.abstain;
-      titleCopy = <Trans>Abstain</Trans>;
+      titleCopy = <p>Abstain</p>;
       voteCount = proposal.abstainCount;
       supportDetailedValue = 2;
       break;
@@ -118,19 +118,19 @@ const VoteCard: React.FC<VoteCardProps> = props => {
               {delegateView ? (
                 <>
                   {filteredDelegateGroupedVoteData.length === 1 ? (
-                    <Trans>
+                    <p>
                       {i18n.number(filteredDelegateGroupedVoteData.length)}{' '}
                       <span className={isEnUS ? classes.unitTextEn : classes.unitTextNonEn}>
                         Address
                       </span>
-                    </Trans>
+                    </p>
                   ) : (
-                    <Trans>
+                    <p>
                       {i18n.number(filteredDelegateGroupedVoteData.length)}{' '}
                       <span className={isEnUS ? classes.unitTextEn : classes.unitTextNonEn}>
                         Addresses
                       </span>
-                    </Trans>
+                    </p>
                   )}
                 </>
               ) : (
@@ -151,7 +151,7 @@ const VoteCard: React.FC<VoteCardProps> = props => {
                 isEnUS ? classes.unitTextEn : classes.unitTextNonEn,
               )}
             >
-              {delegateView && <Trans>Addresses</Trans>}
+              {delegateView && <p>Addresses</p>}
             </span>
           </Card.Text>
 

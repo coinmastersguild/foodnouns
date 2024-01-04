@@ -10,7 +10,7 @@ import { BigNumber as EthersBN } from '@ethersproject/bignumber';
 import { useNounAuctionBids } from '../../wrappers/onDisplayNounAuction';
 import { useFoodNounAuctionBids } from '../../wrappers/onDisplayFoodNounAuction';
 
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 const bidItem = (bid: Bid, index: number, classes: any, isCool?: boolean) => {
   const bidAmount = <TruncatedAmount amount={new BigNumber(EthersBN.from(bid.value).toString())} />;

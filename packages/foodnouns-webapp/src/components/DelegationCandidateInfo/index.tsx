@@ -1,5 +1,5 @@
 import Avatar from '@davatar/react';
-import { Trans } from '@lingui/macro';
+
 import { useEffect, useState } from 'react';
 import { useShortAddress } from '../../utils/addressAndENSDisplayUtils';
 import ShortAddress from '../ShortAddress';
@@ -58,17 +58,17 @@ const DelegationCandidateInfo: React.FC<DelegationCandidateInfoProps> = props =>
     ],
     [
       <DelegationCandidateVoteCountInfo
-        text={countDelegatedNouns > 0 ? <Trans>Already has</Trans> : <Trans>Has</Trans>}
+        text={countDelegatedNouns > 0 ? <p>Already has</p> : <p>Has</p>}
         voteCount={countDelegatedNouns}
         isLoading={false}
       />,
       <DelegationCandidateVoteCountInfo
-        text={<Trans>Will have</Trans>}
+        text={<p>Will have</p>}
         voteCount={willHaveVoteCount}
         isLoading={true}
       />,
       <DelegationCandidateVoteCountInfo
-        text={<Trans>Now has</Trans>}
+        text={<p>Now has</p>}
         voteCount={countDelegatedNouns}
         isLoading={false}
       />,

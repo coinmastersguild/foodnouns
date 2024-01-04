@@ -1,8 +1,9 @@
 {
   "name": "foodnouns",
-  "private": true,
+  "version": "0.2.0",
   "author": "FOODNOUNS <foodnouns.wtf>",
   "packageManager": "yarn@1.22.19",
+  "private": "true",
   "engines": {
     "node": ">=18.16.0"
   },
@@ -13,10 +14,11 @@
   },
   "scripts": {
     "build": "yarn workspace @foodnouns/webapp build",
-    "clean:nuke": "rm -rf node_modules yarn.lock"
+    "clean": "yarn workspace @foodnouns/webapp clean",
+    "clean:nuke": "yarn cache clean && rm -rf node_modules yarn.lock"
   },
   "devDependencies": {
     "prettier": "^3.1.1",
-    "typescript": "5.3.3"
+    "typescript": "5.1"
   }
 }

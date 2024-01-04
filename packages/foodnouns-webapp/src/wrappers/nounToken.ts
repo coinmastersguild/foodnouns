@@ -5,7 +5,8 @@ import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
 import { seedsQuery } from './subgraph';
 import { useEffect } from 'react';
-import { nounclient } from '..';
+import { nounGraphClient } from '../App';
+
 
 interface NounToken {
   name: string;
@@ -73,7 +74,7 @@ export const useNounSeeds = (isNoun: boolean) => {
   const cache = isNoun ? localStorage.getItem(nounsSeedCacheKey) : localStorage.getItem(seedCacheKey);
   const cachedSeeds = cache ? JSON.parse(cache) : undefined;
 
-  const { data: nounsData } = useQuery(seedsQuery(), { client: nounclient });
+  const { data: nounsData } = useQuery(seedsQuery(), { client: nounGraphClient });
   const { data: foodNounsData } = useQuery(seedsQuery());
 
   useEffect(() => {

@@ -18,8 +18,8 @@ import InfoIcon from '../../assets/icons/Info.svg';
 import Noun from '../../components/Noun';
 import NounModal from './NounModal';
 import { PNG } from 'pngjs';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+
+
 
 interface Trait {
   title: string;
@@ -34,7 +34,7 @@ interface PendingCustomTrait {
 
 const nounsProtocolLink = (
   <Link
-    text={<Trans>Nouns Protocol</Trans>}
+    text={<p>Nouns Protocol</p>}
     url="https://www.notion.so/Noun-Protocol-32e4f0bf74fe433e927e2ea35e52a507"
     leavesPage={true}
   />
@@ -74,11 +74,11 @@ const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() +
 
 const traitKeyToLocalizedTraitKeyFirstLetterCapitalized = (s: string): ReactNode => {
   const traitMap = new Map([
-    ['background', <Trans>Background</Trans>],
-    ['body', <Trans>Body</Trans>],
-    ['accessory', <Trans>Accessory</Trans>],
-    ['head', <Trans>Head</Trans>],
-    ['glasses', <Trans>Glasses</Trans>],
+    ['background', <p>Background</p>],
+    ['body', <p>Body</p>],
+    ['accessory', <p>Accessory</p>],
+    ['head', <p>Head</p>],
+    ['glasses', <p>Glasses</p>],
   ]);
 
   return traitMap.get(s);
@@ -262,17 +262,17 @@ const Playground: React.FC = () => {
         <Row>
           <Col lg={10} className={classes.headerRow}>
             <span>
-              <Trans>Explore</Trans>
+              <p>Explore</p>
             </span>
             <h1>
-              <Trans>Test Kitchen</Trans>
+              <p>Test Kitchen</p>
             </h1>
             <p>
-              <Trans>
+              <p>
                 The Test Kitchen was built using the {nounsProtocolLink}. FOODNOUN's traits are determined
                 by the FOODNOUN Seed. The seed was generated using {nounsAssetsLink} and rendered using
                 the {nounsSDKLink}.
-              </Trans>
+              </p>
             </p>
           </Col>
         </Row>
@@ -285,7 +285,7 @@ const Playground: React.FC = () => {
                 }}
                 className={classes.primaryBtn}
               >
-                <Trans>Generate FOODNOUNS</Trans>
+                <p>Generate FOODNOUNS</p>
               </Button>
             </Col>
             <Row>
@@ -322,14 +322,14 @@ const Playground: React.FC = () => {
                 })}
             </Row>
             <label style={{ margin: '1rem 0 .25rem 0' }} htmlFor="custom-trait-upload">
-              <Trans>Upload Custom Trait</Trans>
+              <p>Upload Custom Trait</p>
               <OverlayTrigger
                 trigger="hover"
                 placement="top"
                 overlay={
                   <Popover>
                     <div style={{ padding: '0.25rem' }}>
-                      <Trans>Only 32x32 PNG images are accepted</Trans>
+                      <p>Only 32x32 PNG images are accepted</p>
                     </div>
                   </Popover>
                 }
@@ -367,16 +367,16 @@ const Playground: React.FC = () => {
                   </Form.Select>
                 </FloatingLabel>
                 <Button onClick={() => uploadCustomTrait()} className={classes.primaryBtn}>
-                  <Trans>Upload</Trans>
+                  <p>Upload</p>
                 </Button>
               </>
             )}
             <p className={classes.nounYearsFooter}>
-              <Trans>
+              <p>
                 You've generated{' '}
                 {i18n.number(parseInt(nounSvgs ? (nounSvgs.length / 365).toFixed(2) : '0'))} years
                 worth of FOODNOUNS!
-              </Trans>
+              </p>
             </p>
           </Col>
           <Col lg={9}>

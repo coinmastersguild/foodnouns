@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Trans } from '@lingui/macro';
+
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { currentlyDelegatedNouns } from '../../wrappers/subgraph';
@@ -56,13 +56,13 @@ const ByLineHoverCard: React.FC<ByLineHoverCardProps> = props => {
         <div>
           <ScaleIcon height={15} width={15} className={classes.icon} />
           {sortedNounIds.length === 1 ? (
-            <Trans>
+            <p>
               <span>Delegated Noun: </span>
-            </Trans>
+            </p>
           ) : (
-            <Trans>
+            <p>
               <span>Delegated Nouns: </span>
-            </Trans>
+            </p>
           )}
 
           {sortedNounIds.slice(0, MAX_NOUN_IDS_SHOWN).map((nounId: number, i: number) => {
@@ -75,7 +75,7 @@ const ByLineHoverCard: React.FC<ByLineHoverCardProps> = props => {
           })}
           {sortedNounIds.length > MAX_NOUN_IDS_SHOWN && (
             <span>
-              <Trans>... and {sortedNounIds.length - MAX_NOUN_IDS_SHOWN} more</Trans>
+              <p>... and {sortedNounIds.length - MAX_NOUN_IDS_SHOWN} more</p>
             </span>
           )}
         </div>

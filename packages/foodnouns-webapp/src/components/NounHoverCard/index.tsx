@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { BigNumber } from '@ethersproject/bignumber';
-import { Trans } from '@lingui/macro';
+
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { nounQuery } from '../../wrappers/subgraph';
@@ -9,8 +9,8 @@ import { StandaloneNounCircular } from '../StandaloneNoun';
 import classes from './NounHoverCard.module.css';
 import { HeartIcon, CakeIcon } from '@heroicons/react/solid';
 import { isNounderNoun } from '../../utils/nounderNoun';
-import { useAppSelector } from '../../hooks';
-import { i18n } from '@lingui/core';
+import { useAppSelector } from '../../hooks/reduxHooks';
+
 import { getNounBirthday } from '../NounInfoRowBirthday';
 import clsx from 'clsx';
 
@@ -63,14 +63,14 @@ const NounHoverCard: React.FC<NounHoverCardProps> = props => {
       {/* Noun birthday */}
       <div className={classes.nounInfoWrapper}>
         <CakeIcon height={20} width={20} className={classes.icon} />
-        <Trans>Born</Trans> <span className={classes.bold}>{i18n.date(birthday)}</span>
+        <p>Born</p> <span className={classes.bold}>{i18n.date(birthday)}</span>
       </div>
 
       {/* Current holder */}
       <div className={clsx(classes.nounInfoWrapper, classes.currentHolder)}>
         <HeartIcon height={20} width={20} className={classes.icon} />
         <span>
-          <Trans>Held by</Trans>
+          <p>Held by</p>
         </span>
         <span className={classes.bold}>
           <ShortAddress address={data.noun.owner.id} />

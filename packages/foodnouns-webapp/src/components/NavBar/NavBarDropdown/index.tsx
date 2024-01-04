@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import classes from './NavBarDropdown.module.css';
 import NavBarButton from '../../NavBarButton';
 import { Nav } from 'react-bootstrap';
-import { Trans } from '@lingui/macro';
+
 import { useState } from 'react';
 import { ExternalURL, externalURL } from '../../../utils/externalURL';
 
@@ -104,7 +104,7 @@ const NavBarDropdown: React.FC<NavBarButtonProps> = props => {
               rel="noreferrer"
             >
               <NavBarButton
-                buttonText={<Trans>Discord</Trans>}
+                buttonText={<p>Discord</p>}
               />
             </Nav.Link>
             <Nav.Link
@@ -114,7 +114,7 @@ const NavBarDropdown: React.FC<NavBarButtonProps> = props => {
               rel="noreferrer"
             >
               <NavBarButton
-                buttonText={<Trans>Twitter</Trans>}
+                buttonText={<p>Twitter</p>}
               />
             </Nav.Link>
           </div>

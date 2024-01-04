@@ -2,8 +2,8 @@ import { BigNumber } from 'ethers';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import classes from './AuctionActivityDateHeadline.module.css';
-import { useAppSelector } from '../../hooks';
-import { i18n } from '@lingui/core';
+import { useAppSelector } from '../../hooks/reduxHooks';
+
 
 dayjs.extend(utc);
 

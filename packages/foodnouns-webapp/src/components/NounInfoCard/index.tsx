@@ -9,11 +9,11 @@ import _BidsIcon from '../../assets/icons/Bids.svg';
 import NounInfoRowBirthday from '../NounInfoRowBirthday';
 import NounInfoRowHolder from '../NounInfoRowHolder';
 import NounInfoRowButton from '../NounInfoRowButton';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 import config from '../../config';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
-import { Trans } from '@lingui/macro';
+
 
 interface NounInfoCardProps {
   nounId: number;
@@ -41,12 +41,12 @@ const NounInfoCard: React.FC<NounInfoCardProps> = props => {
       <Col lg={12} className={classes.nounInfoRow}>
         <NounInfoRowButton
           iconImgSource={_BidsIcon}
-          btnText={lastAuctionNounId === nounId ? <Trans>Bids</Trans> : <Trans>Bid history</Trans>}
+          btnText={lastAuctionNounId === nounId ? <p>Bids</p> : <p>Bid history</p>}
           onClickHandler={bidHistoryOnClickHandler}
         />
         <NounInfoRowButton
           iconImgSource={_AddressIcon}
-          btnText={<Trans>Etherscan</Trans>}
+          btnText={<p>Etherscan</p>}
           onClickHandler={etherscanButtonClickHandler}
         />
       </Col>

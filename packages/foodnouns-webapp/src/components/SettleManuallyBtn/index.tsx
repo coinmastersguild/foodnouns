@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { CHAIN_ID } from '../../config';
-import { Trans } from '@lingui/macro';
+
 
 const SettleManuallyBtn: React.FC<{
   settleAuctionHandler: () => void;
@@ -61,15 +61,15 @@ const SettleManuallyBtn: React.FC<{
       >
         {settleEnabled ? (
           <>
-            <Trans>Settle manually</Trans>
+            <p>Settle manually</p>
           </>
         ) : (
           <>
             <FontAwesomeIcon icon={faInfoCircle} />
             {mins !== 0 ? (
-              <Trans>You can settle manually in {mins + 1} minutes</Trans>
+              <p>You can settle manually in {mins + 1} minutes</p>
             ) : (
-              <Trans>You can settle manually in 1 minute</Trans>
+              <p>You can settle manually in 1 minute</p>
             )}
           </>
         )}

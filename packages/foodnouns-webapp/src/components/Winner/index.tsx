@@ -1,10 +1,10 @@
 import { Button, Row, Col } from 'react-bootstrap';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import classes from './Winner.module.css';
 import ShortAddress from '../ShortAddress';
 import clsx from 'clsx';
 import { isMobileScreen } from '../../utils/isMobile';
-import { Trans } from '@lingui/macro';
+
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 
 interface WinnerProps {
@@ -33,7 +33,7 @@ const Winner: React.FC<WinnerProps> = props => {
             color: isCool ? 'var(--brand-cool-dark-text)' : 'var(--brand-warm-dark-text)',
           }}
         >
-          <Trans>You</Trans>
+          <p>You</p>
         </h2>
       </Col>
       {!isMobile && (
@@ -45,7 +45,7 @@ const Winner: React.FC<WinnerProps> = props => {
             className={classes.verifyLink}
           >
             <Button className={classes.verifyButton}>
-              <Trans>What now?</Trans>
+              <p>What now?</p>
             </Button>
           </a>
         </Col>
@@ -67,7 +67,7 @@ const Winner: React.FC<WinnerProps> = props => {
             }}
             className={classes.winnerCopy}
           >
-            <Trans>Winner</Trans>
+            <p>Winner</p>
           </h4>
         </Col>
         <Col xs="auto" lg={12}>
@@ -90,7 +90,7 @@ const Winner: React.FC<WinnerProps> = props => {
             className={classes.verifyLink}
           >
             <Button className={classes.verifyButton}>
-              <Trans>What now?</Trans>
+              <p>What now?</p>
             </Button>
           </a>
         </Row>

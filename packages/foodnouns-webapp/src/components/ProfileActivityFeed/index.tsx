@@ -13,7 +13,7 @@ import { useNounCanVoteTimestamp } from '../../wrappers/nounsAuction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { Trans } from '@lingui/macro';
+
 
 interface ProfileActivityFeedProps {
   nounId: number;
@@ -52,7 +52,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
   } else if (error || proposalTimestampError) {
     return (
       <div>
-        <Trans>Failed to fetch Noun activity history</Trans>
+        <p>Failed to fetch Noun activity history</p>
       </div>
     );
   }
@@ -88,7 +88,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
       <Col lg={{ span: 10, offset: 1 }}>
         <div className={classes.headerWrapper}>
           <h1>
-            <Trans>Activity</Trans>
+            <p>Activity</p>
           </h1>
         </div>
         {filteredProposals && filteredProposals.length ? (
@@ -139,7 +139,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
                     className={classes.expandCollapseCopy}
                     onClick={() => setTruncateProposals(false)}
                   >
-                    <Trans>Show all {filteredProposals.length} events </Trans>{' '}
+                    <p>Show all {filteredProposals.length} events </p>{' '}
                     <FontAwesomeIcon icon={faChevronDown} />
                   </div>
                 ) : (
@@ -147,7 +147,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
                     className={classes.expandCollapseCopy}
                     onClick={() => setTruncateProposals(true)}
                   >
-                    <Trans>Show fewer</Trans> <FontAwesomeIcon icon={faChevronUp} />
+                    <p>Show fewer</p> <FontAwesomeIcon icon={faChevronUp} />
                   </div>
                 )}
               </>
@@ -155,7 +155,7 @@ const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
           </>
         ) : (
           <div className={classes.nullStateCopy}>
-            <Trans>This Noun has no activity, since it was just created. Check back soon!</Trans>
+            <p>This Noun has no activity, since it was just created. Check back soon!</p>
           </div>
         )}
       </Col>

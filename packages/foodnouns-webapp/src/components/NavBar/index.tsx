@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import classes from './NavBar.module.css';
 import logo from '../../assets/logo192.png';
 import { useEtherBalance } from '@usedapp/core';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import NavBarDropdown from './NavBarDropdown'
 import testnetNoun from '../../assets/testnet-noun.png';
@@ -21,14 +20,14 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
-import { Trans } from '@lingui/macro';
+
 // import DarkModeToggle from '../../DarkModeToggle';
 
 const NavBar = () => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
   const stateBgColor = useAppSelector(state => state.application.stateBackgroundColor);
   const isCool = useAppSelector(state => state.application.isCoolBackground);
-  const history = useHistory();
+  const navigate = useNavigate();
   const ethBalance = useEtherBalance(config.addresses.nounsDaoExecutor);
   const lidoBalanceAsETH = useLidoBalance();
   const treasuryBalance = ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
@@ -36,9 +35,9 @@ const NavBar = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
   const useStateBg =
-    history.location.pathname === '/' ||
-    history.location.pathname.includes('/noun/') ||
-    history.location.pathname.includes('/auction/');
+    navigate.name === '/' ||
+    navigate.name.includes('/noun/') ||
+    navigate.name.includes('/auction/');
 
   const nonWalletButtonStyle = !useStateBg
     ? NavBarButtonStyle.WHITE_INFO
@@ -92,7 +91,7 @@ const NavBar = () => {
 
             <Nav.Link as={Link} to="/vote" className={classes.nounsNavLink} onClick={closeNav}>
               <NavBarButton
-                buttonText={<Trans>FOODNOUNS DAO</Trans>}
+                buttonText={<p>FOODNOUNS DAO</p>}
                 buttonIcon={<FontAwesomeIcon icon={faUsers} />}
                 buttonStyle={nonWalletButtonStyle}
               />
@@ -106,7 +105,7 @@ const NavBar = () => {
               onClick={closeNav}
             >
               <NavBarButton
-                buttonText={<Trans>Chef Notebook</Trans>}
+                buttonText={<p>Chef Notebook</p>}
                 buttonIcon={<FontAwesomeIcon icon={faBookOpen} />}
                 buttonStyle={nonWalletButtonStyle}
               />
@@ -119,14 +118,14 @@ const NavBar = () => {
               onClick={closeNav}
             >
               <NavBarButton
-                buttonText={<Trans>Test Kitchen</Trans>}
+                buttonText={<p>Test Kitchen</p>}
                 buttonIcon={<FontAwesomeIcon icon={faPlay} />}
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
 
             <NavBarDropdown
-              buttonText={<Trans>Links</Trans>}
+              buttonText={<p>Links</p>}
               buttonIcon={<FontAwesomeIcon icon={faLink} />}
               buttonStyle={nonWalletButtonStyle}
             />

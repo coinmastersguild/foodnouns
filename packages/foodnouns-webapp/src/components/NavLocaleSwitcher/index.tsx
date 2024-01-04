@@ -7,11 +7,11 @@ import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown } from 'react-bootstrap';
 import clsx from 'clsx';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePickByState } from '../../utils/colorResponsiveUIUtils';
 import LanguageSelectionModal from '../LanguageSelectionModal';
 import { setLocale } from '../../i18n/setLocale';
-import { Trans } from '@lingui/macro';
+
 import navDropdownClasses from '../NavWallet/NavBarDropdown.module.css';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 import { SUPPORTED_LOCALES, SupportedLocale, LOCALE_LABEL } from '../../i18n/locales';
@@ -39,7 +39,7 @@ const NavLocaleSwitcher: FC<NavLocalSwitcherProps> = props => {
   const { buttonStyle } = props;
 
   const [buttonUp, setButtonUp] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showLanguagePickerModal, setShowLanguagePickerModal] = useState(false);
   const activeLocale = useActiveLocale();
 
@@ -152,7 +152,7 @@ const NavLocaleSwitcher: FC<NavLocalSwitcherProps> = props => {
         onClick={() => setShowLanguagePickerModal(true)}
       >
         <NavBarButton
-          buttonText={<Trans>Language</Trans>}
+          buttonText={<p>Language</p>}
           buttonIcon={<FontAwesomeIcon icon={faGlobe} />}
           buttonStyle={buttonStyle}
         />

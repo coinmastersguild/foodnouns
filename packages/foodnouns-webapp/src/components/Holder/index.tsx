@@ -1,9 +1,9 @@
 import { Row, Col } from 'react-bootstrap';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import classes from './Holder.module.css';
 import ShortAddress from '../ShortAddress';
 import clsx from 'clsx';
-import { Trans } from '@lingui/macro';
+
 import { useQuery } from '@apollo/client';
 import { nounQuery } from '../../wrappers/subgraph';
 
@@ -24,7 +24,7 @@ const Holder: React.FC<HolderProps> = props => {
   } else if (error) {
     return (
       <div>
-        <Trans>Failed to fetch Noun info</Trans>
+        Failed to fetch Noun info
       </div>
     );
   }
@@ -45,7 +45,7 @@ const Holder: React.FC<HolderProps> = props => {
             }}
             className={classes.holderCopy}
           >
-            <Trans>Held by</Trans>
+            <p>Held by</p>
           </h4>
         </Col>
         <Col xs="auto" lg={12}>

@@ -49,7 +49,7 @@ const StandaloneNoun: React.FC<StandaloneNounProps> = (props: StandaloneNounProp
   const seed = useNounSeed(nounId, nounAuction);
   const noun = seed && getNoun(nounId, seed, nounAuction);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onClickHandler = () => {
     dispatch(setOnDisplayAuctionNounId(nounId.toNumber()));
@@ -73,7 +73,7 @@ export const StandaloneNounCircular: React.FC<StandaloneCircularNounProps> = (
   const seed = useNounSeed(nounId, nounAuction);
   const noun = seed && getNoun(nounId, seed, nounAuction);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onClickHandler = () => {
     dispatch(setOnDisplayAuctionNounId(nounId.toNumber()));
   };
@@ -103,7 +103,7 @@ export const StandaloneNounRoundedCorners: React.FC<StandaloneNounProps> = (
   const seed = useNounSeed(nounId, nounAuction);
   const noun = seed && getNoun(nounId, seed, nounAuction);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onClickHandler = () => {
     dispatch(setOnDisplayAuctionNounId(nounId.toNumber()));
   };
@@ -128,7 +128,7 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
 ) => {
   const { nounId, onLoadSeed, shouldLinkToProfile, nounAuction } = props;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const seed = useNounSeed(nounId, nounAuction);
   const seedIsInvalid = Object.values(seed || {}).every(v => v === 0);
 

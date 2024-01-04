@@ -3,7 +3,7 @@ import { InputGroup, FormControl, FormText } from 'react-bootstrap';
 import remarkBreaks from 'remark-breaks';
 import ReactMarkdown from 'react-markdown';
 import { useState } from 'react';
-import { Trans } from '@lingui/macro';
+
 
 const ProposalEditor = ({
   title,
@@ -28,7 +28,7 @@ const ProposalEditor = ({
     <div>
       <InputGroup className={`${classes.proposalEditor} d-flex flex-column`}>
         <FormText>
-          <Trans>Proposal</Trans>
+          <p>Proposal</p>
         </FormText>
         <FormControl
           className={classes.titleInput}
@@ -48,7 +48,7 @@ const ProposalEditor = ({
       {proposalText !== '' && (
         <div className={classes.previewArea}>
           <h3>
-            <Trans>Preview:</Trans>
+            <p>Preview:</p>
           </h3>
           <ReactMarkdown
             className={classes.markdown}

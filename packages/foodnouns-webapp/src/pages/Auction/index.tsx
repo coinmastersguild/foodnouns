@@ -4,7 +4,7 @@ import Documentation from '../../components/Documentation';
 import Leaderboard from '../../components/Leaderboard';
 import Settlements from '../../components/Settlements';
 import Contribution from '../../components/Contribution';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { push } from 'connected-react-router';
 import { nounPath } from '../../utils/history';
 import useOnDisplayNounAuction from '../../wrappers/onDisplayNounAuction';
@@ -14,6 +14,8 @@ import ProfileActivityFeed from '../../components/ProfileActivityFeed';
 import { setOnDisplayAuctionFoodNounId } from '../../state/slices/onDisplayFoodNounAuction';
 import NounDivider from '../../components/NounDivider/NounDivider';
 import NounDividerEmpty from '../../components/NounDividerEmpty/NounDivider';
+import { foodNounGraphClient, nounGraphClient } from '../../App';
+import { ApolloProvider } from '@apollo/client/react/context/ApolloProvider';
 
 interface AuctionPageProps {
   initialAuctionId?: number;
@@ -23,14 +25,12 @@ const AuctionPage = (props: AuctionPageProps) => {
   const { initialAuctionId } = props;
   const onDisplayNounAuction = useOnDisplayNounAuction();
   const onDisplayFoodNounAuction = useOnDisplayFoodNounAuction();
-  const lastAuctionFoodNounId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
-
-  console.log("on display onDisplayFoodNounAuction", onDisplayFoodNounAuction, onDisplayNounAuction)
-  console.log("on display onDisplayNounAuction", onDisplayNounAuction)
-  console.log("lastAuctionFoodNounId", lastAuctionFoodNounId)
+  const lastAuctionFoodNounId = useAppSelector(
+    (state: { onDisplayFoodNounAuction: { lastAuctionFoodNounId: any } }) =>
+      state.onDisplayFoodNounAuction.lastAuctionFoodNounId,
+  );
 
   const onDisplayAuctionFoodNounId = onDisplayFoodNounAuction?.nounId.toNumber();
-
 
   const dispatch = useAppDispatch();
 
@@ -58,11 +58,16 @@ const AuctionPage = (props: AuctionPageProps) => {
 
   return (
     <>
-      <Auction auction={onDisplayFoodNounAuction} />
+      <ApolloProvider client={foodNounGraphClient}>
+        <Auction auction={onDisplayFoodNounAuction} />
+      </ApolloProvider>
       <NounDivider />
-      <Auction auction={onDisplayNounAuction} />
+      <ApolloProvider client={nounGraphClient}>
+        <Auction auction={onDisplayNounAuction} />
+      </ApolloProvider>
       <NounDividerEmpty />
-      {onDisplayAuctionFoodNounId !== undefined && onDisplayAuctionFoodNounId !== lastAuctionFoodNounId ? (
+      {onDisplayAuctionFoodNounId !== undefined &&
+      onDisplayAuctionFoodNounId !== lastAuctionFoodNounId ? (
         <>
           <ProfileActivityFeed nounId={onDisplayAuctionFoodNounId} />
           <Leaderboard tops={10} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Trans } from '@lingui/macro';
+
 import { useEthers } from '@usedapp/core';
 import clsx from 'clsx';
 import { isAddress } from 'ethers/lib/utils';
@@ -31,13 +31,13 @@ export enum ChangeDelegateState {
 const getTitleFromState = (state: ChangeDelegateState) => {
   switch (state) {
     case ChangeDelegateState.CHANGING:
-      return <Trans>Updating...</Trans>;
+      return <p>Updating...</p>;
     case ChangeDelegateState.CHANGE_SUCCESS:
-      return <Trans>Delegate Updated!</Trans>;
+      return <p>Delegate Updated!</p>;
     case ChangeDelegateState.CHANGE_FAILURE:
-      return <Trans>Delegate Update Failed</Trans>;
+      return <p>Delegate Update Failed</p>;
     default:
-      return <Trans>Update Delegate</Trans>;
+      return <p>Update Delegate</p>;
   }
 };
 
@@ -117,9 +117,9 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
             ) : (
               <>
                 {availableVotes === 1 ? (
-                  <Trans>Delegate {availableVotes} Vote</Trans>
+                  <p>Delegate {availableVotes} Vote</p>
                 ) : (
-                  <Trans>Delegate {availableVotes} Votes</Trans>
+                  <p>Delegate {availableVotes} Votes</p>
                 )}
               </>
             )}
@@ -139,7 +139,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
         }
       />,
       <NavBarButton
-        buttonText={<Trans>View on Etherscan</Trans>}
+        buttonText={<p>View on Etherscan</p>}
         buttonStyle={NavBarButtonStyle.DELEGATE_PRIMARY}
         onClick={() => {
           window.open(etherscanTxLink, '_blank')?.focus();
@@ -147,7 +147,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
         disabled={false}
       />,
       <NavBarButton
-        buttonText={<Trans>Close</Trans>}
+        buttonText={<p>Close</p>}
         buttonStyle={NavBarButtonStyle.DELEGATE_SECONDARY}
         onClick={onDismiss}
       />,
@@ -165,18 +165,18 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
     ],
     // eslint-disable-next-line no-sparse-arrays
     [
-      <Trans>
+      <p>
         Enter the Ethereum address or ENS name of the account you would like to delegate your votes
         to.
-      </Trans>,
-      <Trans>
+      </p>,
+      <p>
         Your <span style={{ fontWeight: 'bold' }}>{availableVotes}</span> votes are being delegated
         to a new account.
-      </Trans>,
-      <Trans>
+      </p>,
+      <p>
         Your <span style={{ fontWeight: 'bold' }}>{availableVotes}</span> votes have been delegated
         to a new account.
-      </Trans>,
+      </p>,
       <>{delegateState.errorMessage}</>,
     ],
   );
@@ -218,7 +218,7 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
           {changeDelegateState === ChangeDelegateState.ENTER_DELEGATE_ADDRESS &&
           delegateAddress === currentDelegate ? (
             <span className={classes.alreadyDelegatedCopy}>
-              <Trans>You've already delegated to this address</Trans>
+              <p>You've already delegated to this address</p>
             </span>
           ) : (
             <>
@@ -238,9 +238,9 @@ const ChangeDelegatePannel: React.FC<ChangeDelegatePannelProps> = props => {
         <NavBarButton
           buttonText={
             changeDelegateState === ChangeDelegateState.CHANGE_SUCCESS ? (
-              <Trans>Change</Trans>
+              <p>Change</p>
             ) : (
-              <Trans>Close</Trans>
+              <p>Close</p>
             )
           }
           buttonStyle={NavBarButtonStyle.DELEGATE_BACK}

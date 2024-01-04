@@ -1,14 +1,13 @@
 <div align="center">
   <p align="center">
     <a href="https://foodnouns.wtf" target="blank">
-        <img src="public/food-nouns-logo.svg" width="200" alt="FOODNOUNS Logo" /></a>
+        <img src="packages/foodnouns-webapp/public/food-nouns-logo.svgpublic/food-nouns-logo.svg" width="200" alt="FOODNOUNS Logo" /></a>
   </p>
   <h1>FOODNOUNS Monorepo</h1>
   <p>
     FOODNOUNS is a tasty spork of NounsDAO, the OG generative art collective run by a group of crypto misfits.  <br/>
-    Learn more about FOODNOUNS at <a href="https://foodnouns.wtf">FOODNOUNS.wtf ⌐◨-◨</a>
+    Learn more at <a href="https://foodnouns.wtf">FOODNOUNS.wtf ⌐◨-◨</a>
 </p>
-
 </div>
 
 ## Tech overview:
@@ -19,32 +18,34 @@
 - `./packages/foodnouns-webapp` is the front-end for [foodnouns.wtf](https://foodnouns.wtf)
 - The webapp displays both foodnouns and nouns and auctions simultaneously (WIP)
 
-## Quickstart:
+## Quickstart:  
 
-### Install dependencies from the root directory
+From the monorepo root:  
 
 ```sh
 yarn
 ```
 
-### Build packages (just the wep-app for now) // TODO: more
+### Build packages (just builds the web-app for now) // TODO: more
 
 ```sh
 yarn build
 ```
 
-### Run the web-app auction page locally:
+### Run the web-app auction page only:
 
 ```sh
 # switch to webapp
 cd packages/foodnouns-webapp
 # Copy example environment file with your own values
 cp .env.example .env
-# Start local development
+# Build it if not already built
+yarn build
+# Run it
 yarn start
 ```
 
-## Packages
+## Packages (mostly a copy/pasta from the OG fork)
 
 ### foodnouns-webapp
 

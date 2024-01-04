@@ -13,7 +13,7 @@ import Davatar from '@davatar/react';
 import { useEthers } from '@usedapp/core';
 import { useReverseENSLookUp } from '../../utils/ensLookup';
 import { containsBlockedText } from '../../utils/moderation/containsBlockedText';
-import { i18n } from '@lingui/core';
+
 import { shortENS, useShortAddress } from '../../utils/addressAndENSDisplayUtils';
 interface BidHistoryModalRowProps {
   bid: Bid;

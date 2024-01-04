@@ -2,12 +2,12 @@ import { Proposal, ProposalState } from '../../wrappers/nounsDao';
 import { Alert, Button } from 'react-bootstrap';
 import ProposalStatus from '../ProposalStatus';
 import classes from './Proposals.module.css';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useBlockNumber, useEthers } from '@usedapp/core';
 import { isMobileScreen } from '../../utils/isMobile';
 import clsx from 'clsx';
 import { useUserNounTokenBalance, useUserVotes } from '../../wrappers/nounToken';
-import { Trans } from '@lingui/macro';
+
 import { ClockIcon } from '@heroicons/react/solid';
 import proposalStatusClasses from '../ProposalStatus/ProposalStatus.module.css';
 import dayjs from 'dayjs';
@@ -16,7 +16,7 @@ import { useActiveLocale } from '../../hooks/useActivateLocale';
 import { SUPPORTED_LOCALE_TO_DAYSJS_LOCALE, SupportedLocale } from '../../i18n/locales';
 import { useState } from 'react';
 import DelegationModal from '../DelegationModal';
-import { i18n } from '@lingui/core';
+
 import en from 'dayjs/locale/en';
 
 dayjs.extend(relativeTime);
@@ -46,30 +46,30 @@ const getCountdownCopy = (proposal: Proposal, currentBlock: number, locale: Supp
 
   if (startDate?.isBefore(now) && endDate?.isAfter(now)) {
     return (
-      <Trans>
+      <p>
         Ends {endDate.locale(SUPPORTED_LOCALE_TO_DAYSJS_LOCALE[locale] || en).fromNow()}
-      </Trans>
+      </p>
     );
   }
   if (endDate?.isBefore(now)) {
     return (
-      <Trans>
+      <p>
         Expires {expiresDate.locale(SUPPORTED_LOCALE_TO_DAYSJS_LOCALE[locale] || en).fromNow()}
-      </Trans>
+      </p>
     );
   }
   return (
-    <Trans>
+    <p>
       Starts{' '}
       {dayjs(startDate)
         .locale(SUPPORTED_LOCALE_TO_DAYSJS_LOCALE[locale] || en)
         .fromNow()}
-    </Trans>
+    </p>
   );
 };
 
 const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { account } = useEthers();
   const connectedAccountNounVotes = useUserVotes() || 0;
@@ -80,9 +80,9 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
 
   const nullStateCopy = () => {
     if (account !== null) {
-      return <Trans>You have no Votes.</Trans>;
+      return <p>You have no Votes.</p>;
     }
-    return <Trans>Connect wallet to make a proposal.</Trans>;
+    return <p>Connect wallet to make a proposal.</p>;
   };
 
   const hasNounVotes = account !== undefined && connectedAccountNounVotes > 0;
@@ -93,16 +93,16 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
       {showDelegateModal && <DelegationModal onDismiss={() => setShowDelegateModal(false)} />}
       <div className={clsx(classes.headerWrapper, !hasNounVotes ? classes.forceFlexRow : '')}>
         <h3 className={classes.heading}>
-          <Trans>Proposals</Trans>
+          <p>Proposals</p>
         </h3>
         {hasNounVotes ? (
           <div className={classes.nounInWalletBtnWrapper}>
             <div className={classes.submitProposalButtonWrapper}>
               <Button
                 className={classes.generateBtn}
-                onClick={() => history.push('create-proposal')}
+                onClick={() => navigate('create-proposal')}
               >
-                <Trans>Submit Proposal</Trans>
+                <p>Submit Proposal</p>
               </Button>
             </div>
 
@@ -112,7 +112,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
                   className={classes.changeDelegateBtn}
                   onClick={() => setShowDelegateModal(true)}
                 >
-                  <Trans>Delegate</Trans>
+                  <p>Delegate</p>
                 </Button>
               </div>
             )}
@@ -122,7 +122,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
             {!isMobile && <div className={classes.nullStateCopy}>{nullStateCopy()}</div>}
             <div className={classes.nullBtnWrapper}>
               <Button className={classes.generateBtnDisabled}>
-                <Trans>Submit Proposal</Trans>
+                <p>Submit Proposal</p>
               </Button>
             </div>
             {!isMobile && hasNounBalance && (
@@ -131,7 +131,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
                   className={classes.changeDelegateBtn}
                   onClick={() => setShowDelegateModal(true)}
                 >
-                  <Trans>Delegate</Trans>
+                  <p>Delegate</p>
                 </Button>
               </div>
             )}
@@ -142,7 +142,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
       {isMobile && hasNounBalance && (
         <div>
           <Button className={classes.changeDelegateBtn} onClick={() => setShowDelegateModal(true)}>
-            <Trans>Delegate</Trans>
+            <p>Delegate</p>
           </Button>
         </div>
       )}
@@ -174,7 +174,7 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
             return (
               <div
                 className={clsx(classes.proposalLink, classes.proposalLinkWithCountdown)}
-                onClick={() => history.push(`/vote/${p.id}`)}
+                onClick={() => navigate(`/vote/${p.id}`)}
                 key={i}
               >
                 <div className={classes.proposalInfoWrapper}>
@@ -200,10 +200,10 @@ const Proposals = ({ proposals }: { proposals: Proposal[] }) => {
       ) : (
         <Alert variant="secondary">
           <Alert.Heading>
-            <Trans>No proposals found</Trans>
+            <p>No proposals found</p>
           </Alert.Heading>
           <p>
-            <Trans>Proposals submitted by community members will appear here.</Trans>
+            <p>Proposals submitted by community members will appear here.</p>
           </p>
         </Alert>
       )}

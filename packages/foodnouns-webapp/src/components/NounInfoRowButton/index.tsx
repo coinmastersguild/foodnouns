@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-bootstrap';
 import classes from './NounInfoRowButton.module.css';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 interface NounInfoRowButtonProps {
   iconImgSource: string;

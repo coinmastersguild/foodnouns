@@ -5,7 +5,7 @@ import { Col, Row, Card } from 'react-bootstrap';
 import pfpartismyweapon from '../../assets/nounder-pfps/artismyweapon.png';
 import pfpcheffo from '../../assets/nounder-pfps/cheffo.png';
 
-import { Trans } from '@lingui/macro';
+
 
 const bios = [
   {
@@ -76,30 +76,30 @@ const NoundersPage = () => {
     <Section fullWidth={true} className={classes.noundersPage}>
       <Col lg={{ span: 6, offset: 3 }}>
         <h2 style={{ marginBottom: '2rem' }}>
-          <Trans>The FOODNOUNDERS</Trans>
+          <p>The FOODNOUNDERS</p>
         </h2>
         <h3 style={{ marginBottom: '2rem' }}>
-          <Trans>2 chefs, artists and technologists</Trans>
+          <p>2 chefs, artists and technologists</p>
         </h3>
         <Row style={{ marginBottom: '0rem' }}>
           <BioCards min={0} max={5} />
           <BioCards min={5} max={10} />
         </Row>
         <h3>
-          <Trans>FOODNOUNDER's Reward</Trans>
+          <p>FOODNOUNDER's Reward</p>
         </h3>
         <p style={{ textAlign: 'justify' }}>
-          <Trans>
+          <p>
             Every 10th FOODNOUN for the first 5 years of the project will be sent to our multisig
             where it will be vested and distributed to individual FOODNOUNDERS.
-          </Trans>
+          </p>
         </p>
         <p style={{ textAlign: 'justify' }}>
-          <Trans>
+          <p>
             The FOODNOUNDER's reward is intended as compensation for our pre and post-launch
             contributions to the project, and to help us participate meaningfully in governance as
             the project matures.
-          </Trans>
+          </p>
         </p>
       </Col>
     </Section>

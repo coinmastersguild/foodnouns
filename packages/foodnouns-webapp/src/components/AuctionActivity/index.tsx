@@ -18,7 +18,7 @@ import BidHistoryBtn from '../BidHistoryBtn';
 import config from '../../config';
 import { buildEtherscanAddressLink } from '../../utils/etherscan';
 import NounInfoCard from '../NounInfoCard';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import BidHistoryModal from '../BidHistoryModal';
 import Holder from '../Holder';
 

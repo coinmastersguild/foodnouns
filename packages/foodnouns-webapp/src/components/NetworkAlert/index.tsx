@@ -5,8 +5,6 @@ const networkName = () => {
   switch (Number(CHAIN_ID)) {
     case 1:
       return 'Ethereum Mainnet';
-    case 4:
-      return 'the Rinkeby network';
     default:
       return `Network ${CHAIN_ID}`;
   }
@@ -16,8 +14,6 @@ const metamaskNetworkName = () => {
   switch (Number(CHAIN_ID)) {
     case 1:
       return 'Ethereum Mainnet';
-    case 4:
-      return 'Rinkeby Test Network';
     default:
       return `Network ${CHAIN_ID}`;
   }
@@ -32,7 +28,7 @@ const NetworkAlert = () => {
         </Modal.Header>
         <Modal.Body>
           <p>
-            Nouns DAO auctions require you to switch over {networkName()} to be able to participate.
+            FoodNouns DAO auctions require you to switch over {networkName()} to be able to participate.
           </p>
           <p>
             <b>To get started, please switch your network by following the instructions below:</b>

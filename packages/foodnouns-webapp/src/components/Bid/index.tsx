@@ -2,19 +2,19 @@ import { useEffect, useState, useRef, ChangeEvent, useCallback, FC, RefObject } 
 import { Auction, AuctionHouseContractFunction } from '../../wrappers/nounsAuction';
 import { useContractFunction } from '@usedapp/core';
 import { connectContractToSigner } from '@usedapp/core/dist/cjs/src/hooks';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { utils, BigNumber as EthersBN } from 'ethers';
 import BigNumber from 'bignumber.js';
 import classes from './Bid.module.css';
 import { Spinner, InputGroup, FormControl, Button, Col } from 'react-bootstrap';
 import { useAuctionMinBidIncPercentage } from '../../wrappers/nounsAuction';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../hooks/reduxHooks';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import { NounsAuctionHouseFactory } from '@foodnouns/sdk';
 import config from '../../config';
 import WalletConnectModal from '../WalletConnectModal';
 import SettleManuallyBtn from '../SettleManuallyBtn';
-import { Trans } from '@lingui/macro';
+
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
 
@@ -66,7 +66,7 @@ const Bid: FC<{
 
   const [bidButtonContent, setBidButtonContent] = useState({
     loading: false,
-    content: auctionEnded ? <Trans>Settle</Trans> : <Trans>Place bid</Trans>,
+    content: auctionEnded ? <p>Settle</p> : <p>Place bid</p>,
   });
 
   const [showConnectModal, setShowConnectModal] = useState(false);
@@ -112,12 +112,12 @@ const Bid: FC<{
     if (currentBid(bidInputRef).isLessThan(minBid)) {
       setModal({
         show: true,
-        title: <Trans>Insufficient bid amount 🤏</Trans>,
+        title: <p>Insufficient bid amount 🤏</p>,
         message: (
-          <Trans>
+          <p>
             Please place a bid higher than or equal to the minimum bid amount of {minBidEth(minBid)}{' '}
             ETH
-          </Trans>
+          </p>
         ),
       });
       setBidInput(minBidEth(minBid));
@@ -156,11 +156,11 @@ const Bid: FC<{
     if (isMiningUserTx && auction.bidder === account && isCorrectTx) {
       placeBidState.status = 'Success';
       setModal({
-        title: <Trans>Success</Trans>,
-        message: <Trans>Bid was placed successfully!</Trans>,
+        title: <p>Success</p>,
+        message: <p>Bid was placed successfully!</p>,
         show: true,
       });
-      setBidButtonContent({ loading: false, content: <Trans>Place bid</Trans> });
+      setBidButtonContent({ loading: false, content: <p>Place bid</p> });
       clearBidInput();
     }
   }, [auction, placeBidState, account, setModal]);
@@ -171,7 +171,7 @@ const Bid: FC<{
       case 'None':
         setBidButtonContent({
           loading: false,
-          content: <Trans>Place bid</Trans>,
+          content: <p>Place bid</p>,
         });
         break;
       case 'Mining':
@@ -179,19 +179,19 @@ const Bid: FC<{
         break;
       case 'Fail':
         setModal({
-          title: <Trans>Transaction Failed</Trans>,
-          message: placeBidState?.errorMessage || <Trans>Please try again.</Trans>,
+          title: <p>Transaction Failed</p>,
+          message: placeBidState?.errorMessage || <p>Please try again.</p>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Bid</Trans> });
+        setBidButtonContent({ loading: false, content: <p>Bid</p> });
         break;
       case 'Exception':
         setModal({
-          title: <Trans>Error</Trans>,
-          message: placeBidState?.errorMessage || <Trans>Please try again.</Trans>,
+          title: <p>Error</p>,
+          message: placeBidState?.errorMessage || <p>Please try again.</p>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Bid</Trans> });
+        setBidButtonContent({ loading: false, content: <p>Bid</p> });
         break;
     }
   }, [placeBidState, auctionEnded, setModal]);
@@ -202,7 +202,7 @@ const Bid: FC<{
       case 'None':
         setBidButtonContent({
           loading: false,
-          content: <Trans>Settle Auction</Trans>,
+          content: <p>Settle Auction</p>,
         });
         break;
       case 'Mining':
@@ -210,27 +210,27 @@ const Bid: FC<{
         break;
       case 'Success':
         setModal({
-          title: <Trans>Success</Trans>,
-          message: <Trans>Settled auction successfully!</Trans>,
+          title: <p>Success</p>,
+          message: <p>Settled auction successfully!</p>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
+        setBidButtonContent({ loading: false, content: <p>Settle Auction</p> });
         break;
       case 'Fail':
         setModal({
-          title: <Trans>Transaction Failed</Trans>,
-          message: settleAuctionState?.errorMessage || <Trans>Please try again.</Trans>,
+          title: <p>Transaction Failed</p>,
+          message: settleAuctionState?.errorMessage || <p>Please try again.</p>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
+        setBidButtonContent({ loading: false, content: <p>Settle Auction</p> });
         break;
       case 'Exception':
         setModal({
-          title: <Trans>Error</Trans>,
-          message: settleAuctionState?.errorMessage || <Trans>Please try again.</Trans>,
+          title: <p>Error</p>,
+          message: settleAuctionState?.errorMessage || <p>Please try again.</p>,
           show: true,
         });
-        setBidButtonContent({ loading: false, content: <Trans>Settle Auction</Trans> });
+        setBidButtonContent({ loading: false, content: <p>Settle Auction</p> });
         break;
     }
   }, [settleAuctionState, auctionEnded, setModal]);
@@ -259,7 +259,7 @@ const Bid: FC<{
                       activeLocale === 'ja-JP' ? responsiveUiUtilsClasses.disableSmallScreens : ''
                     }
                   >
-                    <Trans>or more</Trans>
+                    <p>or more</p>
                   </span>
                 </>
               ) : (

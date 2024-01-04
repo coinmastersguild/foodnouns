@@ -10,12 +10,12 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown } from 'react-bootstrap';
 import WalletConnectModal from '../WalletConnectModal';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import clsx from 'clsx';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePickByState } from '../../utils/colorResponsiveUIUtils';
 import WalletConnectButton from './WalletConnectButton';
-import { Trans } from '@lingui/macro';
+
 import {
   shortENS,
   useShortAddress,
@@ -49,7 +49,7 @@ const NavWallet: React.FC<NavWalletProps> = props => {
 
   const [buttonUp, setButtonUp] = useState(false);
   const [showConnectModal, setShowConnectModal] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { library: provider } = useEthers();
   const activeAccount = useAppSelector(state => state.account.activeAccount);
   const { deactivate } = useEthers();
@@ -79,35 +79,35 @@ const NavWallet: React.FC<NavWalletProps> = props => {
     navDropdownClasses.whiteInfo,
     navDropdownClasses.coolInfo,
     navDropdownClasses.warmInfo,
-    history,
+    navigate,
   );
 
   const stateSelectedDropdownClass = usePickByState(
     navDropdownClasses.whiteInfoSelected,
     navDropdownClasses.dropdownActive,
     navDropdownClasses.dropdownActive,
-    history,
+    navigate,
   );
 
   const mobileTextColor = usePickByState(
     'rgba(140, 141, 146, 1)',
     'rgba(121, 128, 156, 1)',
     'rgba(142, 129, 127, 1)',
-    history,
+    navigate,
   );
 
   const mobileBorderColor = usePickByState(
     'rgba(140, 141, 146, .5)',
     'rgba(121, 128, 156, .5)',
     'rgba(142, 129, 127, .5)',
-    history,
+    navigate,
   );
 
   const connectWalletButtonStyle = usePickByState(
     NavBarButtonStyle.WHITE_WALLET,
     NavBarButtonStyle.COOL_WALLET,
     NavBarButtonStyle.WARM_WALLET,
-    history,
+    navigate,
   );
 
   const customDropdownToggle = forwardRef<RefType, Props>(({ onClick, value }, ref) => (
@@ -155,11 +155,11 @@ const NavWallet: React.FC<NavWalletProps> = props => {
                 navDropdownClasses.whiteInfoSelectedTop,
                 navDropdownClasses.coolInfoSelected,
                 navDropdownClasses.warmInfoSelected,
-                history,
+                navigate,
               ),
             )}
           >
-            <Trans>Switch wallet</Trans>
+            <p>Switch wallet</p>
           </div>
 
           <div
@@ -171,12 +171,12 @@ const NavWallet: React.FC<NavWalletProps> = props => {
                 navDropdownClasses.whiteInfoSelectedBottom,
                 navDropdownClasses.coolInfoSelected,
                 navDropdownClasses.warmInfoSelected,
-                history,
+                navigate,
               ),
               classes.disconnectText,
             )}
           >
-            <Trans>Disconnect</Trans>
+            <p>Disconnect</p>
           </div>
         </div>
       </div>
@@ -228,10 +228,10 @@ const NavWallet: React.FC<NavWalletProps> = props => {
             className={classes.mobileSwitchWalletText}
             onClick={switchWalletHandler}
           >
-            <Trans>Switch</Trans>
+            <p>Switch</p>
           </div>
           <div className={classes.disconnectText} onClick={disconectWalletHandler}>
-            <Trans>Sign out</Trans>
+            <p>Sign out</p>
           </div>
         </div>
       </div>

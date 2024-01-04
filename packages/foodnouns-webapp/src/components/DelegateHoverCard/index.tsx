@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { ScaleIcon } from '@heroicons/react/solid';
-import { Trans } from '@lingui/macro';
+
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { delegateNounsAtBlockQuery } from '../../wrappers/subgraph';
@@ -53,13 +53,13 @@ const DelegateHoverCard: React.FC<DelegateHoverCardProps> = props => {
       <div className={classes.nounInfoWrapper}>
         <ScaleIcon height={20} width={20} className={classes.icon} />
         {numVotesForProp === 1 ? (
-          <Trans>
+          <p>
             Voted with<span className={classes.bold}>{numVotesForProp}</span>Noun
-          </Trans>
+          </p>
         ) : (
-          <Trans>
+          <p>
             Voted with<span className={classes.bold}>{numVotesForProp}</span>Nouns
-          </Trans>
+          </p>
         )}
       </div>
     </div>

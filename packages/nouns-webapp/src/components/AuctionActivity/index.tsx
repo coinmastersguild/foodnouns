@@ -23,7 +23,7 @@ import BidHistoryModal from '../BidHistoryModal';
 import Holder from '../Holder';
 
 const openEtherscanBidHistory = () => {
-  const url = buildEtherscanAddressLink(config.addresses.nounsAuctionHouseProxy);
+  const url = buildEtherscanAddressLink(config.foodNounAddresses.nounsAuctionHouseProxy);
   window.open(url);
 };
 
@@ -46,6 +46,8 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
     displayGraphDepComps,
   } = props;
 
+  const isFoodAuction = auction.foodAuction;
+
   const isCool = useAppSelector(state => state.application.isCoolBackground);
 
   const [auctionEnded, setAuctionEnded] = useState(false);
@@ -55,15 +57,15 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
   const showBidModalHandler = () => {
     setShowBidHistoryModal(true);
   };
-  const dismissBidModalHanlder = () => {
+  const dismissBidModalHandler = () => {
     setShowBidHistoryModal(false);
   };
 
   // timer logic - check auction status every 30 seconds, until five minutes remain, then check status every second
   useEffect(() => {
-    // if (!auction) return;
+    if (!auction) return;
 
-    const timeLeft = Number(auction.endTime) - Math.floor(Date.now() / 1000);
+    const timeLeft = Number(auction.endTime) - Math.floor(Date.now() / 1000); // in seconds
 
     if (auction && timeLeft <= 0) {
       setAuctionEnded(true);
@@ -73,7 +75,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
         () => {
           setAuctionTimer(!auctionTimer);
         },
-        timeLeft > 300 ? 30000 : 1000,
+        timeLeft > 300 ? 60000 : 2000,
       );
 
       return () => {
@@ -82,12 +84,12 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
     }
   }, [auctionTimer, auction]);
 
-  // if (!auction) return null;
+  if (!auction) return null;
 
   return (
     <>
       {showBidHistoryModal && (
-        <BidHistoryModal onDismiss={dismissBidModalHanlder} auction={auction} />
+        <BidHistoryModal onDismiss={dismissBidModalHandler} auction={auction} />
       )}
 
       <AuctionActivityWrapper>
@@ -105,7 +107,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
               <AuctionActivityDateHeadline startTime={auction.startTime} />
             </AuctionTitleAndNavWrapper>
             <Col lg={12}>
-              <AuctionActivityNounTitle isCool={isCool} nounId={auction.nounId} nounAuction={auction.nounAuction} />
+              <AuctionActivityNounTitle isCool={isCool} nounId={auction.nounId} foodAuction={!!auction.foodAuction} />
             </Col>
           </Row>
           <Row className={classes.activityRow}>
@@ -128,7 +130,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             </Col>
           </Row>
         </div>
-        {isLastAuction && !auction.nounAuction && (
+        {isLastAuction && !auction.foodAuction && (
           <>
             <Row className={classes.activityRow}>
               <Col lg={12}>
@@ -147,7 +149,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             ) : (
               displayGraphDepComps && (
                 <BidHistory
-                  auctionId={auction.nounId.toString()}
+                  auction={auction}
                   max={3}
                   classes={bidHistoryClasses}
                 />
@@ -155,7 +157,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             )}
             {/* If no bids, show nothing. If bids avail:graph is stable? show bid history modal,
             else show etherscan contract link */}
-            {isLastAuction && !auction.nounAuction &&
+            {isLastAuction && !auction.foodAuction &&
               !auction.amount.eq(0) &&
               (displayGraphDepComps ? (
                 <BidHistoryBtn onClick={showBidModalHandler} />

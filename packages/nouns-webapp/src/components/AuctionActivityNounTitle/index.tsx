@@ -1,13 +1,12 @@
 import { BigNumber } from 'ethers';
 import classes from './AuctionActivityNounTitle.module.css';
-import { Trans } from '@lingui/macro';
 
-const AuctionActivityNounTitle: React.FC<{ nounId: BigNumber; isCool?: boolean, nounAuction: boolean }> = props => {
-  const { nounId, isCool, nounAuction } = props;
+const AuctionActivityNounTitle: React.FC<{ nounId: BigNumber; isCool?: boolean, foodAuction?: boolean }> = props => {
+  const { nounId, isCool, foodAuction } = props;
   return (
     <div className={classes.wrapper}>
       <h1 style={{ color: isCool ? 'var(--brand-cool-dark-text)' : 'var(--brand-warm-dark-text)' }}>
-        {nounAuction ? 'NOUN' : 'FOODNOUN'} {nounId.toString()}
+        {!foodAuction ? 'NOUN' : 'FOODNOUN'} {nounId.toString()}
       </h1>
     </div>
   );

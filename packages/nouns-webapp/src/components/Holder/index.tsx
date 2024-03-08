@@ -5,7 +5,7 @@ import ShortAddress from '../ShortAddress';
 import clsx from 'clsx';
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@apollo/client';
-import { nounQuery } from '../../wrappers/subgraph';
+import { nounQuery } from '../../wrappers/foodnoun-subgraph';
 
 interface HolderProps {
   nounId: number;

@@ -3,11 +3,18 @@ import { BigNumber as EthersBN, ethers, utils } from 'ethers';
 import { NounsTokenABI, NounsTokenFactory } from '@nouns/contracts';
 import config, { cache, cacheKey, CHAIN_ID } from '../config';
 import { useQuery } from '@apollo/client';
-import { clientFactory, seedsQuery } from './subgraph';
+import { seedsQuery as foodNounSeedsQuery } from './foodnoun-subgraph';
+import { seedsQuery as nounSeedsQuery } from './noun-subgraph';
 import { useEffect } from 'react';
-import { nounclient } from '..';
+import { foodNounGraphClient, nounGraphClient } from '..';
 
-interface NounToken {
+interface FoodNounToken {
+  name: string;
+  description: string;
+  image: string;
+}
+
+interface OGNounToken {
   name: string;
   description: string;
   image: string;
@@ -21,13 +28,9 @@ export interface INounSeed {
   head: number;
 }
 
-export enum NounsTokenContractFunction {
-  delegateVotes = 'votesToDelegate',
-}
-
 const abi = new utils.Interface(NounsTokenABI);
-const seedCacheKey = cacheKey(cache.seed, CHAIN_ID, config.addresses.nounsToken);
-const nounsSeedCacheKey = cacheKey(cache.nounseed, CHAIN_ID, config.addresses.nounsToken);
+const seedCacheKey = cacheKey(cache.seed, CHAIN_ID, config.foodNounAddresses.nounsToken);
+const nounsSeedCacheKey = cacheKey(cache.nounseed, CHAIN_ID, config.foodNounAddresses.nounsToken);
 
 const isSeedValid = (seed: Record<string, any> | undefined) => {
   const expectedKeys = ['background', 'body', 'accessory', 'head', 'glasses'];
@@ -40,7 +43,7 @@ export const useNounToken = (nounId: EthersBN) => {
   const [noun] =
     useContractCall<[string]>({
       abi,
-      address: config.addresses.nounsToken,
+      address: config.foodNounAddresses.nounsToken,
       method: 'dataURI',
       args: [nounId],
     }) || [];
@@ -50,7 +53,7 @@ export const useNounToken = (nounId: EthersBN) => {
   }
 
   const nounImgData = noun.split(';base64,').pop() as string;
-  const json: NounToken = JSON.parse(atob(nounImgData));
+  const json: OGNounToken = JSON.parse(atob(nounImgData));
 
   return json;
 };
@@ -69,12 +72,12 @@ const seedArrayToObject = (seeds: (INounSeed & { id: string })[]) => {
 };
 
 
-export const useNounSeeds = (isNoun: boolean) => {
-  const cache = isNoun ? localStorage.getItem(nounsSeedCacheKey) : localStorage.getItem(seedCacheKey);
+export const useNounSeeds = (isFood: boolean | undefined) => {
+  const cache = !!isFood ? localStorage.getItem(nounsSeedCacheKey) : localStorage.getItem(seedCacheKey);
   const cachedSeeds = cache ? JSON.parse(cache) : undefined;
 
-  const { data: nounsData } = useQuery(seedsQuery(), { client: nounclient });
-  const { data: foodNounsData } = useQuery(seedsQuery());
+  const { data: foodNounsData } = useQuery(foodNounSeedsQuery(), { client: foodNounGraphClient });
+  const { data: nounsData } = useQuery(nounSeedsQuery(), { client: nounGraphClient });
 
   useEffect(() => {
     if (!cachedSeeds && isNoun && nounsData?.seeds?.length) {
@@ -93,13 +96,13 @@ export const useNounSeeds = (isNoun: boolean) => {
   return cachedSeeds;
 };
 
-export const useNounSeed = (nounId: EthersBN, isNoun: boolean) => {
+export const useNounSeed = (nounId: EthersBN, isFood: boolean) => {
   const seeds = useNounSeeds(isNoun);
   const seed = seeds?.[nounId.toString()];
 
   const request = seed ? false : {
     abi,
-    address: config.addresses.nounsToken,
+    address: config.foodNounAddresses.nounsToken,
     method: 'seeds',
     args: [nounId],
   };
@@ -133,7 +136,7 @@ export const useAccountVotes = (account?: string): number | undefined => {
   const [votes] =
     useContractCall<[EthersBN]>({
       abi,
-      address: config.addresses.nounsToken,
+      address: config.foodNounAddresses.nounsToken,
       method: 'getCurrentVotes',
       args: [account],
     }) || [];
@@ -145,7 +148,7 @@ export const useUserDelegatee = (): string | undefined => {
   const [delegate] =
     useContractCall<[string]>({
       abi,
-      address: config.addresses.nounsToken,
+      address: config.foodNounAddresses.nounsToken,
       method: 'delegates',
       args: [account],
     }) || [];
@@ -159,7 +162,7 @@ export const useUserVotesAsOfBlock = (block: number | undefined): number | undef
   const [votes] =
     useContractCall<[EthersBN]>({
       abi,
-      address: config.addresses.nounsToken,
+      address: config.foodNounAddresses.nounsToken,
       method: 'getPriorVotes',
       args: [account, block],
     }) || [];
@@ -167,7 +170,7 @@ export const useUserVotesAsOfBlock = (block: number | undefined): number | undef
 };
 
 export const useDelegateVotes = () => {
-  const nounsToken = new NounsTokenFactory().attach(config.addresses.nounsToken);
+  const nounsToken = new NounsTokenFactory().attach(config.foodNounAddresses.nounsToken);
 
   // @ts-ignore
   const { send, state } = useContractFunction(nounsToken, 'delegate');
@@ -179,7 +182,7 @@ export const useNounTokenBalance = (address: string): number | undefined => {
   const [tokenBalance] =
     useContractCall<[EthersBN]>({
       abi,
-      address: config.addresses.nounsToken,
+      address: config.foodNounAddresses.nounsToken,
       method: 'balanceOf',
       args: [address],
     }) || [];
@@ -192,7 +195,7 @@ export const useUserNounTokenBalance = (): number | undefined => {
   const [tokenBalance] =
     useContractCall<[EthersBN]>({
       abi,
-      address: config.addresses.nounsToken,
+      address: config.foodNounAddresses.nounsToken,
       method: 'balanceOf',
       args: [account],
     }) || [];

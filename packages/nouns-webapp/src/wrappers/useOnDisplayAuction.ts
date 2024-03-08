@@ -1,10 +1,11 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { useAppSelector } from '../hooks';
 import { generateEmptyNounderAuction, isNounderNoun } from '../utils/nounderNoun';
 import { Bid, BidEvent } from '../utils/types';
 import { Auction } from './nounsAuction';
+import { BigNumber } from "ethers";
 
 const deserializeAuction = (reduxSafeAuction: Auction): Auction => {
+
   return {
     amount: BigNumber.from(reduxSafeAuction.amount),
     bidder: reduxSafeAuction.bidder,
@@ -12,7 +13,7 @@ const deserializeAuction = (reduxSafeAuction: Auction): Auction => {
     endTime: BigNumber.from(reduxSafeAuction.endTime),
     nounId: BigNumber.from(reduxSafeAuction.nounId),
     settled: false,
-    nounAuction: true,
+    foodAuction: true,
   };
 };
 
@@ -34,12 +35,12 @@ const deserializeBids = (reduxSafeBids: BidEvent[]): Bid[] => {
     });
 };
 
-const useOnDisplayNounAuction = (): Auction | undefined => {
-  const lastAuctionNounId = useAppSelector(state => state.auction.activeNounAuction?.nounId);
+const useOnDisplayAuction = (): Auction | undefined => {
+  const lastAuctionNounId = useAppSelector(state => state.onDisplayNounAuction?.lastAuctionNounId);
   const onDisplayAuctionNounId = useAppSelector(
     state => state.onDisplayNounAuction.onDisplayAuctionNounId,
   );
-  const currentAuction = useAppSelector(state => state.auction.activeNounAuction);
+  const currentAuction = useAppSelector(state => state.auction.);
   const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);
 
   if (
@@ -67,32 +68,32 @@ const useOnDisplayNounAuction = (): Auction | undefined => {
 
   // past auction
   const reduxSafeAuction: Auction | undefined = pastAuctions.find(auction => {
-    const nounId = auction.activeNounAuction && BigNumber.from(auction.activeNounAuction.nounId);
+    const nounId = auction.activeAuction && BigNumber.from(auction.activeAuction.nounId);
     return nounId && nounId.toNumber() === onDisplayAuctionNounId;
-  })?.activeNounAuction;
+  })?.activeAuction;
 
   return reduxSafeAuction ? deserializeAuction(reduxSafeAuction) : undefined;
 };
 
-export const useNounAuctionBids = (auctionNounId: BigNumber): Bid[] | undefined => {
+export const useNounAuctionBids = (auction: IAuction | undefined): Bid[] | undefined => {
+  const isFoodAuction = !!auction?.foodAuction;
+
   const lastAuctionNounId = useAppSelector(state => state.onDisplayNounAuction.lastAuctionNounId);
   const lastAuctionBids = useAppSelector(state => state.auction.nounBids);
   const pastAuctions = useAppSelector(state => state.pastAuctions.pastAuctions);
 
   // auction requested is active auction
-  if (lastAuctionNounId === auctionNounId.toNumber()) {
+  if (lastAuctionNounId === auction.nounId.toNumber()) {
     return deserializeBids(lastAuctionBids);
   } else {
     // find bids for past auction requested
     const bidEvents: BidEvent[] | undefined = pastAuctions.find(auction => {
       const nounId = auction.activeNounAuction && BigNumber.from(auction.activeNounAuction.nounId);
-      return nounId && nounId.eq(auctionNounId);
+      return nounId && nounId.eq(lastAuctionNounId);
     })?.nounBids;
 
     return bidEvents && deserializeBids(bidEvents);
   }
 };
 
-
-
-export default useOnDisplayNounAuction;
+export default useOnDisplayAuction;

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Image } from 'react-bootstrap';
 import _LinkIcon from '../../assets/icons/Link.svg';
-import { auctionQuery } from '../../wrappers/subgraph';
+import { auctionQuery } from '../../wrappers/foodnoun-subgraph';
 import _HeartIcon from '../../assets/icons/Heart.svg';
 import classes from './NounInfoRowHolder.module.css';
 
@@ -60,7 +60,7 @@ const NounInfoRowHolder: React.FC<NounInfoRowHolderProps> = props => {
           target={'_blank'}
           rel="noreferrer"
         >
-          {winner.toLowerCase() === config.addresses.nounsAuctionHouseProxy.toLowerCase() ? (
+          {winner.toLowerCase() === config.foodNounAddresses.nounsAuctionHouseProxy.toLowerCase() ? (
             <Trans>Nouns Auction House</Trans>
           ) : (
             shortAddressComponent

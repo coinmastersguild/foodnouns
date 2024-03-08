@@ -5,7 +5,7 @@ import { utils, BigNumber } from 'ethers';
 import config from '../config';
 import ERC20 from '../libs/abi/ERC20.json';
 
-const { addresses } = config;
+const { foodNounAddresses } = config;
 
 const erc20Interface = new utils.Interface(ERC20);
 
@@ -15,14 +15,14 @@ function useLidoBalance(): BigNumber | undefined {
   const [balance, setBalance] = useState(undefined);
 
   const lidoContract = useMemo((): Contract | undefined => {
-    if (!library || !addresses.lidoToken) return;
+    if (!library || !foodNounAddresses.lidoToken) return;
     // @ts-ignore
-    return new Contract(addresses.lidoToken, erc20Interface, library);
+    return new Contract(foodNounAddresses.lidoToken, erc20Interface, library);
   }, [library]);
 
   useEffect(() => {
-    if (!lidoContract || !addresses.nounsDaoExecutor) return;
-    lidoContract.balanceOf(addresses.nounsDaoExecutor).then(setBalance);
+    if (!lidoContract || !foodNounAddresses.nounsDaoExecutor) return;
+    lidoContract.balanceOf(foodNounAddresses.nounsDaoExecutor).then(setBalance);
   }, [lidoContract]);
 
   return balance;

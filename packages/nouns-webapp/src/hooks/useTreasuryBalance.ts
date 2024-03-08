@@ -4,7 +4,7 @@ import { useCoingeckoPrice } from '@usedapp/coingecko';
 import config from '../config';
 import { ethers } from 'ethers';
 import { useQuery } from '@apollo/client';
-import { totalBid } from '../wrappers/subgraph';
+import { totalBid } from '../wrappers/foodnoun-subgraph';
 
 /**
  * Computes treasury balance (ETH + Lido)
@@ -12,7 +12,7 @@ import { totalBid } from '../wrappers/subgraph';
  * @returns Total balance of treasury (ETH + Lido) as EthersBN
  */
 export const useTreasuryBalance = () => {
-  const ethBalance = useEtherBalance(config.addresses.nounsDaoExecutor);
+  const ethBalance = useEtherBalance(config.foodNounAddresses.nounsDaoExecutor);
   const lidoBalanceAsETH = useLidoBalance();
   return ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
 };

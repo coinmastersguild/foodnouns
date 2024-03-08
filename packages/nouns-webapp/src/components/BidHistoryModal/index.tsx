@@ -4,10 +4,10 @@ import React from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { Auction } from '../../wrappers/nounsAuction';
 import { StandaloneNounRoundedCorners } from '../StandaloneNoun';
-import { useFoodNounAuctionBids } from '../../wrappers/onDisplayFoodNounAuction';
-import { Bid } from '../../utils/types';
 import BidHistoryModalRow from '../BidHistoryModalRow';
 import { Trans } from '@lingui/macro';
+import { useNounAuctionBids } from "../../wrappers/useOnDisplayAuction";
+import { Bid } from "../../utils/types";
 
 export const Backdrop: React.FC<{ onDismiss: () => void }> = props => {
   return <div className={classes.backdrop} onClick={props.onDismiss} />;
@@ -19,7 +19,12 @@ const BidHistoryModalOverlay: React.FC<{
 }> = props => {
   const { onDismiss, auction } = props;
 
-  const bids = useFoodNounAuctionBids(auction.nounId);
+  const bids = useNounAuctionBids(auction);
+
+  if (!auction) {
+    return null;
+  }
+  const nounType = auction.foodAuction ? 'Foodnoun' : 'Noun';
 
   return (
     <>
@@ -33,14 +38,14 @@ const BidHistoryModalOverlay: React.FC<{
         <div className={classes.content}>
           <div className={classes.header}>
             <div className={classes.nounWrapper}>
-              <StandaloneNounRoundedCorners nounId={auction && auction.nounId} nounAuction={auction && auction.nounAuction} />
+              <StandaloneNounRoundedCorners nounId={auction && auction.nounId} foodAuction={auction && auction.foodAuction}  />
             </div>
 
             <div className={classes.title}>
               <h2>
                 <Trans>Bids for</Trans>
               </h2>
-              <h1>Foodnoun {auction && auction.nounId.toString()}</h1>
+              <h1>{nounType} {auction && auction.nounId.toString()}</h1>
             </div>
           </div>
           <div className={classes.bidWrapper}>

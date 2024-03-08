@@ -17,6 +17,7 @@ interface ExternalContractAddresses {
 
 export type ContractAddresses = NounsContractAddresses & ExternalContractAddresses;
 
+// Foodnouns and nouns each have a separate instance of AppConfig
 interface AppConfig {
   jsonRpcUri: string;
   wsRpcUri: string;
@@ -24,7 +25,8 @@ interface AppConfig {
   enableHistory: boolean;
 }
 
-type SupportedChains = ChainId.Rinkeby | ChainId.Mainnet | ChainId.Hardhat;
+export const ChainId_Sepolia = 11155111;
+type SupportedChains = ChainId.Mainnet | ChainId.Hardhat | typeof ChainId_Sepolia;
 
 interface CacheBucket {
   name: string;
@@ -50,7 +52,7 @@ export const cacheKey = (bucket: CacheBucket, ...parts: (string | number)[]) => 
   return [bucket.name, bucket.version, ...parts].join('-').toLowerCase();
 };
 
-export const CHAIN_ID: SupportedChains = parseInt(process.env.REACT_APP_CHAIN_ID ?? '4');
+export const CHAIN_ID: SupportedChains = parseInt(process.env.REACT_APP_CHAIN_ID ?? ChainId_Sepolia.toString());
 
 export const ETHERSCAN_API_KEY = process.env.REACT_APP_ETHERSCAN_API_KEY ?? '';
 
@@ -71,33 +73,33 @@ const app: {
   foodnouns: Record<SupportedChains, AppConfig>
 } = {
   nouns: {
-    [ChainId.Rinkeby]: {
-      jsonRpcUri: createNetworkHttpUrl('rinkeby'),
-      wsRpcUri: createNetworkWsUrl('rinkeby'),
-      subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/yanuar-ar/foodnouns',
+    [ChainId_Sepolia]: {
+      jsonRpcUri: createNetworkHttpUrl('sepolia'),
+      wsRpcUri: createNetworkWsUrl('sepolia'),
+      subgraphApiUri:
+          'https://api.goldsky.com/api/public/project_cldf2o9pqagp43svvbk5u3kmo/subgraphs/nouns-sepolia-elad/0.1.1/gn',
       enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
     },
     [ChainId.Mainnet]: {
       jsonRpcUri: createNetworkHttpUrl('mainnet'),
       wsRpcUri: createNetworkWsUrl('mainnet'),
       subgraphApiUri:
-        'https://api.goldsky.com/api/public/project_cldf2o9pqagp43svvbk5u3kmo/subgraphs/nouns/prod/gn',
+          'https://api.goldsky.com/api/public/project_cldf2o9pqagp43svvbk5u3kmo/subgraphs/nouns/prod/gn',
       enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
     },
     [ChainId.Hardhat]: {
-      jsonRpcUri: createNetworkHttpUrl('mainnet'),
-      wsRpcUri: createNetworkWsUrl('mainnet'),
-      subgraphApiUri:
-        'https://api.goldsky.com/api/public/project_cldf2o9pqagp43svvbk5u3kmo/subgraphs/nouns/prod/gn',
+      jsonRpcUri: 'http://localhost:8545',
+      wsRpcUri: 'ws://localhost:8545',
+      subgraphApiUri: 'http://localhost:8000/subgraphs/name/nounsdao/nouns-subgraph',
       enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
     },
   },
   foodnouns: {
-    [ChainId.Rinkeby]: {
-      jsonRpcUri: createNetworkHttpUrl('rinkeby'),
-      wsRpcUri: createNetworkWsUrl('rinkeby'),
-      subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/yanuar-ar/foodnouns',
-      enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
+    [ChainId_Sepolia]: {
+      jsonRpcUri: createNetworkHttpUrl('sepolia'),
+      wsRpcUri: createNetworkWsUrl('sepolia'),
+      subgraphApiUri: '',
+      enableHistory: false,
     },
     [ChainId.Mainnet]: {
       jsonRpcUri: createNetworkHttpUrl('mainnet'),
@@ -115,16 +117,6 @@ const app: {
 };
 
 const externalAddresses: Record<SupportedChains, ExternalContractAddresses> = {
-  [ChainId.Rinkeby]: {
-    lidoToken: '0xF4242f9d78DB7218Ad72Ee3aE14469DBDE8731eD',
-    usdcToken: undefined,
-    chainlinkEthUsdc: undefined,
-    payerContract: undefined,
-    tokenBuyer: undefined,
-    weth: undefined,
-    steth: undefined,
-    nounsStreamFactory: undefined,
-  },
   [ChainId.Mainnet]: {
     lidoToken: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
     usdcToken: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -134,6 +126,16 @@ const externalAddresses: Record<SupportedChains, ExternalContractAddresses> = {
     weth: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     steth: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
     nounsStreamFactory: '0x0fd206FC7A7dBcD5661157eDCb1FFDD0D02A61ff',
+  },
+  [ChainId_Sepolia]: { // TODO: new testnet
+    lidoToken: undefined,
+    usdcToken: '0xEbCC972B6B3eB15C0592BE1871838963d0B94278',
+    weth: '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14',
+    steth: undefined,
+    payerContract: '0x5a2A0951C6b3479DBEe1D5909Aac7B325d300D94',
+    tokenBuyer: '0x821176470cFeF1dB78F1e2dbae136f73c36ddd48',
+    chainlinkEthUsdc: '0x694AA1769357215DE4FAC081bf1f309aDC325306',
+    nounsStreamFactory: '0xb78ccF3BD015f209fb9B2d3d132FD8784Df78DF5',
   },
   [ChainId.Hardhat]: {
     lidoToken: undefined,
@@ -147,18 +149,31 @@ const externalAddresses: Record<SupportedChains, ExternalContractAddresses> = {
   },
 };
 
-const getAddresses = (): ContractAddresses => {
+const getFoodNounAddresses = (): ContractAddresses => {
+  let foodNounsAddresses = {} as NounsContractAddresses;
+  try {
+    foodNounsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
+  } catch (e) {
+    console.warn("getContractAddressesForChainOrThrow: ", e)
+  }
+  return { ...foodNounsAddresses, ...externalAddresses[CHAIN_ID] };
+};
+
+const getNounAddresses = (): ContractAddresses => {
   let nounsAddresses = {} as NounsContractAddresses;
   try {
-    nounsAddresses = getContractAddressesForChainOrThrow(CHAIN_ID);
-  } catch { }
-  return { ...nounsAddresses, nounsAuctionHouseProxy: "0xfAa4bbe589a39745833e2BecE8d401b6195A07b1", ...externalAddresses[CHAIN_ID] };
+    nounsAddresses = getContractAddressesForChainOrThrow(1);
+  } catch (e) {
+    console.warn("getContractAddressesForChainOrThrow: ", e)
+  }
+  return { ...nounsAddresses, ...externalAddresses[1] };
 };
 
 const config = {
   nounsApp: app.nouns['1'],
   foodnounsApp: app.foodnouns[CHAIN_ID],
-  addresses: getAddresses(),
+  foodNounAddresses: getFoodNounAddresses(),
+  nounsAddresses: getNounAddresses(),
 };
-console.log("config: ", config)
+
 export default config;

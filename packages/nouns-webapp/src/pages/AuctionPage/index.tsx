@@ -7,30 +7,25 @@ import Contribution from '../../components/Contribution';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { push } from 'connected-react-router';
 import { nounPath } from '../../utils/history';
-import useOnDisplayNounAuction from '../../wrappers/onDisplayNounAuction';
-import useOnDisplayFoodNounAuction from '../../wrappers/onDisplayFoodNounAuction';
+import useOnDisplayAuction from '../../wrappers/useOnDisplayAuction';
 import { useEffect } from 'react';
 import ProfileActivityFeed from '../../components/ProfileActivityFeed';
-import { setOnDisplayAuctionFoodNounId } from '../../state/slices/onDisplayFoodNounAuction';
+import onDisplayFoodNounAuction, { setOnDisplayAuctionFoodNounId } from '../../state/slices/onDisplayFoodNounAuction';
 import NounDivider from '../../components/NounDivider/NounDivider';
 import NounDividerEmpty from '../../components/NounDividerEmpty/NounDivider';
 
 interface AuctionPageProps {
-  initialAuctionId?: number;
+  initialFoodNounAuctionId?: number;
+  initialFoodNounAuctionId?: number;
 }
 
 const AuctionPage: React.FC<AuctionPageProps> = props => {
-  const { initialAuctionId } = props;
-  const onDisplayNounAuction = useOnDisplayNounAuction();
-  const onDisplayFoodNounAuction = useOnDisplayFoodNounAuction();
+  const { initialFoodNounAuctionId,initialFoodNounAuctionId } = props;
+
+  const onDisplayNounAuction = useOnDisplayAuction();
   const lastAuctionFoodNounId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
-
-  console.log("on display onDisplayFoodNounAuction", onDisplayFoodNounAuction, onDisplayNounAuction)
-  console.log("on display onDisplayNounAuction", onDisplayNounAuction)
-  console.log("lastAuctionFoodNounId", lastAuctionFoodNounId)
-
+  // @ts-ignore
   const onDisplayAuctionFoodNounId = onDisplayFoodNounAuction?.nounId.toNumber();
-
 
   const dispatch = useAppDispatch();
 
@@ -54,8 +49,10 @@ const AuctionPage: React.FC<AuctionPageProps> = props => {
         dispatch(setOnDisplayAuctionFoodNounId(lastAuctionFoodNounId));
       }
     }
-  }, [dispatch, initialAuctionId, onDisplayFoodNounAuction, lastAuctionFoodNounId]);
+  }, [dispatch, initialAuctionId, lastAuctionFoodNounId]);
 
+
+  // @ts-ignore
   return (
     <>
       <Auction auction={onDisplayFoodNounAuction} />

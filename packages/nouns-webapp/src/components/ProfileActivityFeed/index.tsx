@@ -5,7 +5,8 @@ import classes from './ProfileActivityFeed.module.css';
 
 import { useQuery } from '@apollo/client';
 import { Proposal, ProposalState, useAllProposals } from '../../wrappers/nounsDao';
-import { createTimestampAllProposals, nounVotingHistoryQuery } from '../../wrappers/subgraph';
+import { createTimestampAllProposals as createfoodNounTimestampAllProposals, nounVotingHistoryQuery as foodNounVotingHistory } from '../../wrappers/foodnoun-subgraph';
+import { createTimestampAllProposals as createNounTimestampAllProposals, nounVotingHistoryQuery } from '../../wrappers/noun-subgraph';
 import NounProfileVoteRow from '../NounProfileVoteRow';
 import { LoadingNoun } from '../Noun';
 import { useNounCanVoteTimestamp } from '../../wrappers/nounsAuction';
@@ -17,6 +18,7 @@ import { Trans } from '@lingui/macro';
 
 interface ProfileActivityFeedProps {
   nounId: number;
+  foodNoun?: boolean;
 }
 
 interface ProposalInfo {
@@ -30,13 +32,17 @@ export interface NounVoteHistory {
 }
 
 const ProfileActivityFeed: React.FC<ProfileActivityFeedProps> = props => {
-  const { nounId } = props;
+  const { nounId, foodNoun } = props;
 
   const MAX_EVENTS_SHOW_ABOVE_FOLD = 5;
 
   const [truncateProposals, setTruncateProposals] = useState(true);
 
-  const { loading, error, data } = useQuery(nounVotingHistoryQuery(nounId));
+  const votingHistoryQuery = !!foodNoun ? foodNounVotingHistory : nounVotingHistoryQuery;
+  const createTimestampAllProposals = !!foodNoun ? createfoodNounTimestampAllProposals : createNounTimestampAllProposals;
+
+  const { loading, error, data } = useQuery(votingHistoryQuery(nounId));
+
   const {
     loading: proposalTimestampLoading,
     error: proposalTimestampError,

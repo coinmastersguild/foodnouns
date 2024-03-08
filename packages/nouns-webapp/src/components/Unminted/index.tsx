@@ -2,7 +2,7 @@ import classes from './Unminted.module.css';
 import Section from '../../layout/Section';
 import { ImageData } from '@nouns/assets';
 import { useQuery } from '@apollo/client';
-import { mintedHeads } from '../../wrappers/subgraph';
+import { mintedHeads } from '../../wrappers/foodnoun-subgraph';
 import { Table } from 'react-bootstrap';
 import { useHeadCount } from '../../wrappers/nounsDescriptor';
 

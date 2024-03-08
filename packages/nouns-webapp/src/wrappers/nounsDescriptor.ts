@@ -8,7 +8,7 @@ const abi = new utils.Interface(NounsDescriptorABI);
 export const useHeadCount = () => {
   const heads = useContractCall({
     abi,
-    address: config.addresses.nounsDescriptor,
+    address: config.foodNounAddresses.nounsDescriptor,
     method: 'headCount',
     args: [],
   });

@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { BigNumberish } from '@ethersproject/bignumber';
 import BigNumber from 'bignumber.js';
 
@@ -41,7 +41,7 @@ export interface Delegates {
   delegates: Delegate[];
 }
 
-export const seedsQuery = (first = 1_000) => gql`
+export const seedsQuery = (first = 100) => gql`
 {
   seeds(first: ${first}) {
     id
@@ -54,7 +54,7 @@ export const seedsQuery = (first = 1_000) => gql`
 }
 `;
 
-export const proposalsQuery = (first = 1_000) => gql`
+export const proposalsQuery = (first = 100) => gql`
 {
   proposals(first: ${first}, orderBy: createdBlock, orderDirection: asc) {
     id
@@ -93,24 +93,24 @@ export const auctionQuery = (auctionId: number) => gql`
 	  startTime
 	  endTime
 	  noun {
-		id
-		seed {
-		  id
-		  background
-		  body
-		  accessory
-		  head
-		  glasses
+		 id
+		  seed {
+		   id
+		   background
+		   body
+		   accessory
+		   head
+		   glasses
 		}
 		owner {
 		  id
 		}
 	  }
 	  bids {
-		id
-		blockNumber
-		txIndex
-		amount
+      id
+      blockNumber
+      txIndex
+      amount
 	  }
 	}
 }
@@ -165,7 +165,7 @@ export const nounsIndex = () => gql`
 
 export const latestAuctionsQuery = () => gql`
   {
-    auctions(orderBy: startTime, orderDirection: desc, first: 1000) {
+    auctions(orderBy: startTime, orderDirection: desc, first: 100) {
       id
       amount
       settled
@@ -194,7 +194,7 @@ export const latestAuctionsQuery = () => gql`
   }
 `;
 
-export const latestBidsQuery = (first: number = 10) => gql`
+export const latestBidsQuery = (first: number = 5) => gql`
 {
 	bids(
 	  first: ${first},
@@ -219,16 +219,20 @@ export const latestBidsQuery = (first: number = 10) => gql`
   }  
 `;
 
-export const nounVotingHistoryQuery = (nounId: number) => gql`
+export const nounVotingHistoryQuery = (nounId: number, first = 100) => gql`
 {
 	noun(id: ${nounId}) {
 		id
-		votes {
-		proposal {
-			id
-		}
-		support
-		supportDetailed
+		votes(first: ${first}) {
+      blockNumber
+      proposal {
+        id
+      }
+      support
+      supportDetailed
+      voter {
+        id
+      }
 		}
 	}
 }
@@ -236,7 +240,7 @@ export const nounVotingHistoryQuery = (nounId: number) => gql`
 
 export const createTimestampAllProposals = () => gql`
   {
-    proposals(orderBy: createdTimestamp, orderDirection: asc, first: 1000) {
+    proposals(orderBy: createdTimestamp, orderDirection: asc, first: 100) {
       id
       createdTimestamp
     }
@@ -328,9 +332,3 @@ export const mintedHeads = () => gql`
     }
   }
 `;
-
-export const clientFactory = (uri: string) =>
-  new ApolloClient({
-    uri,
-    cache: new InMemoryCache(),
-  });

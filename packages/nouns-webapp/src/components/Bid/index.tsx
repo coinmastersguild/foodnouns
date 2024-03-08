@@ -55,10 +55,10 @@ const Bid: React.FC<{
   let { auction, auctionEnded } = props;
   const activeLocale = useActiveLocale();
   const nounsAuctionHouseContract = new NounsAuctionHouseFactory().attach(
-    config.addresses.nounsAuctionHouseProxy,
+    config.foodNounAddresses.nounsAuctionHouseProxy,
   );
 
-  console.log("config.addresses.nounsAuctionHouseProxy", config.addresses.nounsAuctionHouseProxy)
+  console.log("config.addresses.nounsAuctionHouseProxy", config.foodNounAddresses.nounsAuctionHouseProxy)
   const account = useAppSelector(state => state.account.activeAccount);
 
   const bidInputRef = useRef<HTMLInputElement>(null);
@@ -243,11 +243,6 @@ const Bid: React.FC<{
 
   const isDisabled =
     placeBidState.status === 'Mining' || settleAuctionState.status === 'Mining' || !activeAccount;
-
-  const fomoNounsBtnOnClickHandler = () => {
-    // Open Fomo Nouns in a new tab
-    window.open('https://fomonouns.wtf', '_blank')?.focus();
-  };
 
   const isWalletConnected = activeAccount !== undefined;
 

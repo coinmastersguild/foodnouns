@@ -27,7 +27,7 @@ const Auction: React.FC<AuctionProps> = props => {
 
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const currentAuctionNoun = currentAuction?.nounAuction;
+  const currentAuctionNoun = currentAuction?.foodAuction;
   const isCurrentAuctionNoun = Boolean(currentAuctionNoun);
   const stateBgColor = useAppSelector(state => state.application.stateBackgroundColor);
   const lastNounId = useAppSelector(state => isCurrentAuctionNoun ? state.onDisplayNounAuction.lastAuctionNounId : state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
@@ -37,7 +37,7 @@ const Auction: React.FC<AuctionProps> = props => {
   };
 
   const prevAuctionHandler = () => {
-    if (currentAuction?.nounAuction)
+    if (currentAuction?.foodAuction)
       dispatch(setPrevOnDisplayAuctionNounId());
     else {
       dispatch(setPrevOnDisplayAuctionFoodNounId());
@@ -45,7 +45,7 @@ const Auction: React.FC<AuctionProps> = props => {
     }
   };
   const nextAuctionHandler = () => {
-    if (currentAuction?.nounAuction)
+    if (currentAuction?.foodAuction)
       dispatch(setNextOnDisplayAuctionNounId());
     else {
       dispatch(setNextOnDisplayAuctionFoodNounId());
@@ -59,7 +59,7 @@ const Auction: React.FC<AuctionProps> = props => {
         nounId={currentAuction.nounId}
         onLoadSeed={loadedNounHandler}
         shouldLinkToProfile={false}
-        nounAuction={currentAuction.nounAuction}
+        foodAuction={!!currentAuction.foodAuction}
       />
     </div>
   );
@@ -86,7 +86,7 @@ const Auction: React.FC<AuctionProps> = props => {
       nounId={currentAuction.nounId}
       isFirstAuction={currentAuction.nounId.eq(0)}
       isLastAuction={currentAuction.nounId.eq(lastNounId)}
-      nounAuction={currentAuction.nounAuction}
+      foodAuction={!!currentAuction.foodAuction}
       onPrevAuctionClick={prevAuctionHandler}
       onNextAuctionClick={nextAuctionHandler}
     />

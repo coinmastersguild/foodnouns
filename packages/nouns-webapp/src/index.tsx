@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { ChainId, DAppProvider } from '@usedapp/core';
 import { Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
@@ -10,15 +9,27 @@ import account from './state/slices/account';
 import application from './state/slices/application';
 import logs from './state/slices/logs';
 import { DarkModeProvider } from './DarkModeContext';
+
+import nounAuction, {
+  reduxSafeNounAuction,
+  reduxSafeNewNounAuction,
+  reduxNounSafeBid,
+  setActiveNounAuction,
+  setNounAuctionExtended,
+  setNounAuctionSettled,
+  setFullNounAuction,
+} from './state/slices/nounAuction';
+
 import auction, {
-  reduxSafeAuction,
-  reduxSafeNewAuction,
-  reduxSafeBid,
-  setActiveAuction,
-  setAuctionExtended,
-  setAuctionSettled,
+  reduxSafeFoodNounAuction,
+  reduxSafeFoodNewNounAuction,
+  reduxSafeFoodNounBid,
+  setActiveFoodNounAuction,
+  setFoodNounAuctionExtended,
+  setFoodNounAuctionSettled,
   setFullAuction,
-} from './state/slices/auction';
+} from './state/slices/foodNounAuction';
+
 import onDisplayNounAuction, {
   setLastAuctionNounId,
   setOnDisplayAuctionNounId,
@@ -27,18 +38,19 @@ import onDisplayFoodNounAuction, {
   setLastAuctionFoodNounId,
   setOnDisplayAuctionFoodNounId,
 } from './state/slices/onDisplayFoodNounAuction';
-import { ApolloProvider, useQuery } from '@apollo/client';
-import { clientFactory, latestAuctionsQuery } from './wrappers/subgraph';
+import { ApolloClient, ApolloProvider, InMemoryCache, useQuery } from "@apollo/client";
+import { latestAuctionsQuery as latestfoodAuctions } from './wrappers/foodnoun-subgraph';
+import { latestAuctionsQuery as latestNounAuctions } from './wrappers/noun-subgraph';
 import { useEffect } from 'react';
-import pastAuctions, { addPastNounAuctions, addPastFoodNounAuctions } from './state/slices/pastAuctions';
+import pastAuctions, { addPastNounAuctions, addPastFoodNounAuctions } from './state/slices/pastNounAuctions';
 import LogsUpdater from './state/updaters/logs';
-import config, { CHAIN_ID, createNetworkHttpUrl } from './config';
+import config, { CHAIN_ID, ChainId_Sepolia, createNetworkHttpUrl } from "./config";
 import { WebSocketProvider } from '@ethersproject/providers';
 import { BigNumber, BigNumberish } from 'ethers';
 import { NounsAuctionHouseFactory } from '@nouns/sdk';
 import dotenv from 'dotenv';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { appendBid } from './state/slices/auction';
+import { appendBid } from './state/slices/nounAuction';
 import { ConnectedRouter, connectRouter } from 'connected-react-router';
 import { createBrowserHistory, History } from 'history';
 import { applyMiddleware, createStore, combineReducers, PreloadedState } from 'redux';
@@ -67,7 +79,7 @@ const createRootReducer = (history: History) =>
   });
 
 export default function configureStore(preloadedState: PreloadedState<any>) {
-  const store = createStore(
+  return createStore(
     createRootReducer(history), // root reducer with router state
     preloadedState,
     composeWithDevTools(
@@ -77,8 +89,6 @@ export default function configureStore(preloadedState: PreloadedState<any>) {
       ),
     ),
   );
-
-  return store;
 }
 
 const store = configureStore({});
@@ -88,7 +98,7 @@ export type AppDispatch = typeof store.dispatch;
 
 const supportedChainURLs = {
   [ChainId.Mainnet]: createNetworkHttpUrl('mainnet'),
-  [ChainId.Rinkeby]: createNetworkHttpUrl('rinkeby'),
+  [ChainId_Sepolia]: createNetworkHttpUrl('sepolia'),
   [ChainId.Hardhat]: 'http://localhost:8545',
 };
 
@@ -100,8 +110,14 @@ const useDappConfig = {
   },
 };
 
-export const nounclient = clientFactory(config.nounsApp.subgraphApiUri);
-export const client = clientFactory(config.foodnounsApp.subgraphApiUri);
+export const clientFactory = (uri: string) =>
+  new ApolloClient({
+    uri,
+    cache: new InMemoryCache(),
+  });
+
+export const foodNounGraphClient = clientFactory(config.foodnounsApp.subgraphApiUri);
+export const nounGraphClient = clientFactory(config.nounsApp.subgraphApiUri);
 
 const Updaters = () => {
   return (
@@ -126,7 +142,7 @@ const ChainSubscriber: React.FC = () => {
     );
 
     const foodnounsAuctionHouseContract = NounsAuctionHouseFactory.connect(
-      config.addresses.nounsAuctionHouseProxy,
+      config.foodNounAddresses.nounsAuctionHouseProxy,
       foodnounswsProvider,
     );
 
@@ -157,14 +173,14 @@ const ChainSubscriber: React.FC = () => {
       nounId: BigNumberish,
       startTime: BigNumberish,
       endTime: BigNumberish,
-      nounAuction = false,
+      foodAuction = true,
     ) => {
       dispatch(
-        setActiveAuction(reduxSafeNewAuction({ nounId, startTime, endTime, settled: false, nounAuction })),
+        setActiveAuction(reduxSafeNewAuction({ nounId, startTime, endTime, settled: false, foodAuction })),
       );
       const nounIdNumber = BigNumber.from(nounId).toNumber();
       dispatch(push(nounPath(nounIdNumber)));
-      if (nounAuction) {
+      if (foodAuction) {
         dispatch(setOnDisplayAuctionNounId(nounIdNumber));
         dispatch(setLastAuctionNounId(nounIdNumber));
       } else {
@@ -181,14 +197,14 @@ const ChainSubscriber: React.FC = () => {
 
     // Fetch the current auction
     let fetchedAuction = await nounsAuctionHouseContract.auction();
-    const currentNounAuction: Auction = { ...fetchedAuction, nounAuction: true };
+    const currentNounAuction: Auction = { ...fetchedAuction, foodAuction: true };
     dispatch(setFullAuction(reduxSafeAuction(currentNounAuction)));
     dispatch(setOnDisplayAuctionNounId(currentNounAuction.nounId.toNumber()));
     dispatch(setLastAuctionNounId(currentNounAuction.nounId.toNumber()));
 
     // Fetch the current auction
     fetchedAuction = await foodnounsAuctionHouseContract.auction();
-    const currentFoodNounAuction: Auction = { ...fetchedAuction, nounAuction: false };
+    const currentFoodNounAuction: Auction = { ...fetchedAuction, foodAuction: false };
     dispatch(setFullAuction(reduxSafeAuction(currentFoodNounAuction)));
     dispatch(setLastAuctionFoodNounId(currentFoodNounAuction.nounId.toNumber()));
 
@@ -196,14 +212,14 @@ const ChainSubscriber: React.FC = () => {
     const previousNounBids = await nounsAuctionHouseContract.queryFilter(nounbidFilter, 0 - BLOCKS_PER_DAY);
     for (let event of previousNounBids) {
       if (event.args === undefined) return;
-      processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
+      await processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
     }
 
     // Fetch the previous 24hours of  bids
     const previousFoodNounBids = await foodnounsAuctionHouseContract.queryFilter(foodnounbidFilter, 0 - BLOCKS_PER_DAY);
     for (let event of previousFoodNounBids) {
       if (event.args === undefined) return;
-      processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
+      await processBidFilter(...(event.args as [BigNumber, string, BigNumber, boolean]), event);
     }
 
     nounsAuctionHouseContract.on(nounbidFilter, (nounId, sender, value, extended, event) =>
@@ -232,15 +248,15 @@ const ChainSubscriber: React.FC = () => {
       processAuctionSettled(nounId, winner, amount),
     );
   };
-  loadState();
+  void loadState();
 
   return <></>;
 };
 
 const PastAuctions: React.FC = () => {
   const latestAuctionId = useAppSelector(state => state.onDisplayFoodNounAuction.lastAuctionFoodNounId);
-  const { data: foodnounData } = useQuery(latestAuctionsQuery(), { client });
-  const { data: nounData } = useQuery(latestAuctionsQuery(), { client: nounclient });
+  const { data: foodnounData } = useQuery(latestfoodAuctions(), { client: foodNounGraphClient });
+  const { data: nounData } = useQuery(latestNounAuctions(), { client: nounGraphClient });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -261,7 +277,7 @@ ReactDOM.render(
             provider => new Web3Provider(provider) // this will vary according to whether you use e.g. ethers or web3.js
           }
         >
-          <ApolloProvider client={client}>
+          <ApolloProvider client={foodNounGraphClient}>
             <PastAuctions />
             <DAppProvider config={useDappConfig}>
               <LanguageProvider>
@@ -278,8 +294,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

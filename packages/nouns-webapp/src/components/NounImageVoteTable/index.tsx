@@ -26,7 +26,7 @@ const NounImageVoteTable: React.FC<NounImageVoteTableProps> = props => {
           tip={nounId.toString()}
           id="nounHoverCard"
         >
-          <StandaloneNounCircular nounId={EthersBN.from(nounId)} nounAuction={false} />
+          <StandaloneNounCircular nounId={EthersBN.from(nounId)} foodAuction={true} />
         </HoverCard>
       );
     })

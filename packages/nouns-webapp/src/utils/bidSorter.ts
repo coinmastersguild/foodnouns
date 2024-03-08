@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { IBid } from '../wrappers/subgraph';
+import { IBid } from '../wrappers/foodnoun-subgraph';
 
 /**
  * Sorts bids chronologically using block timestamp and
